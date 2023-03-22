@@ -1,10 +1,4 @@
-import { RelaltiveUrl } from '../types'
-
-type Picture = {
-  width: number
-  height: number
-  url: RelaltiveUrl
-}
+import { Picture, RelaltiveUrl } from '../types'
 
 const imagePromise = (url: RelaltiveUrl) =>
   new Promise<Picture>((res, rej) => {
