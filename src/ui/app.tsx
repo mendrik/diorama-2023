@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { images } from '../constants'
 import usePromise, { Status } from '../hooks/usePromise'
-import { loadImages } from '../utils/loadImages'
+import { loadImages } from '../utils/load-images'
 import { T, cond, equals } from 'ramda'
 import { ImageLayout } from './image-layout'
 
