@@ -9,6 +9,8 @@ type PromiseState<T> =
 type PromiseFn<T> = () => Promise<T>
 type Execute = { execute: () => Promise<void> }
 
+export type Status = PromiseState<any>['status']
+
 const usePromise = <T>(promiseFn: PromiseFn<T>): PromiseState<T> & Execute => {
   const [state, setState] = useState<PromiseState<T>>({
     status: 'initial',
