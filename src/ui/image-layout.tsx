@@ -17,9 +17,8 @@ export const ImageLayout = ({ images }: OwnProps): JSX.Element | null => {
   )
 
   useEffect(() => {
-    console.log(dimension.width, dimension.height)
     if (status !== 'loading') {
-      void execute()
+      execute()
     }
   }, [dimension.width, dimension.height])
 

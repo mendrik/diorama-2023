@@ -2,7 +2,7 @@ import { Maybe } from 'purify-ts'
 import type { Dimension, Milliseconds, Picture, PositionedPictures } from '../types'
 import { findBestResult } from './evaluate-results'
 import { layoutSolution } from './layout-solution'
-import { mergeCompositions } from './merge-compositions'
+import { toTree } from './to-tree'
 
 export const layoutImages = async (
   maxComputationTime: Milliseconds,
@@ -15,7 +15,7 @@ export const layoutImages = async (
     const results: PositionedPictures[] = []
 
     while (Date.now() - start < maxComputationTime) {
-      const root = mergeCompositions(pictures)
+      const root = toTree(pictures)
       const arDifference = Math.abs(arTarget - root.aspectRatio)
       const arBest = results[0]?.aspectRatio ?? Number.MAX_SAFE_INTEGER
       if (arDifference < arBest) {

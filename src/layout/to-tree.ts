@@ -1,4 +1,4 @@
-import { randomInt } from './../utils/random'
+import { randomInt } from '../utils/random'
 import { append, head, pipe, remove } from 'ramda'
 import { Rect } from '../types'
 import { Composition } from './composition'
@@ -6,7 +6,7 @@ import { Composition } from './composition'
 const combine = (first: Rect, second: Rect): Composition =>
   new Composition(Boolean(randomInt(0, 1)), first, second)
 
-export const mergeCompositions = (compositions: Rect[]): Composition => {
+export const toTree = (compositions: Rect[]): Composition => {
   const max = compositions.length - 1
   if (max === 0) {
     return compositions[0]
@@ -18,7 +18,7 @@ export const mergeCompositions = (compositions: Rect[]): Composition => {
   const index2 = randomInt(0, max)
 
   if (index1 === index2) {
-    return mergeCompositions(compositions)
+    return toTree(compositions)
   }
   const merged = combine(compositions[index1], compositions[index2])
 
@@ -28,5 +28,5 @@ export const mergeCompositions = (compositions: Rect[]): Composition => {
     append<Rect>(merged)
   )(compositions)
 
-  return mergeCompositions(lessCompositions)
+  return toTree(lessCompositions)
 }

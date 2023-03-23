@@ -12,6 +12,7 @@ const imagePromise = (url: RelaltiveUrl) =>
         aspectRatio: img.width / img.height,
         url
       })
+    img.onerror = rej
     img.src = url
   })
 
