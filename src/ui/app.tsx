@@ -1,19 +1,20 @@
 import { useEffect } from 'react'
 import { images } from '../constants'
-import usePromise, { Status } from '../hooks/usePromise'
+import usePromise, { PromiseState } from '../hooks/usePromise'
 import { loadImages } from '../utils/load-images'
-import { T, cond, equals } from 'ramda'
+import { T, cond, propEq } from 'ramda'
 import { ImageLayout } from './image-layout'
+import { Picture } from '../types'
 
 export const App = (): JSX.Element | null => {
-  const { execute, result, status } = usePromise(() => loadImages(images))
+  const { execute, ...status } = usePromise(() => loadImages(images))
 
   useEffect(() => void execute(), [])
 
   // prettier-ignore
-  return cond<[Status], JSX.Element|null>([
-    [equals<Status>('error'), () => <span>Failed to load images</span>],
-    [equals<Status>('done'), () => <ImageLayout images={result!}/>],
+  return cond<[PromiseState<Picture[]>], JSX.Element | null>([
+    [propEq('status', 'error'), () => <span>Failed to load images</span>],
+    [propEq('status', 'done'), ({ result }) => <ImageLayout images={result!}/>],
     [T, () => null],
-  ])(status,)
+  ])(status)
 }

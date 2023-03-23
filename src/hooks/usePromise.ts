@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-type PromiseState<T> =
+export type PromiseState<T> =
   | { status: 'initial'; result: null; error: null }
   | { status: 'loading'; result: null; error: null }
   | { status: 'done'; result: T; error: null }
