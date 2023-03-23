@@ -45,6 +45,7 @@ module.exports = {
     'functional/no-let': 'error',
     'react/prop-types': 'error',
     '@typescript-eslint/explicit-function-return-type': ['error', { allowHigherOrderFunctions: true,  allowExpressions: true }],
+    '@typescript-eslint/no-explicit-any': ['error', { allowExplicitAny: true }],
     'no-restricted-syntax': [
       'error',
       'FunctionExpression',

@@ -14,7 +14,7 @@ export const App = (): JSX.Element | null => {
   // prettier-ignore
   return cond<[PromiseState<Picture[]>], JSX.Element | null>([
     [propEq('status', 'error'), () => <span>Failed to load images</span>],
-    [propEq('status', 'done'), ({ result }) => <ImageLayout images={result!}/>],
+    [s => s.status === 'done', ({ result }) => <ImageLayout images={result!}/>],
     [T, () => null],
   ])(status)
 }
