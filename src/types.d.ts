@@ -6,6 +6,7 @@ export type Milliseconds = number & Brand<'ms'>
 
 export type Picture = {
   dimension: Dimension
+  aspectRatio: number
   url: RelaltiveUrl
 }
 

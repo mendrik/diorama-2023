@@ -25,6 +25,7 @@ const usePromise = <T>(promiseFn: PromiseFn<T>): PromiseState<T> & Execute => {
       const result = await promiseFn()
       setState({ status: 'done', result, error: null })
     } catch (error: any) {
+      console.warn(error)
       setState({ status: 'error', result: null, error })
     }
   }

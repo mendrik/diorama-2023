@@ -12,7 +12,7 @@ type OwnProps = {
 export const ImageLayout = ({ images }: OwnProps): JSX.Element | null => {
   const dimension = useWindowDimension()
   const [solution, setSolution] = useState<PositionedPictures>()
-  const { execute, result, status } = usePromise(() =>
+  const { execute, result, status, error } = usePromise(() =>
     layoutImages(maxComputationTime, dimension, images)
   )
 
@@ -29,7 +29,7 @@ export const ImageLayout = ({ images }: OwnProps): JSX.Element | null => {
   }, [result])
 
   if (status === 'error') {
-    return <div>Failed to layout</div>
+    return <div>Failed to layout: {error.message}</div>
   }
 
   return (

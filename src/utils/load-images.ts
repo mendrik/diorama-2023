@@ -5,8 +5,11 @@ const imagePromise = (url: RelaltiveUrl) =>
     const img = new Image()
     img.onload = () =>
       res({
-        width: img.width,
-        height: img.height,
+        dimension: {
+          width: img.width,
+          height: img.height
+        },
+        aspectRatio: img.width / img.height,
         url
       })
     img.src = url
