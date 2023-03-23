@@ -1,6 +1,6 @@
 import usePromise from '../hooks/usePromise'
 import { Picture, PositionedPictures } from '../types'
-import { layoutImages } from '../utils/layout-images'
+import { layoutImages } from '../layout/layout-images'
 import { maxComputationTime } from '../constants'
 import { useWindowDimension } from '../hooks/useDimensions'
 import { useEffect, useState } from 'react'
@@ -36,6 +36,7 @@ export const ImageLayout = ({ images }: OwnProps): JSX.Element | null => {
     <ul className="image-gallery">
       {solution?.pictures.map(picture => (
         <li
+          key={picture.url}
           style={{
             background: `url(${picture.url}) no-repeat cover`,
             top: `${picture.position.y}px`,

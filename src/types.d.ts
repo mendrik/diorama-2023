@@ -1,4 +1,5 @@
 import { Position, Dimension } from './types.d'
+
 type Brand<T extends string> = { __tag: T }
 
 export type RelaltiveUrl = string
@@ -36,3 +37,5 @@ export type Dimension = { width: number; height: number }
 export type Position = { x: number; y: number }
 
 export type CompositionProps = Leaf | Node
+
+type Rect = Composition | Picture
