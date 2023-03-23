@@ -1,4 +1,3 @@
-import { Composition } from './composition'
 import { concat } from 'ramda'
 import { Dimension, Picture, Position, PositionedPicture, Rect } from '../types'
 

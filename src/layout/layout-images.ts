@@ -14,19 +14,20 @@ export const layoutImages = async (
   return new Promise<PositionedPictures>((resolve, reject) => {
     const results: PositionedPictures[] = []
 
+    // eslint-disable-next-line functional/no-loop-statements
     while (Date.now() - start < maxComputationTime) {
       const root = toTree(pictures)
       const arDifference = Math.abs(arTarget - root.aspectRatio)
       const arBest = results[0]?.aspectRatio ?? Number.MAX_SAFE_INTEGER
       if (arDifference < arBest) {
         const finalLayout = layoutSolution(targetDimension, arDifference, root)
+        // eslint-disable-next-line
         results.unshift(finalLayout)
       }
     }
 
     const best = findBestResult(results)
-    console.log(best)
-
+    // eslint-disable-next-line
     Maybe.fromNullable(best)
       .map(resolve)
       .orDefaultLazy(() => reject('no solution found'))

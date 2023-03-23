@@ -1,9 +1,10 @@
+/* eslint-disable functional/immutable-data */
 import { Picture, RelaltiveUrl } from '../types'
 
-const imagePromise = (url: RelaltiveUrl) =>
+const imagePromise = (url: RelaltiveUrl): Promise<Picture> =>
   new Promise<Picture>((res, rej) => {
     const img = new Image()
-    img.onload = () =>
+    img.onload = (): void =>
       res({
         dimension: {
           width: img.width,

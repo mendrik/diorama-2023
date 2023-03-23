@@ -28,6 +28,8 @@ module.exports = {
     excludedFiles: ['**/*.spec.*']
   },
   rules: {
+    'functional/no-expression-statements': ['off'],
+    'functional/no-conditional-statements': ['off'],
     '@typescript-eslint/semi': [2, 'never'],
     'arrow-body-style': ['warn', 'as-needed'],
     'prefer-arrow-callback': ['error'],
@@ -42,13 +44,12 @@ module.exports = {
     'no-var': 'error',
     'functional/no-let': 'error',
     'react/prop-types': 'error',
-    '@typescript-eslint/explicit-function-return-type': 'error',
+    '@typescript-eslint/explicit-function-return-type': ['error', { allowHigherOrderFunctions: true,  allowExpressions: true }],
     'no-restricted-syntax': [
       'error',
       'FunctionExpression',
       'FunctionDeclaration'
     ],
     'unused-imports/no-unused-imports': 'error',
-    'functional/no-expression-statements': ["error", { "ignoreVoid": true }]
   }
 }

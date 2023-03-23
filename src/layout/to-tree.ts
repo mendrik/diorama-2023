@@ -1,6 +1,6 @@
-import { randomInt } from '../utils/random'
-import { append, head, pipe, remove } from 'ramda'
+import { append, pipe, remove } from 'ramda'
 import { Rect } from '../types'
+import { randomInt } from '../utils/random'
 import { Composition } from './composition'
 
 const combine = (first: Rect, second: Rect): Composition =>
