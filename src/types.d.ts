@@ -38,4 +38,6 @@ export type Position = { x: number; y: number }
 
 export type CompositionProps = Leaf | Node
 
-type Rect = Composition | Picture
+export type Rect = Composition | Picture
+
+export type NonEmptyArray<T> = [T, ...T[]]

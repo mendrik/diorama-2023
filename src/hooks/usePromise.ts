@@ -9,7 +9,7 @@ export type PromiseState<T> =
 type PromiseFn<T> = () => Promise<T>
 type Execute = { execute: () => Promise<void> }
 
-export type Status = PromiseState<any>['status']
+export type Status = PromiseState<unknown>['status']
 
 const usePromise = <T>(promiseFn: PromiseFn<T>): PromiseState<T> & Execute => {
   const [state, setState] = useState<PromiseState<T>>({
@@ -24,9 +24,13 @@ const usePromise = <T>(promiseFn: PromiseFn<T>): PromiseState<T> & Execute => {
     try {
       const result = await promiseFn()
       setState({ status: 'done', result, error: null })
-    } catch (error: any) {
+    } catch (error) {
       console.warn(error)
-      setState({ status: 'error', result: null, error })
+      if (error instanceof Error) {
+        setState({ status: 'error', result: null, error })
+      } else {
+        console.error(`Unexpected error: ${error}`)
+      }
     }
   }
 

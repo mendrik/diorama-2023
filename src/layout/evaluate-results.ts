@@ -1,6 +1,5 @@
 import { head } from 'ramda'
-import { PositionedPictures } from '../types'
+import { NonEmptyArray, PositionedPictures } from '../types'
 
-export const findBestResult = (results: PositionedPictures[]): PositionedPictures => {
-  return head(results)!
-}
+export const findBestResult = (results: NonEmptyArray<PositionedPictures>): PositionedPictures =>
+  head(results)

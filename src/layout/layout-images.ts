@@ -1,5 +1,6 @@
-import { Maybe } from 'purify-ts'
-import type { Dimension, Milliseconds, Picture, PositionedPictures } from '../types'
+import type { Dimension, Milliseconds, Picture } from '../types'
+import { isNotEmpty } from '../utils/isNotEmpty'
+import { PositionedPictures } from './../types.d'
 import { findBestResult } from './evaluate-results'
 import { layoutSolution } from './layout-solution'
 import { toTree } from './to-tree'
@@ -26,10 +27,10 @@ export const layoutImages = async (
       }
     }
 
-    const best = findBestResult(results)
-    // eslint-disable-next-line
-    Maybe.fromNullable(best)
-      .map(resolve)
-      .orDefaultLazy(() => reject('no solution found'))
+    if (!isNotEmpty(results)) {
+      reject('No solutions')
+    } else {
+      resolve(findBestResult(results))
+    }
   })
 }
