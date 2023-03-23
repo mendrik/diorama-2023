@@ -9,7 +9,10 @@ const combine = (first: Rect, second: Rect): Composition =>
 export const mergeCompositions = (compositions: Rect[]): Composition => {
   const max = compositions.length - 1
   if (max === 0) {
-    return head(compositions) as Composition
+    return compositions[0]
+  }
+  if (max === 1) {
+    return combine(compositions[0], compositions[1])
   }
   const index1 = randomInt(0, max)
   const index2 = randomInt(0, max)
