@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 export type PromiseState<T> =
   | { status: 'initial'; result: null; error: null }
