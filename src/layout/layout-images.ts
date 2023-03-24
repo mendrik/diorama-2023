@@ -3,7 +3,7 @@ import { isNotEmpty } from '../utils/isNotEmpty'
 import { PositionedPictures } from './../types.d'
 import { findBestResult } from './evaluate-results'
 import { layoutSolution } from './layout-solution'
-import { toTree } from './to-tree'
+import { toRandomTree } from './to-random-tree'
 
 export const layoutImages = async (
   maxComputationTime: Milliseconds,
@@ -17,7 +17,7 @@ export const layoutImages = async (
 
     // eslint-disable-next-line functional/no-loop-statements
     while (Date.now() - start < maxComputationTime) {
-      const root = toTree(pictures)
+      const root = toRandomTree(pictures)
       const arDifference = Math.abs(arTarget - root.aspectRatio)
       const arBest = results[0]?.aspectRatio ?? Number.MAX_SAFE_INTEGER
       if (arDifference < arBest) {
