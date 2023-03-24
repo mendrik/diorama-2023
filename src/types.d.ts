@@ -18,7 +18,7 @@ export type PositionedPicture = {
   url: RelaltiveUrl
 }
 
-export type PositionedPictures = {
+export type Solution = {
   pictures: PositionedPicture[]
   aspectRatioDelta: number
   sizeHomogeneity: number

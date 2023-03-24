@@ -1,13 +1,13 @@
 import { layoutRect } from './layout-rect'
 import { Composition } from './composition'
-import { Dimension, PositionedPicture, PositionedPictures } from './../types.d'
+import { Dimension, PositionedPicture, Solution } from './../types.d'
 import { reduce } from 'ramda'
 
 export const layoutSolution = (
   targetDimension: Dimension,
   aspectRatioDelta: number,
   composition: Composition
-): PositionedPictures => {
+): Solution => {
   const pictures = layoutRect({ x: 0, y: 0 }, targetDimension, composition)
   const targetSize = (targetDimension.width * targetDimension.height) / pictures.length
 

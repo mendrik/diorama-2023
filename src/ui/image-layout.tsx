@@ -1,5 +1,5 @@
 import usePromise from '../hooks/usePromise'
-import { Picture, PositionedPictures } from '../types'
+import { Picture, Solution } from '../types'
 import { layoutImages } from '../layout/layout-images'
 import { maxComputationTime } from '../constants'
 import { useWindowDimension } from '../hooks/useDimensions'
@@ -11,7 +11,7 @@ type OwnProps = {
 
 export const ImageLayout = ({ images }: OwnProps): JSX.Element | null => {
   const dimension = useWindowDimension()
-  const [solution, setSolution] = useState<PositionedPictures>()
+  const [solution, setSolution] = useState<Solution>()
   const { execute, result, status, error } = usePromise(() =>
     layoutImages(maxComputationTime, dimension, images)
   )
