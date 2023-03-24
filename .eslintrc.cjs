@@ -28,6 +28,7 @@ module.exports = {
     excludedFiles: ['**/*.spec.*']
   },
   rules: {
+    "comma-dangle": ["error", "never"],
     'functional/no-expression-statements': ['off'],
     'functional/no-conditional-statements': ['off'],
     '@typescript-eslint/semi': [2, 'never'],
