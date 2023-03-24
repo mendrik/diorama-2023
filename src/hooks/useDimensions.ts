@@ -4,7 +4,7 @@ import { Dimension } from './../types.d'
 
 const getDimension = (): Dimension => ({ width: window.innerWidth, height: window.innerHeight })
 
-export const useWindowDimension = () => {
+export const useWindowDimension = (): Dimension => {
   const [dimension, setDimension] = useState<Dimension>(getDimension())
 
   useEffect(() => {
