@@ -1,9 +1,9 @@
-import usePromise from '../hooks/usePromise'
-import { Picture, Solution } from '../types'
-import { layoutImages } from '../layout/layout-images'
+import { useEffect, useState } from 'react'
 import { maxComputationTime } from '../constants'
 import { useWindowDimension } from '../hooks/useDimensions'
-import { useEffect, useState } from 'react'
+import usePromise from '../hooks/usePromise'
+import { layoutImages } from '../layout/layout-images'
+import { Picture, Solution } from '../types'
 
 type OwnProps = {
   images: Picture[]
@@ -12,15 +12,12 @@ type OwnProps = {
 export const ImageLayout = ({ images }: OwnProps): JSX.Element | null => {
   const dimension = useWindowDimension()
   const [solution, setSolution] = useState<Solution>()
+
   const { execute, result, status, error } = usePromise(() =>
     layoutImages(maxComputationTime, dimension, images)
   )
 
-  useEffect(() => {
-    if (status !== 'loading') {
-      execute()
-    }
-  }, [dimension.width, dimension.height])
+  useEffect(() => void execute(), [dimension.height, dimension.width])
 
   useEffect(() => {
     if (result != null) {
@@ -39,10 +36,10 @@ export const ImageLayout = ({ images }: OwnProps): JSX.Element | null => {
           key={picture.url}
           style={{
             backgroundImage: `url(${picture.url})`,
-            top: `${picture.position.y|0}px`,
-            left: `${picture.position.x|0}px`,
-            width: `${picture.dimension.width|0}px`,
-            height: `${picture.dimension.height|0}px`
+            top: `${picture.position.y | 0}px`,
+            left: `${picture.position.x | 0}px`,
+            width: `${picture.dimension.width | 0}px`,
+            height: `${picture.dimension.height | 0}px`
           }}
         />
       ))}
