@@ -9,7 +9,7 @@ const combine = (first: Rect, second: Rect): Composition =>
 export const toRandomTree = (compositions: Rect[]): Composition => {
   const max = compositions.length - 1
   if (max === 0) {
-    return compositions[0]
+    return compositions[0] as Composition
   }
   if (max === 1) {
     return combine(compositions[0], compositions[1])
@@ -23,8 +23,8 @@ export const toRandomTree = (compositions: Rect[]): Composition => {
   const merged = combine(compositions[index1], compositions[index2])
 
   const lessCompositions = pipe(
-    without([compositions[index1], compositions[index2]]),
-    append(merged)
+    without<Rect>([compositions[index1], compositions[index2]]),
+    append<Rect>(merged)
   )(compositions)
 
   return toRandomTree(lessCompositions)

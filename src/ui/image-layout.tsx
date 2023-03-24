@@ -38,11 +38,11 @@ export const ImageLayout = ({ images }: OwnProps): JSX.Element | null => {
         <li
           key={picture.url}
           style={{
-            background: `url(${picture.url}) no-repeat cover`,
-            top: `${picture.position.y}px`,
-            left: `${picture.position.x}px`,
-            width: `${picture.dimension.width}px`,
-            height: `${picture.dimension.height}px`
+            backgroundImage: `url(${picture.url})`,
+            top: `${picture.position.y|0}px`,
+            left: `${picture.position.x|0}px`,
+            width: `${picture.dimension.width|0}px`,
+            height: `${picture.dimension.height|0}px`
           }}
         />
       ))}

@@ -1,3 +1,4 @@
+import { Composition } from './layout/composition'
 import { Position, Dimension } from './types.d'
 
 type Brand<T extends string> = { __tag: T }
@@ -19,8 +20,8 @@ export type PositionedPicture = {
 
 export type PositionedPictures = {
   pictures: PositionedPicture[]
-  aspectRatio: number
-  dimensionVariation: number
+  aspectRatioDelta: number
+  sizeHomogeneity: number
 }
 
 export type Leaf = {

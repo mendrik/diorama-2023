@@ -19,13 +19,14 @@ export const layoutImages = async (
     while (Date.now() - start < maxComputationTime) {
       const root = toRandomTree(pictures)
       const arDifference = Math.abs(arTarget - root.aspectRatio)
-      const arBest = results[0]?.aspectRatio ?? Number.MAX_SAFE_INTEGER
-      if (arDifference < arBest) {
+      const arBest = results[0]?.aspectRatioDelta ?? Number.MAX_SAFE_INTEGER
+      if (arDifference < arBest * 2) {
         const finalLayout = layoutSolution(targetDimension, arDifference, root)
-        // eslint-disable-next-line
+        // eslint-disable-next-line functional/immutable-data
         results.unshift(finalLayout)
       }
     }
+    console.log(results.length)
 
     if (!isNotEmpty(results)) {
       reject('No solutions')

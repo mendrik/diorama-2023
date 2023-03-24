@@ -9,11 +9,12 @@ export const layoutRect = (
   rect: Rect
 ): PositionedPicture[] => {
   if (isPicture(rect)) {
-    return [{ dimension, position, url: rect.url }]
+    return [{ position, dimension, url: rect.url }]
   }
-  const length = rect.horizontal
-    ? dimension.width / rect.aspectRatio
-    : dimension.height * rect.aspectRatio
+
+  const length: number = rect.horizontal
+    ? dimension.height * rect.first.aspectRatio
+    : dimension.width / rect.first.aspectRatio
 
   const position2: Position = rect.horizontal
     ? { x: position.x + length, y: position.y }
