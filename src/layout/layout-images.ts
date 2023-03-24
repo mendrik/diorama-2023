@@ -15,7 +15,6 @@ export const layoutImages = async (
   const arTarget = targetDimension.width / targetDimension.height
   return new Promise<Solution>((resolve, reject) => {
     const results: Solution[] = []
-    console.log('- - - -')
 
     // eslint-disable-next-line functional/no-loop-statements
     while (Date.now() - start < maxComputationTime) {

@@ -20,13 +20,5 @@ export const findBestResult = (results: NonEmptyArray<Solution>): Solution => {
   const maxSz = Math.max(...sizes)
   const rated = sortBy(aspectRatioAndSize(maxAr, maxSz), results) as NonEmptyArray<Solution>
   const winner = rated[0]
-
-  console.log({
-    maxSz,
-    maxAr,
-    ar: winner.aspectRatioDelta,
-    sz: winner.sizeHomogeneity
-  })
-
   return winner
 }

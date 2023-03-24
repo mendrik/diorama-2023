@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { startTransition, useEffect, useLayoutEffect, useState } from 'react'
 import { maxComputationTime } from '../constants'
 import { useWindowDimension } from '../hooks/useDimensions'
 import usePromise from '../hooks/usePromise'
@@ -19,9 +19,11 @@ export const ImageLayout = ({ images }: OwnProps): JSX.Element | null => {
 
   useEffect(() => void execute(), [dimension.height, dimension.width])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (result != null) {
-      setSolution(result)
+      startTransition(() => {
+        setSolution(result)
+      })
     }
   }, [result])
 
@@ -36,8 +38,7 @@ export const ImageLayout = ({ images }: OwnProps): JSX.Element | null => {
           key={picture.url}
           style={{
             backgroundImage: `url(${picture.url})`,
-            top: `${picture.position.y | 0}px`,
-            left: `${picture.position.x | 0}px`,
+            transform: `translate(${picture.position.x | 0}px, ${picture.position.y | 0}px)`,
             width: `${picture.dimension.width | 0}px`,
             height: `${picture.dimension.height | 0}px`
           }}
