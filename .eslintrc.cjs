@@ -29,6 +29,7 @@ module.exports = {
   },
   rules: {
     "comma-dangle": ["error", "never"],
+    "functional/no-classes": ["off"],
     'functional/no-expression-statements': ['off'],
     'functional/no-conditional-statements': ['off'],
     '@typescript-eslint/semi': [2, 'never'],
@@ -48,7 +49,6 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': ['error', { allowHigherOrderFunctions: true,  allowExpressions: true }],
     'no-restricted-syntax': [
       'error',
-      'FunctionExpression',
       'FunctionDeclaration'
     ],
     'unused-imports/no-unused-imports': 'error',

@@ -7,6 +7,7 @@
     "allowJs": false,
     "skipLibCheck": true,
     "strict": true,
+    "strictFunctionTypes": true,
     "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
