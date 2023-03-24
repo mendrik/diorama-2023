@@ -1,3 +1,4 @@
+import { aspectRatioThreshold } from './../constants'
 import type { Dimension, Milliseconds, Picture } from '../types'
 import { isNotEmpty } from '../utils/isNotEmpty'
 import { Solution } from './../types.d'
@@ -19,10 +20,9 @@ export const layoutImages = async (
     // eslint-disable-next-line functional/no-loop-statements
     while (Date.now() - start < maxComputationTime) {
       const root = toRandomTree(pictures)
-      const arDifference = (arTarget > root.aspectRatio ? -1 : 1) + arTarget / root.aspectRatio
-      const arBest = results[0]?.aspectRatioDelta ?? Number.MAX_SAFE_INTEGER
-      if (arDifference < arBest) {
-        const finalLayout = layoutSolution(targetDimension, arDifference, root)
+      const arDifference = Math.abs(1 - root.aspectRatio / arTarget)
+      const finalLayout = layoutSolution(targetDimension, arDifference, root)
+      if (arDifference < aspectRatioThreshold) {
         // eslint-disable-next-line functional/immutable-data
         results.unshift(finalLayout)
       }

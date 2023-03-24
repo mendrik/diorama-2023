@@ -25,8 +25,8 @@ export const layoutRect = (
     : { width: dimension.width, height: length }
 
   const dimension2: Dimension = rect.horizontal
-    ? { width: dimension.width - length, height: dimension.height }
-    : { width: dimension.width, height: dimension.height - length }
+    ? { width: Math.abs(dimension.width - length), height: dimension.height }
+    : { width: dimension.width, height: Math.abs(dimension.height - length) }
 
   return concat(
     layoutRect(position, dimension1, rect.first),
