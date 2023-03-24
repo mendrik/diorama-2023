@@ -1,4 +1,5 @@
-import { append, pipe, without } from 'ramda'
+/* eslint-disable functional/no-let */
+/* eslint-disable functional/immutable-data */
 import { Rect } from '../types'
 import { randomInt } from '../utils/random'
 import { Composition } from './composition'
@@ -22,10 +23,8 @@ export const toRandomTree = (compositions: Rect[]): Composition => {
   }
   const merged = combine(compositions[index1], compositions[index2])
 
-  const lessCompositions = pipe(
-    without<Rect>([compositions[index1], compositions[index2]]),
-    append<Rect>(merged)
-  )(compositions)
-
+  const lessCompositions = [...compositions]
+  lessCompositions[index1] = merged
+  lessCompositions.splice(index2, 1)
   return toRandomTree(lessCompositions)
 }
