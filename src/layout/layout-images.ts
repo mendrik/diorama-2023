@@ -29,6 +29,8 @@ export const layoutImages = async (
     if (!isNotEmpty(results)) {
       reject('No solutions')
     } else {
+      console.log(`got ${results.length} candidates`)
+
       resolve(findBestResult(results))
     }
   })

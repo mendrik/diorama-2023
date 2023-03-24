@@ -1,9 +1,9 @@
-import { startTransition, useEffect, useLayoutEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { maxComputationTime } from '../constants'
 import { useWindowDimension } from '../hooks/useDimensions'
 import usePromise from '../hooks/usePromise'
 import { layoutImages } from '../layout/layout-images'
-import { Picture, Solution } from '../types'
+import { Picture } from '../types'
 
 type OwnProps = {
   images: Picture[]
@@ -11,21 +11,15 @@ type OwnProps = {
 
 export const ImageLayout = ({ images }: OwnProps): JSX.Element | null => {
   const dimension = useWindowDimension()
-  const [solution, setSolution] = useState<Solution>()
 
-  const { execute, result, status, error } = usePromise(() =>
-    layoutImages(maxComputationTime, dimension, images)
-  )
+  const {
+    execute,
+    result: solution,
+    status,
+    error
+  } = usePromise(() => layoutImages(maxComputationTime, dimension, images))
 
   useEffect(() => void execute(), [dimension.height, dimension.width])
-
-  useLayoutEffect(() => {
-    if (result != null) {
-      startTransition(() => {
-        setSolution(result)
-      })
-    }
-  }, [result])
 
   if (status === 'error') {
     return <div>Failed to layout: {error.message}</div>
@@ -38,9 +32,11 @@ export const ImageLayout = ({ images }: OwnProps): JSX.Element | null => {
           key={picture.url}
           style={{
             backgroundImage: `url(${picture.url})`,
-            transform: `translate(${picture.position.x | 0}px, ${picture.position.y | 0}px)`,
-            width: `${picture.dimension.width | 0}px`,
-            height: `${picture.dimension.height | 0}px`
+            transform: `translate(${picture.position.x.toFixed(2)}px, ${picture.position.y.toFixed(
+              2
+            )}px)`,
+            width: `${picture.dimension.width.toFixed(2)}px`,
+            height: `${picture.dimension.height.toFixed(2)}px`
           }}
         />
       ))}
