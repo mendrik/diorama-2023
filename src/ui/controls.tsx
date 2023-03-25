@@ -33,6 +33,8 @@ export const Controls = ({ children }: PropsWithChildren<unknown>): JSX.Element 
 
   const call = (action: Action) => () => {
     const subs = getValue(action)
+    console.log(action, subs?.length)
+
     subs?.forEach(doAction => doAction())
   }
 
