@@ -47,7 +47,7 @@ module.exports = {
     'no-param-reassign': 'warn',
     'no-var': 'error',
     'functional/no-let': 'error',
-    'react/prop-types': 'error',
+    'react/prop-types': 'off',
     '@typescript-eslint/explicit-function-return-type': ['error', { allowHigherOrderFunctions: true,  allowExpressions: true }],
     'no-restricted-syntax': [
       'error',

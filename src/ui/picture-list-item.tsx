@@ -8,7 +8,6 @@ export const PictureListItem = ({
   picture: { position, dimension, url }
 }: OwnProps): JSX.Element => (
   <li
-    id={url}
     style={{
       backgroundImage: `url(${url})`,
       left: position.x,
