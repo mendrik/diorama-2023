@@ -1,5 +1,5 @@
 import { useEffect, useContext, useState } from 'react'
-import { maxComputationTime } from '../constants'
+import { maxComputationTime, minImages } from '../constants'
 import { useWindowDimension } from '../hooks/useDimensions'
 import usePromise from '../hooks/usePromise'
 import { findSolution } from '../layout/find-solution'
@@ -21,15 +21,14 @@ export const ImageLayout = ({ images: initialImages }: OwnProps): JSX.Element | 
     findSolution(maxComputationTime, dimension, images)
   )
 
-  useEffect(() => void execute(), [dimension.height, dimension.width])
+  useEffect(() => void execute(), [images, dimension.height, dimension.width])
 
   useEffect(() => {
     const addImage = subscribe(Action.addImage, () => {
-      console.log('addimage')
-      setImages(images => take(images.length, initialImages))
+      setImages(images => take(images.length + 1, initialImages))
     })
     const removeImage = subscribe(Action.removeImage, () => {
-      setImages(images => take(images.length - 2, initialImages))
+      setImages(images => take(Math.max(images.length - 1, minImages), initialImages))
     })
     const refresh = subscribe(Action.refresh, execute)
 

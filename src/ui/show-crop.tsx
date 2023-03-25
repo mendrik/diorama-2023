@@ -4,9 +4,7 @@ import { Action, controlContext } from './controls'
 export const ShowCrop = (): null => {
   const { subscribe } = useContext(controlContext)
 
-  useEffect(() => {
-    subscribe(Action.showCrop, () => document.body.classList.toggle('showCrop'))
-  })
+  useEffect(() => subscribe(Action.showCrop, () => document.body.classList.toggle('show-crop')), [])
 
   return null
 }

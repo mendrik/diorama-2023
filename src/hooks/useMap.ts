@@ -10,9 +10,11 @@ const useMap = <K extends string | symbol, V>(initialValues?: Record<K, MapValue
   const getValue = (key: K): MapValue<V> => map.get(key)
 
   const setValue = (key: K, value: V): void => {
-    const newMap = new Map(map)
-    newMap.set(key, value)
-    setMap(newMap)
+    setMap(oldMap => {
+      const newMap = new Map<K, V>(oldMap)
+      newMap.set(key, value)
+      return newMap
+    })
   }
 
   return {
