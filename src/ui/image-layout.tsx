@@ -4,7 +4,7 @@ import { useWindowDimension } from '../hooks/useDimensions'
 import usePromise from '../hooks/usePromise'
 import { findSolution } from '../layout/find-solution'
 import { Picture } from '../types'
-import { Action, configContext } from './controls'
+import { Action, controlContext } from './controls'
 import { take } from 'ramda'
 
 type OwnProps = {
@@ -12,34 +12,33 @@ type OwnProps = {
 }
 
 export const ImageLayout = ({ images: initialImages }: OwnProps): JSX.Element | null => {
-  const { subscribe } = useContext(configContext)
+  const { subscribe } = useContext(controlContext)
   const [images, setImages] = useState(take(7, initialImages))
 
   const dimension = useWindowDimension()
 
+  const { execute, result, status, error } = usePromise(() =>
+    findSolution(maxComputationTime, dimension, images)
+  )
+
+  useEffect(() => void execute(), [dimension.height, dimension.width])
+
   useEffect(() => {
     const addImage = subscribe(Action.addImage, () => {
       console.log('addimage')
-
       setImages(images => take(images.length, initialImages))
     })
     const removeImage = subscribe(Action.removeImage, () => {
       setImages(images => take(images.length - 2, initialImages))
     })
+    const refresh = subscribe(Action.refresh, execute)
+
     return () => {
       addImage()
       removeImage()
+      refresh()
     }
   }, [initialImages])
-
-  const {
-    execute,
-    result: solution,
-    status,
-    error
-  } = usePromise(() => findSolution(maxComputationTime, dimension, images))
-
-  useEffect(() => void execute(), [dimension.height, dimension.width])
 
   if (status === 'error') {
     return <div>Failed to layout: {error.message}</div>
@@ -47,7 +46,7 @@ export const ImageLayout = ({ images: initialImages }: OwnProps): JSX.Element | 
 
   return (
     <ul className="image-gallery">
-      {solution?.pictures.map(picture => (
+      {result?.pictures.map(picture => (
         <li
           key={picture.url}
           style={{

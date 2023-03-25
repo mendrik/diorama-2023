@@ -14,29 +14,33 @@ export enum Action {
   maximizeWindow = 'maximizeWindow'
 }
 
-export const configContext = createContext<Config<Action>>(uninitialized())
+export const controlContext = createContext<Config<Action>>(uninitialized())
 
 export const Controls = ({ children }: PropsWithChildren<unknown>): JSX.Element => {
   const { setValue, getValue } = useMap<Action, Array<OnAction>>()
 
   const unsubscribe = (action: Action, fn: OnAction): void => {
     const subs = getValue(action) ?? []
+    console.log('ubsub', action)
     setValue(action, without([fn], subs))
   }
 
   const subscribe = (action: Action, fn: OnAction): Unsubscribe => {
     const subs = getValue(action) ?? []
     setValue(action, append(fn, subs))
+    console.log('sub', action, append(fn, subs))
     return () => unsubscribe(action, fn)
   }
 
   const call = (action: Action) => () => {
     const subs = getValue(action) ?? []
+    console.log(action, subs)
+
     subs.forEach(doAction => doAction())
   }
 
   return (
-    <configContext.Provider value={{ subscribe }}>
+    <controlContext.Provider value={{ subscribe }}>
       <ul className="controls">
         <li>
           <button onClick={call(Action.refresh)}>
@@ -65,6 +69,6 @@ export const Controls = ({ children }: PropsWithChildren<unknown>): JSX.Element 
         </li>
       </ul>
       {children}
-    </configContext.Provider>
+    </controlContext.Provider>
   )
 }

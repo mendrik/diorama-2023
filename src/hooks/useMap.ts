@@ -15,22 +15,10 @@ const useMap = <K extends string | symbol, V>(initialValues?: Record<K, MapValue
     setMap(newMap)
   }
 
-  const removeKey = (key: K): void => {
-    const newMap = new Map(map)
-    newMap.delete(key)
-    setMap(newMap)
-  }
-
-  const clearMap = (): void => {
-    setMap(new Map())
-  }
-
   return {
     map,
     getValue,
-    setValue,
-    removeKey,
-    clearMap
+    setValue
   }
 }
 
