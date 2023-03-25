@@ -28,6 +28,7 @@ module.exports = {
     excludedFiles: ['**/*.spec.*']
   },
   rules: {
+    "functional/no-mixed-types": ["off"],
     "comma-dangle": ["error", "never"],
     "functional/no-classes": ["off"],
     'functional/no-expression-statements': ['off'],

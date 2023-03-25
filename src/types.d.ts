@@ -1,3 +1,4 @@
+import type { AnyFunction } from 'ramda'
 import { Composition } from './layout/composition'
 import { Position, Dimension } from './types.d'
 
@@ -42,3 +43,10 @@ export type CompositionProps = Leaf | Node
 export type Rect = Composition | Picture
 
 export type NonEmptyArray<T> = [T, ...T[]]
+
+export type Unsubscribe = Destructor
+export type OnAction = AnyFunction
+
+export type Config<T> = {
+  subscribe: (action: T, fn: OnAction) => Unsubscribe
+}
