@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { maxComputationTime } from '../constants'
 import { useWindowDimension } from '../hooks/useDimensions'
 import usePromise from '../hooks/usePromise'
-import { layoutImages } from '../layout/layout-images'
+import { findSolution } from '../layout/find-solution'
 import { Picture } from '../types'
 
 type OwnProps = {
@@ -17,7 +17,7 @@ export const ImageLayout = ({ images }: OwnProps): JSX.Element | null => {
     result: solution,
     status,
     error
-  } = usePromise(() => layoutImages(maxComputationTime, dimension, images))
+  } = usePromise(() => findSolution(maxComputationTime, dimension, images))
 
   useEffect(() => void execute(), [dimension.height, dimension.width])
 

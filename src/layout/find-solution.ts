@@ -1,12 +1,12 @@
-import { aspectRatioThreshold } from './../constants'
+import { aspectRatioThreshold } from '../constants'
 import type { Dimension, Milliseconds, Picture } from '../types'
 import { isNotEmpty } from '../utils/isNotEmpty'
-import { Solution } from './../types.d'
-import { findBestResult } from './evaluate-results'
-import { layoutSolution } from './layout-solution'
+import { Solution } from '../types'
+import { evaluateSolutions } from './evaluate-solutions'
+import { positionSolution } from './position-solution'
 import { toRandomTree } from './to-random-tree'
 
-export const layoutImages = async (
+export const findSolution = async (
   maxComputationTime: Milliseconds,
   targetDimension: Dimension,
   pictures: Picture[]
@@ -14,24 +14,27 @@ export const layoutImages = async (
   const start = Date.now()
   const arTarget = targetDimension.width / targetDimension.height
   return new Promise<Solution>((resolve, reject) => {
-    const results: Solution[] = []
+    const solutions: Solution[] = []
 
     // eslint-disable-next-line functional/no-loop-statements
     while (Date.now() - start < maxComputationTime) {
       const root = toRandomTree(pictures)
-      const arDifference = Math.abs(1 - root.aspectRatio / arTarget)
-      const finalLayout = layoutSolution(targetDimension, arDifference, root)
-      if (arDifference < aspectRatioThreshold) {
+      const distance = Math.abs(root.aspectRatio - arTarget)
+      const score = Math.max(0, 1 - distance / arTarget)
+      console.log(score)
+
+      if (score > aspectRatioThreshold) {
+        const finalLayout = positionSolution(targetDimension, score, root)
         // eslint-disable-next-line functional/immutable-data
-        results.unshift(finalLayout)
+        solutions.unshift(finalLayout)
       }
     }
-    if (!isNotEmpty(results)) {
+    if (!isNotEmpty(solutions)) {
       reject('No solutions')
     } else {
-      console.log(`got ${results.length} candidates`)
+      console.log(`got ${solutions.length} candidates`)
 
-      resolve(findBestResult(results))
+      resolve(evaluateSolutions(solutions))
     }
   })
 }

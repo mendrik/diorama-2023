@@ -3,7 +3,7 @@ import { Dimension, Picture, Position, PositionedPicture, Rect } from '../types'
 
 const isPicture = (rect: Rect): rect is Picture => 'url' in rect
 
-export const layoutRect = (
+export const positionPictures = (
   position: Position,
   dimension: Dimension,
   rect: Rect
@@ -29,7 +29,7 @@ export const layoutRect = (
     : { width: dimension.width, height: Math.abs(dimension.height - length) }
 
   return concat(
-    layoutRect(position, dimension1, rect.first),
-    layoutRect(position2, dimension2, rect.second)
+    positionPictures(position, dimension1, rect.first),
+    positionPictures(position2, dimension2, rect.second)
   )
 }
