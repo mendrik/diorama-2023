@@ -33,8 +33,6 @@ export const Controls = ({ children }: PropsWithChildren<unknown>): JSX.Element 
 
   const call = (action: Action) => () => {
     const subs = getValue(action)
-    console.log(action, subs?.length)
-
     subs?.forEach(doAction => doAction())
   }
 
@@ -42,28 +40,28 @@ export const Controls = ({ children }: PropsWithChildren<unknown>): JSX.Element 
     <controlContext.Provider value={{ subscribe }}>
       <ul className="controls">
         <li>
-          <button onClick={call(Action.refresh)}>
+          <button onClick={call(Action.refresh)} title="rearrange">
             <Refresh size={iconSize} color="white" />
           </button>
         </li>
         <li>
-          <button onClick={call(Action.showCrop)}>
+          <button onClick={call(Action.showCrop)} title="show cropping">
             <BoxPadding size={iconSize} color="white" />
           </button>
         </li>
         <li>
-          <button onClick={call(Action.addImage)}>
+          <button onClick={call(Action.addImage)} title="add image">
             <LayoutGridAdd size={iconSize} color="white" />
           </button>
         </li>
         <li>
-          <button onClick={call(Action.removeImage)}>
+          <button onClick={call(Action.removeImage)} title="remove image">
             <Trash size={iconSize} color="white" />
           </button>
         </li>
         {screenfull.isEnabled && (
           <li>
-            <button onClick={() => void screenfull.request()}>
+            <button onClick={() => void screenfull.request()} title="fullscreen">
               <WindowMaximize size={iconSize} color="white" />
             </button>
           </li>

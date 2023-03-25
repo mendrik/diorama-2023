@@ -8,10 +8,9 @@ import usePromise, { PromiseState } from './usePromise'
 export const useCalculate = (images: Picture[], dimension: Dimension): PromiseState<Solution> => {
   const { subscribe } = useContext(controlContext)
   const { execute, ...result } = usePromise(() => findSolution(images, dimension))
-  useEffect(
-    () => subscribe(Action.refresh, () => execute()),
-    [images.length, dimension.width, dimension.height]
-  )
-  useEffect(() => void execute(), [images.length, dimension.width, dimension.height])
+  useEffect(() => {
+    void execute()
+    return subscribe(Action.refresh, execute)
+  }, [images.length, dimension.width, dimension.height])
   return result
 }
