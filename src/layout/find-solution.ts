@@ -8,8 +8,8 @@ import { positionSolution } from './position-solution'
 import { toRandomTree } from './to-random-tree'
 
 export const findSolution = async (
-  targetDimension: Dimension,
-  pictures: Picture[]
+  pictures: Picture[],
+  targetDimension: Dimension
 ): Promise<Solution> => {
   const start = Date.now()
   const arTarget = targetDimension.width / targetDimension.height
