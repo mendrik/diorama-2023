@@ -1,5 +1,6 @@
 import { Dimension } from '../types'
 import { average } from './average'
+import { normalize } from './normalize'
 
 interface ImageSize {
   width: number
@@ -10,11 +11,11 @@ export const sizeVariation = (rects: Dimension[]): number => {
   const avgWidth = average(rects.map(r => r.width))
   const avgHeight = average(rects.map(r => r.height))
 
-  const totalCV = rects.map(rect => {
+  const pictureScores = rects.map(rect => {
     const widthCV = rect.width / avgWidth
     const heightCV = rect.height / avgHeight
     return (widthCV + heightCV) / 2
   })
 
-  return average(totalCV)
+  return average(normalize(pictureScores))
 }

@@ -23,6 +23,7 @@ export const findSolution = async (
       const score = Math.max(0, 1 - distance / arTarget)
 
       if (score > aspectRatioThreshold) {
+        // discard non-fitting solutions (too much crop)
         const finalLayout = positionSolution(targetDimension, score, root)
         // eslint-disable-next-line functional/immutable-data
         solutions.unshift(finalLayout)
