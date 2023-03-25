@@ -55,10 +55,13 @@ img {
     width: fit-content;
     height: auto;
     z-index: 1;
-    background-color: rgb(52, 52, 52);
+    background-color: rgb(108, 108, 108);
     border-radius: 4px;
     list-style: none;
     padding: 4px;
+    box-shadow: inset 1px 1px 1px rgba(200,200,200,0.7),
+                inset -1px -1px 1px rgba(60,60,60,0.7),
+                3px 3px 7px -3px rgba(0,0,0, 0.7);
 
     > li {
         display: contents;
@@ -69,5 +72,16 @@ img {
         background: none;
         border: none;
         cursor: pointer;
+        display: flex;
+        justify-items: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 2px;
+
+        &:hover,
+        &:active {
+            background-color: rgba(200,200,200,.4);
+        }
     }
 }

@@ -19,6 +19,8 @@ export const ImageLayout = ({ images: initialImages }: OwnProps): JSX.Element | 
 
   useEffect(() => {
     const addImage = subscribe(Action.addImage, () => {
+      console.log('addimage')
+
       setImages(images => take(images.length, initialImages))
     })
     const removeImage = subscribe(Action.removeImage, () => {
