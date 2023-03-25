@@ -1,11 +1,12 @@
 import { useEffect, useContext, useState } from 'react'
-import { maxComputationTime, minImages } from '../constants'
+import { initialImageAmount, maxComputationTime, minImages } from '../constants'
 import { useWindowDimension } from '../hooks/useDimensions'
 import usePromise from '../hooks/usePromise'
 import { findSolution } from '../layout/find-solution'
 import { Picture } from '../types'
 import { Action, controlContext } from './controls'
 import { take } from 'ramda'
+import { PictureListItem } from './picture-list-item'
 
 type OwnProps = {
   images: Picture[]
@@ -13,15 +14,14 @@ type OwnProps = {
 
 export const ImageLayout = ({ images: initialImages }: OwnProps): JSX.Element | null => {
   const { subscribe } = useContext(controlContext)
-  const [images, setImages] = useState(take(7, initialImages))
-
+  const [images, setImages] = useState(take(initialImageAmount, initialImages))
   const dimension = useWindowDimension()
 
   const { execute, result, status, error } = usePromise(() =>
     findSolution(maxComputationTime, dimension, images)
   )
 
-  useEffect(() => void execute(), [images, dimension.height, dimension.width])
+  useEffect(() => void execute(), [images.length, dimension.height, dimension.width])
 
   useEffect(() => {
     const addImage = subscribe(Action.addImage, () => {
@@ -43,20 +43,5 @@ export const ImageLayout = ({ images: initialImages }: OwnProps): JSX.Element | 
     return <div>Failed to layout: {error.message}</div>
   }
 
-  return (
-    <ul className="image-gallery">
-      {result?.pictures.map(picture => (
-        <li
-          key={picture.url}
-          style={{
-            backgroundImage: `url(${picture.url})`,
-            left: picture.position.x,
-            top: picture.position.y,
-            width: picture.dimension.width,
-            height: picture.dimension.height
-          }}
-        />
-      ))}
-    </ul>
-  )
+  return <ul className="image-gallery">{result?.pictures.map(PictureListItem)}</ul>
 }

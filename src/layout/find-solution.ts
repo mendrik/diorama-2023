@@ -13,6 +13,7 @@ export const findSolution = async (
 ): Promise<Solution> => {
   const start = Date.now()
   const arTarget = targetDimension.width / targetDimension.height
+
   return new Promise<Solution>((resolve, reject) => {
     const solutions: Solution[] = []
 
@@ -32,8 +33,7 @@ export const findSolution = async (
     if (!isNotEmpty(solutions)) {
       reject('No solutions')
     } else {
-      console.log(`got ${solutions.length} candidates`)
-
+      console.debug(`got ${solutions.length} candidates`)
       resolve(evaluateSolutions(solutions))
     }
   })

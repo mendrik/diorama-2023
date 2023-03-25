@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 export type PromiseState<T> =
   | { status: 'initial'; result: null; error: null }
@@ -18,7 +18,7 @@ const usePromise = <T>(promiseFn: PromiseFn<T>): PromiseState<T> & Execute => {
     error: null
   })
 
-  const execute = async (): Promise<void> => {
+  const execute = useCallback(async (): Promise<void> => {
     setState({ status: 'loading', result: null, error: null })
 
     try {
@@ -32,7 +32,7 @@ const usePromise = <T>(promiseFn: PromiseFn<T>): PromiseState<T> & Execute => {
         console.error(`Unexpected error: ${error}`)
       }
     }
-  }
+  }, [promiseFn])
 
   return {
     ...state,

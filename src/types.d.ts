@@ -44,7 +44,7 @@ export type Rect = Composition | Picture
 
 export type NonEmptyArray<T> = [T, ...T[]]
 
-export type Unsubscribe = Destructor
+export type Unsubscribe = Destructoruse
 export type OnAction = AnyFunction
 
 export type Config<T> = {

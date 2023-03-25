@@ -3,7 +3,10 @@ import { useEffect, useState } from 'react'
 import { Dimension } from './../types.d'
 import { debounce } from '../utils/debounce'
 
-const getDimension = (): Dimension => ({ width: window.innerWidth, height: window.innerHeight })
+const getDimension = (): Dimension => ({
+  width: document.body.clientWidth,
+  height: document.body.clientHeight
+})
 
 export const useWindowDimension = (): Dimension => {
   const [dimension, setDimension] = useState<Dimension>(getDimension())

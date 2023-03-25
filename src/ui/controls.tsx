@@ -5,13 +5,13 @@ import { BoxPadding, LayoutGridAdd, Refresh, Trash, WindowMaximize } from 'table
 import { concat, without } from 'ramda'
 import { uninitialized } from '../utils/uninitialized'
 import useMap from '../hooks/useMap'
+import screenfull from 'screenfull'
 
 export enum Action {
   refresh = 'refresh',
   showCrop = 'showCrop',
   addImage = 'addImage',
-  removeImage = 'removeImage',
-  maximizeWindow = 'maximizeWindow'
+  removeImage = 'removeImage'
 }
 
 export const controlContext = createContext<Config<Action>>(uninitialized())
@@ -58,11 +58,13 @@ export const Controls = ({ children }: PropsWithChildren<unknown>): JSX.Element 
             <Trash size={iconSize} color="white" />
           </button>
         </li>
-        <li>
-          <button onClick={call(Action.maximizeWindow)}>
-            <WindowMaximize size={iconSize} color="white" />
-          </button>
-        </li>
+        {screenfull.isEnabled && (
+          <li>
+            <button onClick={() => void screenfull.request()}>
+              <WindowMaximize size={iconSize} color="white" />
+            </button>
+          </li>
+        )}
       </ul>
       {children}
     </controlContext.Provider>

@@ -4,6 +4,7 @@ import 'ramda'
 
 declare module 'ramda' {
   export function head<T>(arr: NonEmptyArray<T>): T
+  export function last<T>(arr: NonEmptyArray<T>): T
   export function propEq<T extends Record<string, unknown>, K extends keyof T>(
     name: K,
     value: T[K]
