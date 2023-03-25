@@ -26,6 +26,3 @@ export const ImageLayout = ({ images: initialImages }: OwnProps): JSX.Element =>
     </ul>
   )
 }
-
-// eslint-disable-next-line functional/immutable-data
-ImageLayout.displayName = 'ImageLayout'
