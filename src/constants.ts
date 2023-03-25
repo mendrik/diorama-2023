@@ -3,5 +3,5 @@ import { range } from 'ramda'
 
 export const images = range(1, 13).map(n => `./images/${n}.jpg`)
 export const maxComputationTime: Milliseconds = 300 as Milliseconds
-export const sizeHomogenity = 3
-export const aspectRatioThreshold = 0.99
+export const sizeHomogenity = 100 // the higher the value, the more pictures will approach the same size
+export const aspectRatioThreshold = 0.99 // minimum requirement for aspect ratio match 0-1
