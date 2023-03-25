@@ -10,5 +10,7 @@ const aspectRatioAndSize = (solution: Solution): Ord => {
 export const evaluateSolutions = (results: NonEmptyArray<Solution>): Solution => {
   const rated = sortBy(aspectRatioAndSize, results) as NonEmptyArray<Solution>
   const winner = rated[0]
+  console.log(winner)
+
   return winner
 }

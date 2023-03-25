@@ -11,6 +11,8 @@ export const positionSolution = (
   const pictures = positionPictures({ x: 0, y: 0 }, targetDimension, composition)
   const sizeHomogeneity = sizeVariation(pictures.map(p => p.dimension))
 
+  console.log(sizeHomogeneity)
+
   return {
     aspectRatioDelta,
     sizeHomogeneity,

@@ -7,13 +7,14 @@ interface ImageSize {
 }
 
 export const sizeVariation = (rects: Dimension[]): number => {
-  const totalCV = rects.reduce((acc, image) => {
-    const widthCV = image.width / average(rects.map(r => r.width))
-    const heightCV = image.height / average(rects.map(r => r.height))
-    const cv = (widthCV + heightCV) / 2
-    return acc + cv
-  }, 0)
+  const avgWidth = average(rects.map(r => r.width))
+  const avgHeight = average(rects.map(r => r.height))
 
-  const avgCV = totalCV / rects.length
-  return avgCV
+  const totalCV = rects.map(rect => {
+    const widthCV = rect.width / avgWidth
+    const heightCV = rect.height / avgHeight
+    return (widthCV + heightCV) / 2
+  })
+
+  return average(totalCV)
 }

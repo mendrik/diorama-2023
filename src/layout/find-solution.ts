@@ -21,7 +21,6 @@ export const findSolution = async (
       const root = toRandomTree(pictures)
       const distance = Math.abs(root.aspectRatio - arTarget)
       const score = Math.max(0, 1 - distance / arTarget)
-      console.log(score)
 
       if (score > aspectRatioThreshold) {
         const finalLayout = positionSolution(targetDimension, score, root)
