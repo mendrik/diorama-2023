@@ -4,8 +4,8 @@ import { Dimension } from './../types.d'
 import { debounce } from '../utils/debounce'
 
 const getDimension = (): Dimension => ({
-  width: document.body.clientWidth,
-  height: document.body.clientHeight
+  width: window.innerWidth,
+  height: window.innerHeight
 })
 
 export const useWindowDimension = (): Dimension => {

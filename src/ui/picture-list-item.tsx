@@ -1,8 +1,13 @@
 import { PositionedPicture } from '../types'
 
-export const PictureListItem = ({ position, dimension, url }: PositionedPicture): JSX.Element => (
+type OwnProps = {
+  picture: PositionedPicture
+}
+
+export const PictureListItem = ({
+  picture: { position, dimension, url }
+}: OwnProps): JSX.Element => (
   <li
-    key={url}
     style={{
       backgroundImage: `url(${url})`,
       left: position.x,
