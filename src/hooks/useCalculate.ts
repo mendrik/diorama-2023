@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Action, controlContext } from './../ui/controls'
 import { useContext, useEffect } from 'react'
 import { Dimension, Picture, Solution } from './../types.d'

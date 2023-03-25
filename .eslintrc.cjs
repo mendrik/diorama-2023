@@ -3,7 +3,7 @@ module.exports = {
   env: {
     es6: true
   },
-  plugins: ['@typescript-eslint', 'functional', 'unused-imports'],
+  plugins: ['@typescript-eslint', 'functional', 'unused-imports', 'react-hooks'],
   extends: [
     'eslint:recommended',
     'plugin:functional/recommended',
@@ -11,7 +11,8 @@ module.exports = {
     'plugin:import/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:@typescript-eslint/recommended',
-    'eslint-config-prettier'
+    'eslint-config-prettier',
+    'plugin:react-hooks/recommended'
   ],
   settings: {
     react: {
@@ -28,9 +29,9 @@ module.exports = {
     excludedFiles: ['**/*.spec.*']
   },
   rules: {
-    "functional/no-mixed-types": ["off"],
-    "comma-dangle": ["error", "never"],
-    "functional/no-classes": ["off"],
+    'functional/no-mixed-types': ['off'],
+    'comma-dangle': ['error', 'never'],
+    'functional/no-classes': ['off'],
     'functional/no-expression-statements': ['off'],
     'functional/no-conditional-statements': ['off'],
     '@typescript-eslint/semi': [2, 'never'],
@@ -52,6 +53,6 @@ module.exports = {
       'error',
       'FunctionDeclaration'
     ],
-    'unused-imports/no-unused-imports': 'error',
+    'unused-imports/no-unused-imports': 'error'
   }
 }
