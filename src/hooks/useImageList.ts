@@ -21,6 +21,6 @@ export const useImageList = (initialImages: Picture[]): Picture[] => {
       removeImage()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [initialImages])
   return images
 }
