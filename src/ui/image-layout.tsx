@@ -8,7 +8,6 @@ type OwnProps = {
   images: Picture[]
 }
 
-// eslint-disable-next-line react/prop-types
 export const ImageLayout = ({ images: initialImages }: OwnProps): JSX.Element => {
   const dimension = useWindowDimension()
   const images = useImageList(initialImages)
