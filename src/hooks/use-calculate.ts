@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Action, controlContext } from '../ui/controls'
-import { useContext, useEffect } from 'react'
+import { startTransition, useContext, useEffect } from 'react'
 import { Dimension, Picture, Solution } from '../types'
 import { findSolution } from '../layout/find-solution'
 import usePromise, { PromiseState } from './use-promise'
@@ -18,8 +18,10 @@ export const useCalculate = (images: Picture[], dimension: Dimension): PromiseSt
     dimension.width === 0 ? Promise.resolve(dummy) : findSolution(images, dimension)
   )
   useEffect(() => {
-    void execute()
-    return subscribe(Action.refresh, execute)
-  }, [images.length, dimension.width, dimension.height])
+    if (result.status === 'done' || result.status === 'initial') {
+      startTransition(() => void execute())
+      return subscribe(Action.refresh, execute)
+    }
+  }, [result.status, images.length, dimension.width, dimension.height])
   return result
 }

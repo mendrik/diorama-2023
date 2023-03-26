@@ -1,26 +1,28 @@
-import { useState, useEffect, RefObject } from 'react'
+import { useState, RefObject, useLayoutEffect, useRef } from 'react'
 
 import { Dimension } from '../types'
-import { pipe, unless, isNil } from 'ramda'
+import { pipe } from 'ramda'
 import { debounce } from '../utils/debounce'
 
 const getDimension = (el: HTMLElement): Dimension => ({
-  width: el.offsetWidth,
-  height: el.offsetHeight
+  width: el.clientWidth,
+  height: el.clientHeight
 })
 
-export const useElementResize = (ref: RefObject<HTMLElement>): Dimension => {
+export const useElementResize = <T extends HTMLElement>(): [RefObject<T>, Dimension] => {
+  const ref = useRef<T>(null)
   const [dimension, setDimension] = useState<Dimension>({ width: 0, height: 0 })
 
-  useEffect(() => {
-    const updateDimensions = pipe(getDimension, setDimension)
-    const listener = debounce(300, () => unless(isNil, updateDimensions, ref.current))
-    if (ref.current) {
-      window.addEventListener('resize', listener)
-      updateDimensions(ref.current)
+  useLayoutEffect(() => {
+    if (ref.current === null) {
+      return
     }
-    return () => window.removeEventListener('resize', listener)
+    const { current } = ref
+    const updateDimensions = (): void => void pipe(getDimension, setDimension)(current)
+    const ob = new ResizeObserver(debounce(50, updateDimensions))
+    ob.observe(current)
+    return () => ob.unobserve(current)
   }, [ref])
 
-  return dimension
+  return [ref, dimension]
 }

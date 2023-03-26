@@ -1,5 +1,4 @@
 import { prop } from 'ramda'
-import { useRef } from 'react'
 import styled from 'styled-components'
 import { minImages } from '../constants'
 import { useCalculate } from '../hooks/use-calculate'
@@ -31,9 +30,7 @@ const ImageLayout = styled.ol`
 `
 
 export const Diorama = ({ images: initialImages }: OwnProps): JSX.Element => {
-  const ref = useRef<HTMLOListElement>(null)
-  const dimension = useElementResize(ref)
-
+  const [ref, dimension] = useElementResize<HTMLOListElement>()
   const images = useImageList(initialImages)
   const { status, error, result } = useCalculate(images, dimension)
 

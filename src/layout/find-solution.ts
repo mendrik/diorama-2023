@@ -14,10 +14,8 @@ export const findSolution = async (
 ): Promise<Solution> => {
   const start = Date.now()
   const arTarget = targetDimension.width / targetDimension.height
-
   return new Promise<Solution>((resolve, reject) => {
     const solutions: Solution[] = []
-
     // eslint-disable-next-line functional/no-loop-statements
     while (Date.now() - start < maxComputationTime) {
       const root = toRandomTree(pictures)
