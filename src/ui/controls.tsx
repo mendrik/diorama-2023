@@ -5,9 +5,9 @@ import { iconSize } from '../constants'
 import { BoxPadding, LayoutGridAdd, Refresh, Trash, WindowMaximize } from 'tabler-icons-react'
 import { concat, without } from 'ramda'
 import { uninitialized } from '../utils/uninitialized'
-import { useMap } from '../hooks/use-map'
 import screenfull from 'screenfull'
 import styled from 'styled-components'
+import { useMap } from 'react-use'
 
 export enum Action {
   refresh = 'refresh',
@@ -58,21 +58,21 @@ const ButtonList = styled.ol`
 `
 
 export const Controls = ({ children }: PropsWithChildren<unknown>): JSX.Element => {
-  const { setValue, getValue } = useMap<Action, Array<OnAction>>()
+  const [, { set, get }] = useMap<Record<Action, Array<OnAction>>>()
 
   const unsubscribe = useCallback((action: Action, fn: OnAction): void => {
-    const subs = getValue(action) ?? []
-    setValue(action, without([fn], subs))
+    const subs = get(action) ?? []
+    set(action, without([fn], subs))
   }, [])
 
   const subscribe = useCallback((action: Action, fn: OnAction): Unsubscribe => {
-    const subs = getValue(action) ?? []
-    setValue(action, concat([fn], subs))
+    const subs = get(action) ?? []
+    set(action, concat([fn], subs))
     return () => unsubscribe(action, fn)
   }, [])
 
   const call = (action: Action) => () => {
-    const subs = getValue(action)
+    const subs = get(action)
     subs?.forEach(doAction => doAction())
   }
 

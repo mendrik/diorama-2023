@@ -1,27 +1,22 @@
+import { useAsyncRetry } from 'react-use'
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Action, controlContext } from '../ui/controls'
-import { startTransition, useContext, useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { Dimension, Picture, Solution } from '../types'
 import { findSolution } from '../layout/find-solution'
-import usePromise, { PromiseState } from './use-promise'
+import type { AsyncState } from 'react-use/lib/useAsyncFn'
 
-const dummy: Solution = {
-  aspectRatioDelta: 1,
-  dimension: { width: 1, height: 1 },
-  sizeHomogeneity: 1,
-  pictures: []
-}
-
-export const useCalculate = (images: Picture[], dimension: Dimension): PromiseState<Solution> => {
+export const useCalculate = (images: Picture[], dimension: Dimension): AsyncState<Solution> => {
   const { subscribe } = useContext(controlContext)
-  const { execute, ...result } = usePromise(() =>
-    dimension.width === 0 ? Promise.resolve(dummy) : findSolution(images, dimension)
+  const { retry, ...status } = useAsyncRetry(
+    () => findSolution(images, dimension).catch(() => undefined),
+    []
   )
+
   useEffect(() => {
-    if (result.status === 'done' || result.status === 'initial') {
-      startTransition(() => void execute())
-      return subscribe(Action.refresh, execute)
-    }
-  }, [result.status, images.length, dimension.width, dimension.height])
-  return result
+    retry()
+    return () => subscribe(Action.refresh, () => void retry())
+  }, [dimension.height, dimension.width, images.length])
+
+  return status
 }

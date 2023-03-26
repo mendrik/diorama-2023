@@ -16,7 +16,8 @@
     "react-dom": "18.2.0",
     "screenfull": "^6.0.2",
     "tabler-icons-react": "1.56.0",
-    "styled-components": "5.3.9"
+    "styled-components": "5.3.9",
+    "react-use": "17.4.0"
   },
   "devDependencies": {
     "@types/ramda": "0.28.23",
@@ -40,7 +41,6 @@
     "postcss": "8.4.21",
     "postcss-import": "15.1.0",
     "postcss-nesting": "11.2.1",
-    
     "prettier": "2.8.6",
     "purify-ts": "2.0.0",
     "typescript": "5.0.2",

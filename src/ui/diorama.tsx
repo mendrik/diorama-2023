@@ -1,4 +1,4 @@
-import { prop } from 'ramda'
+import { isNil, prop } from 'ramda'
 import styled, { createGlobalStyle } from 'styled-components'
 import { minImages } from '../constants'
 import { useCalculate } from '../hooks/use-calculate'
@@ -39,22 +39,22 @@ const ImageLayout = styled.ol`
 export const Diorama = ({ images: initialImages }: OwnProps): JSX.Element => {
   const [ref, dimension] = useElementResize<HTMLOListElement>()
   const images = useImageList(initialImages)
-  const { status, error, result } = useCalculate(images, dimension)
+  const { error, value } = useCalculate(images, dimension)
 
-  if (status === 'error') {
+  if (!isNil(error)) {
     return <div>Failed to layout: {error.message}</div>
   }
 
   const scale = (p: 'width' | 'height'): number =>
-    dimension && images.length > minImages && result
-      ? prop(p, dimension) / prop(p, result.dimension)
+    value && dimension && images.length > minImages
+      ? prop(p, dimension) / prop(p, value.dimension)
       : 1
 
   return (
     <>
       <ShowCropCss />
       <ImageLayout ref={ref} className="diorama-list">
-        {result?.pictures.map(pic => (
+        {value?.pictures.map(pic => (
           <PictureListItem
             picture={pic}
             key={pic.url}
