@@ -8,9 +8,8 @@ import type { AsyncState } from 'react-use/lib/useAsyncFn'
 
 export const useCalculate = (images: Picture[], dimension: Dimension): AsyncState<Solution> => {
   const { subscribe } = useContext(controlContext)
-  const { retry, ...status } = useAsyncRetry(
-    () => findSolution(images, dimension).catch(() => undefined),
-    []
+  const { retry, ...status } = useAsyncRetry(() =>
+    findSolution(images, dimension).catch(() => undefined)
   )
 
   useEffect(() => {
