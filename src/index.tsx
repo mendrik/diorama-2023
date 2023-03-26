@@ -1,3 +1,5 @@
+// import './wdyr'
+
 import { createRoot } from 'react-dom/client'
 import { Maybe } from 'purify-ts'
 import { throwError } from './utils/throw-error'

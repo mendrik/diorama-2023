@@ -9,6 +9,7 @@
     "strict": true,
     "strictFunctionTypes": true,
     "moduleResolution": "Node",
+    "module": "esnext",
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
