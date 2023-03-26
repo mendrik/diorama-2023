@@ -1,4 +1,4 @@
-import { initialImageAmount, minImages } from './../constants'
+import { initialImageAmount } from './../constants'
 import { Action, controlContext } from './../ui/controls'
 import { useContext, useEffect, useState } from 'react'
 import { Picture } from '../types'
@@ -14,7 +14,7 @@ export const useImageList = (initialImages: Picture[]): Picture[] => {
       setImages(pipe(length, inc, takeF(initialImages)))
     )
     const removeImage = subscribe(Action.removeImage, () =>
-      setImages(pipe(length, dec, max<number>(minImages), takeF(initialImages)))
+      setImages(pipe(length, dec, max<number>(1), takeF(initialImages)))
     )
     return () => {
       addImage()

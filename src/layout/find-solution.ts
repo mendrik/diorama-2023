@@ -1,4 +1,4 @@
-import { maxComputationTime, aspectRatioThreshold } from './../constants'
+import { maxComputationTime, aspectRatioThreshold, minImages } from './../constants'
 
 import type { Dimension, Picture } from '../types'
 import { isNotEmpty } from '../utils/isNotEmpty'
@@ -24,7 +24,7 @@ export const findSolution = async (
       const distance = Math.abs(root.aspectRatio - arTarget)
       const score = Math.max(0, 1 - distance / arTarget)
 
-      if (score > aspectRatioThreshold) {
+      if (pictures.length <= minImages || score > aspectRatioThreshold) {
         const actualDimensions = resizeDimension(targetDimension, root.aspectRatio)
         // discard non-fitting solutions (too much crop)
         const finalLayout = positionSolution(actualDimensions, score, root)
