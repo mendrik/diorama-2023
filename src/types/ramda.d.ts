@@ -12,4 +12,9 @@ declare module 'ramda' {
   export function cond<T extends any[], R>(
     pairs: ReadonlyArray<CondPair<T, R>>
   ): <T2 extends T>(...args: T2) => R
+  export function unless<T, U>(
+    pred: typeof isNil,
+    whenFalseFn: (a: NonNullable<T>) => U,
+    a: T
+  ): T | U
 }

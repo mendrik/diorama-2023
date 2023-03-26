@@ -5,8 +5,9 @@ import { iconSize } from '../constants'
 import { BoxPadding, LayoutGridAdd, Refresh, Trash, WindowMaximize } from 'tabler-icons-react'
 import { concat, without } from 'ramda'
 import { uninitialized } from '../utils/uninitialized'
-import { useMap } from '../hooks/useMap'
+import { useMap } from '../hooks/use-map'
 import screenfull from 'screenfull'
+import styled from 'styled-components'
 
 export enum Action {
   refresh = 'refresh',
@@ -16,6 +17,45 @@ export enum Action {
 }
 
 export const controlContext = createContext<Config<Action>>(uninitialized())
+
+const ButtonList = styled.ol`
+  position: absolute;
+  display: flex;
+  gap: 10px;
+  top: 5px;
+  left: 5px;
+  width: fit-content;
+  height: auto;
+  z-index: 1;
+  background-color: rgb(108, 108, 108);
+  border-radius: 4px;
+  list-style: none;
+  padding: 4px;
+  box-shadow: inset 1px 1px 1px rgba(200, 200, 200, 0.7), inset -1px -1px 1px rgba(60, 60, 60, 0.7),
+    3px 3px 7px -3px rgba(0, 0, 0, 0.7);
+
+  > li {
+    display: contents;
+  }
+
+  & button {
+    appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 2px;
+
+    &:hover,
+    &:active {
+      background-color: rgba(200, 200, 200, 0.4);
+    }
+  }
+`
 
 export const Controls = ({ children }: PropsWithChildren<unknown>): JSX.Element => {
   const { setValue, getValue } = useMap<Action, Array<OnAction>>()
@@ -40,7 +80,7 @@ export const Controls = ({ children }: PropsWithChildren<unknown>): JSX.Element 
 
   return (
     <controlContext.Provider value={value}>
-      <ul className="controls">
+      <ButtonList>
         <li>
           <button onClick={call(Action.refresh)} title="rearrange">
             <Refresh size={iconSize} color="white" />
@@ -68,7 +108,7 @@ export const Controls = ({ children }: PropsWithChildren<unknown>): JSX.Element 
             </button>
           </li>
         )}
-      </ul>
+      </ButtonList>
       {children}
     </controlContext.Provider>
   )

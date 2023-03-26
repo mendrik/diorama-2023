@@ -1,5 +1,5 @@
-import { initialImageAmount } from './../constants'
-import { Action, controlContext } from './../ui/controls'
+import { initialImageAmount } from '../constants'
+import { Action, controlContext } from '../ui/controls'
 import { useContext, useEffect, useState } from 'react'
 import { Picture } from '../types'
 import { inc, pipe, take, length, flip, curry, dec, max } from 'ramda'

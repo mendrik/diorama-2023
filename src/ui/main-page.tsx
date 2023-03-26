@@ -1,6 +1,6 @@
 import { Picture } from '../types'
 import { Controls } from './controls'
-import { ImageLayout } from './image-layout'
+import { Diorama } from './diorama'
 import { ShowCrop } from './show-crop'
 
 type OwnProps = {
@@ -10,6 +10,6 @@ type OwnProps = {
 export const MainPage = ({ images }: OwnProps): JSX.Element => (
   <Controls>
     <ShowCrop />
-    <ImageLayout images={images} />
+    <Diorama images={images} />
   </Controls>
 )
