@@ -2,18 +2,22 @@ import { PositionedPicture } from '../types'
 
 type OwnProps = {
   picture: PositionedPicture
+  scaleX: number
+  scaleY: number
 }
 
 export const PictureListItem = ({
-  picture: { position, dimension, url }
+  picture: { position, dimension, url },
+  scaleX,
+  scaleY
 }: OwnProps): JSX.Element => (
   <li
     style={{
       backgroundImage: `url(${url})`,
-      left: position.x,
-      top: position.y,
-      width: dimension.width,
-      height: dimension.height
+      left: position.x * scaleX,
+      top: position.y * scaleY,
+      width: dimension.width * scaleX,
+      height: dimension.height * scaleY
     }}
   />
 )

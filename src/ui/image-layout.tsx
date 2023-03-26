@@ -18,10 +18,13 @@ export const ImageLayout = ({ images: initialImages }: OwnProps): JSX.Element =>
     return <div>Failed to layout: {error.message}</div>
   }
 
+  const scaleX = dimension.width / (result?.dimension.width ?? dimension.width)
+  const scaleY = dimension.height / (result?.dimension.height ?? dimension.height)
+
   return (
     <ul className="image-gallery">
       {result?.pictures.map(pic => (
-        <PictureListItem picture={pic} key={pic.url} />
+        <PictureListItem picture={pic} key={pic.url} scaleX={scaleX} scaleY={scaleY} />
       ))}
     </ul>
   )

@@ -1,8 +1,8 @@
-import { initialImageAmount } from './../constants'
+import { initialImageAmount, minImages } from './../constants'
 import { Action, controlContext } from './../ui/controls'
 import { useContext, useEffect, useState } from 'react'
 import { Picture } from '../types'
-import { inc, pipe, take, length, flip, curry, dec } from 'ramda'
+import { inc, pipe, take, length, flip, curry, dec, max } from 'ramda'
 
 const takeF = curry(flip(take))
 
@@ -14,7 +14,7 @@ export const useImageList = (initialImages: Picture[]): Picture[] => {
       setImages(pipe(length, inc, takeF(initialImages)))
     )
     const removeImage = subscribe(Action.removeImage, () =>
-      setImages(pipe(length, dec, takeF(initialImages)))
+      setImages(pipe(length, dec, max<number>(minImages), takeF(initialImages)))
     )
     return () => {
       addImage()

@@ -4,13 +4,14 @@ import { Dimension, Solution } from '../types'
 import { sizeVariation } from '../utils/size-variation'
 
 export const positionSolution = (
-  targetDimension: Dimension,
+  dimension: Dimension,
   aspectRatioDelta: number,
   composition: Composition
 ): Solution => {
-  const pictures = positionPictures({ x: 0, y: 0 }, targetDimension, composition)
+  const pictures = positionPictures({ x: 0, y: 0 }, dimension, composition)
   const sizeHomogeneity = sizeVariation(pictures.map(p => p.dimension))
   return {
+    dimension,
     aspectRatioDelta,
     sizeHomogeneity,
     pictures

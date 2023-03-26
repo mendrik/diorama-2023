@@ -6,6 +6,7 @@ import { Solution } from '../types'
 import { evaluateSolutions } from './evaluate-solutions'
 import { positionSolution } from './position-solution'
 import { toRandomTree } from './to-random-tree'
+import { resizeDimension } from '../utils/resize-dimension'
 
 export const findSolution = async (
   pictures: Picture[],
@@ -24,8 +25,9 @@ export const findSolution = async (
       const score = Math.max(0, 1 - distance / arTarget)
 
       if (score > aspectRatioThreshold) {
+        const actualDimensions = resizeDimension(targetDimension, root.aspectRatio)
         // discard non-fitting solutions (too much crop)
-        const finalLayout = positionSolution(targetDimension, score, root)
+        const finalLayout = positionSolution(actualDimensions, score, root)
         // eslint-disable-next-line functional/immutable-data
         solutions.unshift(finalLayout)
       }

@@ -23,6 +23,7 @@ export type Solution = {
   pictures: PositionedPicture[]
   aspectRatioDelta: number
   sizeHomogeneity: number
+  dimension: Dimension
 }
 
 export type Leaf = {
