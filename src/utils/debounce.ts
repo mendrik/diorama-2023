@@ -10,7 +10,6 @@ export const debounce = <T extends AnyFunction>(
       clearTimeout(timeoutId)
     }
     timeoutId = setTimeout(() => {
-      timeoutId && clearTimeout(timeoutId)
       func(...args)
     }, delay)
   }
