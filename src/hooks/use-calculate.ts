@@ -15,7 +15,8 @@ export const useCalculate = (images: Picture[], dimension: Dimension): AsyncStat
 
   useEffect(() => {
     retry()
-    return () => subscribe(Action.refresh, () => void retry())
+    const unsub = subscribe(Action.refresh, () => void retry())
+    return () => unsub()
   }, [dimension.height, dimension.width, images.length])
 
   return status
