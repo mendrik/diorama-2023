@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { PropsWithChildren, createContext, useCallback } from 'react'
 import { Config, OnAction, Unsubscribe } from '../types'
 import { iconSize } from '../constants'
@@ -60,16 +59,22 @@ const ButtonList = styled.ol`
 export const Controls = ({ children }: PropsWithChildren<unknown>): JSX.Element => {
   const [, { set, get }] = useMap<Record<Action, Array<OnAction>>>()
 
-  const unsubscribe = useCallback((action: Action, fn: OnAction): void => {
-    const subs = get(action) ?? []
-    set(action, without([fn], subs))
-  }, [])
+  const unsubscribe = useCallback(
+    (action: Action, fn: OnAction): void => {
+      const subs = get(action) ?? []
+      set(action, without([fn], subs))
+    },
+    [set, get]
+  )
 
-  const subscribe = useCallback((action: Action, fn: OnAction): Unsubscribe => {
-    const subs = get(action) ?? []
-    set(action, concat([fn], subs))
-    return () => unsubscribe(action, fn)
-  }, [])
+  const subscribe = useCallback(
+    (action: Action, fn: OnAction): Unsubscribe => {
+      const subs = get(action) ?? []
+      set(action, concat([fn], subs))
+      return () => unsubscribe(action, fn)
+    },
+    [get, set, unsubscribe]
+  )
 
   const call = (action: Action) => () => {
     const subs = get(action)
