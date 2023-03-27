@@ -3,10 +3,10 @@ import styled from 'styled-components'
 import { minImages } from '../constants'
 import { useCalculate } from '../hooks/use-calculate'
 import { useImageList } from '../hooks/use-image-list'
-import type { Picture } from '../types'
+import type { Dimension, Picture, Solution } from '../types'
 import { PictureListItem } from './picture-list-item'
 import { useElementResize } from '../hooks/use-element-resize'
-import { useCallback, useMemo } from 'react'
+import { useMemo } from 'react'
 
 type OwnProps = {
   images: Picture[]
@@ -31,16 +31,13 @@ const ImageLayout = styled.ol`
   }
 `
 
+const scale = (value: Solution, dimension: Dimension, p: 'width' | 'height'): number =>
+  value && value.pictures.length > minImages ? prop(p, dimension) / prop(p, value.dimension) : 1
+
 export const Diorama = ({ images: initialImages }: OwnProps): JSX.Element => {
   const [ref, dimension] = useElementResize<HTMLOListElement>()
   const images = useImageList(initialImages)
   const { error, value } = useCalculate(images, dimension)
-
-  const scale = useCallback(
-    (p: 'width' | 'height'): number =>
-      value && images.length > minImages ? prop(p, dimension) / prop(p, value.dimension) : 1,
-    [value, images.length, dimension]
-  )
 
   const renderedList = useMemo(
     () => (
@@ -49,8 +46,8 @@ export const Diorama = ({ images: initialImages }: OwnProps): JSX.Element => {
           <PictureListItem
             picture={pic}
             key={pic.url}
-            scaleX={scale('width')}
-            scaleY={scale('height')}
+            scaleX={scale(value, dimension, 'width')}
+            scaleY={scale(value, dimension, 'height')}
           />
         ))}
       </ImageLayout>
