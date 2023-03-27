@@ -1,21 +1,20 @@
-import { useAsyncRetry } from 'react-use'
+import { useAsync, useEffectOnce } from 'react-use'
 import { Action, controlContext } from '../ui/controls'
-import { useContext, useEffect } from 'react'
+import { useContext, useState } from 'react'
 import { Dimension, Picture, Solution } from '../types'
 import { findSolution } from '../layout/find-solution'
 import type { AsyncState } from 'react-use/lib/useAsyncFn'
+import { inc } from 'ramda'
 
 export const useCalculate = (images: Picture[], dimension: Dimension): AsyncState<Solution> => {
+  const [redraw, forceUpdate] = useState(0)
   const { subscribe } = useContext(controlContext)
-  const { retry, ...status } = useAsyncRetry(() =>
-    findSolution(images, dimension).catch(() => undefined)
+  const status = useAsync(
+    () => findSolution(images, dimension).catch(() => undefined),
+    [images.length, dimension.width, dimension.height, redraw]
   )
 
-  useEffect(() => {
-    retry()
-    const unsub = subscribe(Action.refresh, () => void retry())
-    return () => unsub()
-  }, [dimension.height, dimension.width, images.length, retry, subscribe])
+  useEffectOnce(() => subscribe(Action.refresh, () => forceUpdate(inc)))
 
   return status
 }

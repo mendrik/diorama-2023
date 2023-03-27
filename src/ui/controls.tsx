@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { PropsWithChildren, createContext, useCallback, useMemo } from 'react'
+import { PropsWithChildren, createContext, useCallback } from 'react'
 import { Config, OnAction, Unsubscribe } from '../types'
 import { iconSize } from '../constants'
 import { BoxPadding, LayoutGridAdd, Refresh, Trash, WindowMaximize } from 'tabler-icons-react'
@@ -76,10 +76,8 @@ export const Controls = ({ children }: PropsWithChildren<unknown>): JSX.Element 
     subs?.forEach(doAction => doAction())
   }
 
-  const value = useMemo(() => ({ subscribe }), [])
-
   return (
-    <controlContext.Provider value={value}>
+    <controlContext.Provider value={{ subscribe }}>
       <ButtonList>
         <li>
           <button onClick={call(Action.refresh)} title="rearrange">

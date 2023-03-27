@@ -2,10 +2,10 @@ import { isNil, prop } from 'ramda'
 import styled, { createGlobalStyle } from 'styled-components'
 import { minImages } from '../constants'
 import { useCalculate } from '../hooks/use-calculate'
-import { useElementResize } from '../hooks/use-element-resize'
 import { useImageList } from '../hooks/use-image-list'
 import { Picture } from '../types'
 import { PictureListItem } from './picture-list-item'
+import { useElementResize } from '../hooks/use-element-resize'
 
 type OwnProps = {
   images: Picture[]

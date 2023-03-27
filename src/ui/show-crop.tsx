@@ -1,13 +1,14 @@
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { Action, controlContext } from './controls'
+import { useEffectOnce } from 'react-use'
 
 export const ShowCrop = (): null => {
   const { subscribe } = useContext(controlContext)
 
-  useEffect(
-    () => subscribe(Action.showCrop, () => document.body.classList.toggle('show-crop')),
-    [subscribe]
-  )
+  useEffectOnce(() => subscribe(Action.showCrop, () => document.body.classList.toggle('show-crop')))
 
   return null
 }
+
+// eslint-disable-next-line functional/immutable-data
+ShowCrop.whyDidYouRender = true
