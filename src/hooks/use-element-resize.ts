@@ -1,6 +1,6 @@
 import { useState, RefObject, useRef, useEffect } from 'react'
 
-import { Dimension } from '../types'
+import type { Dimension } from '../types'
 import { pipe } from 'ramda'
 import { debounce } from '../utils/debounce'
 

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { minImages } from '../constants'
 import { useCalculate } from '../hooks/use-calculate'
 import { useImageList } from '../hooks/use-image-list'
-import { Picture } from '../types'
+import type { Picture } from '../types'
 import { PictureListItem } from './picture-list-item'
 import { useElementResize } from '../hooks/use-element-resize'
 
