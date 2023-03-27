@@ -12,6 +12,7 @@ export const findSolution = (pictures: Picture[], targetDimension: Dimension): S
   const start = Date.now()
   const arTarget = targetDimension.width / targetDimension.height
   const solutions: Solution[] = []
+
   // eslint-disable-next-line functional/no-loop-statements
   while (Date.now() - start < maxComputationTime) {
     const root = toRandomTree(pictures)
