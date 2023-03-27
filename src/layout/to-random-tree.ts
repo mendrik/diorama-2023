@@ -1,4 +1,3 @@
-/* eslint-disable functional/no-let */
 /* eslint-disable functional/immutable-data */
 import { Rect } from '../types'
 import { randomInt } from '../utils/random'
