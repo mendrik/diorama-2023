@@ -26,7 +26,7 @@ const ImageLayout = styled.ol`
     transition-duration: 1s;
     background-repeat: no-repeat;
     background-size: cover;
-    outline: 1px solid white;
+    border: 0.5pt solid white;
   }
 `
 

@@ -110,7 +110,7 @@ Error generating stack: `+i.message+`
     transition-duration: 1s;
     background-repeat: no-repeat;
     background-size: cover;
-    outline: 1px solid white;
+    border: 0.5pt solid white;
   }
 `,Py=({images:e})=>{const[t,n]=Cy(),r=Sy(e),{error:o,value:i}=wy(r,n);if(!H0(o))return Zo("div",{children:["Failed to layout: ",o.message]});const l=u=>i&&n&&r.length>Ov?gc(u,n)/gc(u,i.dimension):1;return re(ch,{children:re(xy,{ref:t,className:"diorama-list",children:i==null?void 0:i.pictures.map(u=>re(ky,{picture:u,scaleX:l("width"),scaleY:l("height")},u.url))})})},Ny=()=>{const{subscribe:e}=H.useContext(ul);return ta(()=>e(Jr.showCrop,()=>document.body.classList.toggle("show-crop"))),null},zy=Mg`
   body.show-crop .diorama-list > li {
