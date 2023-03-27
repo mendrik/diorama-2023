@@ -9,6 +9,5 @@ const aspectRatioAndSize = (solution: Solution): Ord =>
 export const evaluateSolutions = (results: NonEmptyArray<Solution>): Solution => {
   const rated = sortBy(aspectRatioAndSize, results) as NonEmptyArray<Solution>
   const winner = last(rated)
-  console.debug(winner)
   return evolve({ pictures: sortBy(prop('url')) }, winner) as Solution
 }

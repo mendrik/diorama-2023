@@ -1,5 +1,5 @@
 import { isNil, prop } from 'ramda'
-import styled, { createGlobalStyle } from 'styled-components'
+import styled from 'styled-components'
 import { minImages } from '../constants'
 import { useCalculate } from '../hooks/use-calculate'
 import { useImageList } from '../hooks/use-image-list'
@@ -10,13 +10,6 @@ import { useElementResize } from '../hooks/use-element-resize'
 type OwnProps = {
   images: Picture[]
 }
-
-const ShowCropCss = createGlobalStyle`
-  body.show-crop .diorama-list > li {
-    background-size: contain;
-  }
-
-`
 
 const ImageLayout = styled.ol`
   position: relative;
@@ -53,7 +46,6 @@ export const Diorama = ({ images: initialImages }: OwnProps): JSX.Element => {
 
   return (
     <>
-      <ShowCropCss />
       <ImageLayout ref={ref} className="diorama-list">
         {value?.pictures.map(pic => (
           <PictureListItem

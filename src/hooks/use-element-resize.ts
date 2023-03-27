@@ -19,7 +19,7 @@ export const useElementResize = <T extends HTMLElement>(): [RefObject<T>, Dimens
     }
     const { current } = ref
     const updateDimensions = (): void => void pipe(getDimension, setDimension)(current)
-    const ob = new ResizeObserver(debounce(90, updateDimensions))
+    const ob = new ResizeObserver(debounce(120, updateDimensions))
     ob.observe(current)
     return () => ob.unobserve(current)
   }, [ref])

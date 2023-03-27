@@ -11,8 +11,6 @@ export const useImageList = (initialImages: Picture[]): Picture[] => {
   const { subscribe } = useContext(controlContext)
   const [images, setImages] = useState(take(initialImageAmount, initialImages))
   useEffectOnce(() => {
-    console.log('imagelist')
-
     const addImage = subscribe(Action.addImage, () =>
       setImages(pipe(length, inc, takeF(initialImages)))
     )
