@@ -9,6 +9,9 @@ import postcss_nesting from 'postcss-nesting'
 import autoprefixer from 'autoprefixer'
 
 export default defineConfig({
+  build: {
+    outDir: 'docs'
+  },
   css: {
     devSourcemap: true,
     postcss: {
