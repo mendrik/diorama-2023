@@ -6,6 +6,7 @@ import { useImageList } from '../hooks/use-image-list'
 import type { Picture } from '../types'
 import { PictureListItem } from './picture-list-item'
 import { useElementResize } from '../hooks/use-element-resize'
+import { useCallback, useMemo } from 'react'
 
 type OwnProps = {
   images: Picture[]
@@ -35,17 +36,14 @@ export const Diorama = ({ images: initialImages }: OwnProps): JSX.Element => {
   const images = useImageList(initialImages)
   const { error, value } = useCalculate(images, dimension)
 
-  if (!isNil(error)) {
-    return <div>Failed to layout: {error.message}</div>
-  }
+  const scale = useCallback(
+    (p: 'width' | 'height'): number =>
+      value && images.length > minImages ? prop(p, dimension) / prop(p, value.dimension) : 1,
+    [value, images.length, dimension]
+  )
 
-  const scale = (p: 'width' | 'height'): number =>
-    value && dimension && images.length > minImages
-      ? prop(p, dimension) / prop(p, value.dimension)
-      : 1
-
-  return (
-    <>
+  const renderedList = useMemo(
+    () => (
       <ImageLayout ref={ref} className="diorama-list">
         {value?.pictures.map(pic => (
           <PictureListItem
@@ -56,6 +54,14 @@ export const Diorama = ({ images: initialImages }: OwnProps): JSX.Element => {
           />
         ))}
       </ImageLayout>
-    </>
+    ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [ref, value]
   )
+
+  if (!isNil(error)) {
+    return <div>Failed to layout: {error.message}</div>
+  }
+
+  return renderedList
 }
