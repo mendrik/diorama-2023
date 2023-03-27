@@ -1,4 +1,8 @@
 import { converge, divide, sum, length } from 'ramda'
-import type { AnyFunction } from 'ramda'
 
-export const average: (arr: number[]) => number = converge(divide as AnyFunction, [sum, length])
+type NumFn<T> = (arg: number[]) => T
+
+export const average: (arr: number[]) => number = converge<number, [NumFn<number>, NumFn<number>]>(
+  divide,
+  [sum, length]
+)

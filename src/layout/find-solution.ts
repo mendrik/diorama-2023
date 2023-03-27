@@ -1,5 +1,4 @@
-import type { Dimension, Picture } from '../types'
-import { Solution } from '../types'
+import type { Dimension, Picture, Solution } from '../types'
 
 export const workerInstance = new ComlinkWorker<typeof import('./worker')>(
   new URL('./worker', import.meta.url)

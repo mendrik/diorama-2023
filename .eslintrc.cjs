@@ -36,6 +36,7 @@ module.exports = {
     'prefer-arrow-callback': ['error'],
     'functional/prefer-readonly-type': ['off'] ,
     'functional/prefer-immutable-types': ['off'] ,
+    'functional/no-conditional-statements': ['off'] ,
     'functional/no-return-void': ['off'],
     'functional/functional-parameters': ['off'],
     'react/react-in-jsx-scope': ['off'],

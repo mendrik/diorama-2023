@@ -1,5 +1,5 @@
 /* eslint-disable functional/immutable-data */
-import { Picture, RelaltiveUrl } from '../types'
+import type { Picture, RelaltiveUrl } from '../types'
 
 const imagePromise = (url: RelaltiveUrl): Promise<Picture> =>
   new Promise<Picture>((res, rej) => {

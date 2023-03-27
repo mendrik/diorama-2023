@@ -1,5 +1,5 @@
 /* eslint-disable functional/immutable-data */
-import { Rect } from '../types'
+import type { Rect } from '../types'
 import { randomInt } from '../utils/random'
 import { Composition } from './composition'
 

@@ -1,4 +1,4 @@
-import { PositionedPicture } from '../types'
+import type { PositionedPicture } from '../types'
 
 type OwnProps = {
   picture: PositionedPicture

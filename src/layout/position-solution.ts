@@ -1,6 +1,6 @@
 import { positionPictures } from './position-pictures'
 import { Composition } from './composition'
-import { Dimension, Solution } from '../types'
+import type { Dimension, Solution } from '../types'
 import { sizeVariation } from '../utils/size-variation'
 
 export const positionSolution = (

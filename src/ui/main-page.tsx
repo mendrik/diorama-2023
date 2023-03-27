@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
-import { Picture } from '../types'
+import type { Picture } from '../types'
 import { Controls } from './controls'
 import { Diorama } from './diorama'
 import { ShowCrop } from './show-crop'
