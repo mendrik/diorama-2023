@@ -20,6 +20,7 @@ const ShowCropCss = createGlobalStyle`
 
 const ImageLayout = styled.ol`
   position: relative;
+  overflow: hidden;
   width: 100vw;
   height: 100vh;
   transition: all 1s linear;

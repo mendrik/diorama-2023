@@ -9,6 +9,3 @@ export const ShowCrop = (): null => {
 
   return null
 }
-
-// eslint-disable-next-line functional/immutable-data
-ShowCrop.whyDidYouRender = true

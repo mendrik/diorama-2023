@@ -1,6 +1,7 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { comlink } from 'vite-plugin-comlink'
 
 // https://vitejs.dev/config/
 import postcss_import from 'postcss-import'
@@ -14,9 +15,12 @@ export default defineConfig({
       plugins: [postcss_import(), postcss_nesting(), autoprefixer()]
     }
   },
-  plugins: [react()],
+  plugins: [react(), comlink()],
   test: {
     globals: true,
     environment: 'happy-dom'
+  },
+  worker: {
+    plugins: [comlink()]
   }
 })
