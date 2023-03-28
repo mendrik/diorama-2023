@@ -18,8 +18,6 @@ const ImageLayout = styled.ol`
   width: 100%;
   height: 100%;
   transition: all 1s linear;
-  transform: scale(var(--scaleX), var(--scaleY));
-  transform-origin: 0 0;
 
   > li {
     position: absolute;
