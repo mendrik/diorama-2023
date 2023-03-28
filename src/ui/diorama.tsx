@@ -15,8 +15,8 @@ type OwnProps = {
 const ImageLayout = styled.ol`
   position: relative;
   overflow: hidden;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   transition: all 1s linear;
   transform: scale(var(--scaleX), var(--scaleY));
   transform-origin: 0 0;

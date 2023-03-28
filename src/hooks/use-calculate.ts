@@ -1,6 +1,6 @@
 import { useAsyncFn, useEffectOnce } from 'react-use'
 import { Action, controlContext } from '../ui/controls'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useLayoutEffect, useState } from 'react'
 import type { Dimension, Picture, Solution } from '../types'
 import { findSolution } from '../layout/find-solution'
 import type { AsyncState } from 'react-use/lib/useAsyncFn'
@@ -14,7 +14,7 @@ export const useCalculate = (images: Picture[], dimension: Dimension): AsyncStat
     [images.length, dimension.width, dimension.height, redraw]
   )
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (dimension.width > 0 && dimension.height > 0) {
       trigger()
     }
