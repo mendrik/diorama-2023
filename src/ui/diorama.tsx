@@ -5,7 +5,7 @@ import { useCalculate } from '../hooks/use-calculate'
 import { useImageList } from '../hooks/use-image-list'
 import type { Dimension, Picture, Solution } from '../types'
 import { PictureListItem } from './picture-list-item'
-import { useElementResize } from '../hooks/use-element-resize'
+import { useParentResize } from '../hooks/use-parent-resize'
 import { useMemo } from 'react'
 
 type OwnProps = {
@@ -35,7 +35,7 @@ const scale = (value: Solution, dimension: Dimension, p: 'width' | 'height'): nu
   value && value.pictures.length > minImages ? prop(p, dimension) / prop(p, value.dimension) : 1
 
 export const Diorama = ({ images: initialImages }: OwnProps): JSX.Element => {
-  const [ref, dimension] = useElementResize<HTMLOListElement>()
+  const [ref, dimension] = useParentResize<HTMLOListElement>()
   const images = useImageList(initialImages)
   const { error, value } = useCalculate(images, dimension)
 

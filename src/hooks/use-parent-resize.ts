@@ -9,7 +9,7 @@ const getDimension = (el: Element): Dimension => ({
   height: el.clientHeight
 })
 
-export const useElementResize = <T extends HTMLElement>(): [RefObject<T>, Dimension] => {
+export const useParentResize = <T extends HTMLElement>(): [RefObject<T>, Dimension] => {
   const ref = useRef<T>(null)
   const [dimension, setDimension] = useState<Dimension>({ width: 0, height: 0 })
 
