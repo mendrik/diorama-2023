@@ -13,15 +13,16 @@ export const findSolution = (pictures: Picture[], targetDimension: Dimension): S
   const arTarget = targetDimension.width / targetDimension.height
   const solutions: Solution[] = []
 
+  // search possible solutions for a limited amount of time
   // eslint-disable-next-line functional/no-loop-statements
   while (Date.now() - start < maxComputationTime) {
     const root = toRandomTree(pictures)
     const distance = Math.abs(root.aspectRatio - arTarget)
     const score = Math.max(0, 1 - distance / arTarget)
 
+    // discard non-fitting solutions (too much crop)
     if (pictures.length <= minImages || score > aspectRatioThreshold) {
       const actualDimensions = resizeDimension(targetDimension, root.aspectRatio)
-      // discard non-fitting solutions (too much crop)
       const finalLayout = positionSolution(actualDimensions, score, root)
       // eslint-disable-next-line functional/immutable-data
       solutions.unshift(finalLayout)
