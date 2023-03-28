@@ -1,7 +1,7 @@
 import { sizeHomogenity } from './../constants'
 import { evolve, last, prop, sortBy } from 'ramda'
 import type { Ord } from 'ramda'
-import type { NonEmptyArray, Solution } from '../types'
+import type { NonEmptyArray, Solution } from '../types/types'
 
 const aspectRatioAndSize = (solution: Solution): Ord =>
   (solution.aspectRatioDelta + solution.sizeHomogeneity * sizeHomogenity) / (sizeHomogenity + 1)

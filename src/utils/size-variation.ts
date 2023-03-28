@@ -1,4 +1,4 @@
-import type { Dimension } from '../types'
+import type { Dimension } from '../types/types'
 import { average } from './average'
 
 export const sizeVariation = (rects: Dimension[]): number => {

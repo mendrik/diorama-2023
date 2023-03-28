@@ -1,7 +1,7 @@
 import { useAsyncFn, useEffectOnce } from 'react-use'
 import { Action, controlContext } from '../ui/controls'
 import { useContext, useLayoutEffect, useState } from 'react'
-import type { Dimension, Picture, Solution } from '../types'
+import type { Dimension, Picture, Solution } from '../types/types'
 import { findSolution } from '../layout/find-solution'
 import type { AsyncState } from 'react-use/lib/useAsyncFn'
 import { inc } from 'ramda'

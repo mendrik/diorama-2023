@@ -1,7 +1,7 @@
 /// <reference types="vite-plugin-comlink/client" />
 
 import { aspectRatioThreshold, maxComputationTime, minImages } from '../constants'
-import type { Dimension, Picture, Solution } from '../types'
+import type { Dimension, Picture, Solution } from '../types/types'
 import { isNotEmpty } from '../utils/isNotEmpty'
 import { resizeDimension } from '../utils/resize-dimension'
 import { evaluateSolutions } from './evaluate-solutions'

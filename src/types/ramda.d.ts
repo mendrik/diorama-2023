@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { NonEmptyArray } from './../types.d'
+import { NonEmptyArray } from './types'
 import 'ramda'
 
 declare module 'ramda' {

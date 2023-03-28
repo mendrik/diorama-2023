@@ -1,5 +1,5 @@
 import { PropsWithChildren, createContext, useCallback } from 'react'
-import type { Config, OnAction, Unsubscribe } from '../types'
+import type { Config, OnAction, Unsubscribe } from '../types/types'
 import { iconSize } from '../constants'
 import { BoxPadding, LayoutGridAdd, Refresh, Trash, WindowMaximize } from 'tabler-icons-react'
 import { concat, without } from 'ramda'

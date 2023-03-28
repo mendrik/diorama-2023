@@ -1,5 +1,5 @@
 import { concat } from 'ramda'
-import type { Dimension, Picture, Position, PositionedPicture, Rect } from '../types'
+import type { Dimension, Picture, Position, PositionedPicture, Rect } from '../types/types'
 
 const isPicture = (rect: Rect): rect is Picture => 'url' in rect
 

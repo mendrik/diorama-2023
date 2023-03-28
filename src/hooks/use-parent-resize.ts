@@ -1,6 +1,6 @@
 import { useState, RefObject, useRef, useLayoutEffect, startTransition } from 'react'
 
-import type { Dimension } from '../types'
+import type { Dimension } from '../types/types'
 import { equals } from 'ramda'
 import { debounce } from '../utils/debounce'
 

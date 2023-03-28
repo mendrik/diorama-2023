@@ -1,6 +1,5 @@
 import type { AnyFunction } from 'ramda'
-import { Composition } from './layout/composition'
-import { Position, Dimension } from './types.d'
+import { Composition } from '../layout/composition'
 
 type Brand<T extends string> = { __tag: T }
 

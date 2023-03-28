@@ -1,7 +1,7 @@
 import { initialImageAmount } from '../constants'
 import { Action, controlContext } from '../ui/controls'
 import { useContext, useState } from 'react'
-import type { Picture } from '../types'
+import type { Picture } from '../types/types'
 import { inc, pipe, take, length, flip, curry, dec, max } from 'ramda'
 import { useEffectOnce } from 'react-use'
 

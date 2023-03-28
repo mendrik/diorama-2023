@@ -1,4 +1,4 @@
-import { Milliseconds } from './types.d'
+import type { Milliseconds } from './types/types'
 import { range } from 'ramda'
 
 export const images = range(1, 18).map(n => `./images/${n}.jpg`)

@@ -1,4 +1,4 @@
-import { Dimension } from './../types.d'
+import { Dimension } from '../types/types'
 
 export const resizeDimension = (dim: Dimension, aspectRatio: number): Dimension => {
   const newWidth = dim.height * aspectRatio
