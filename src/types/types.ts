@@ -1,4 +1,5 @@
 import { Composition } from '../layout/composition'
+import {sizeHomogeneity} from '../constants'
 
 type Brand<T extends string> = { __tag: T }
 
@@ -45,7 +46,7 @@ export type NonEmptyArray<T> = [T, ...T[]]
 
 export type Config = {
   maxComputationTime: number
-  sizeHomogenity: number // the higher the value, the more pictures will approach the same size
+  sizeHomogeneity: number // the higher the value, the more pictures will approach the same size
   aspectRatioThreshold: number // minimum requirement for aspect ratio match 0-1
   minImages: number
 }

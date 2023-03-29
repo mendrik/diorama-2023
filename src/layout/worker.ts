@@ -1,4 +1,3 @@
-import { aspectRatioThreshold, maxComputationTime, minImages, sizeHomogenity } from '../constants'
 import type { Config, Dimension, Picture, Solution } from '../types/types'
 import { isNotEmpty } from '../utils/isNotEmpty'
 import { resizeDimension } from '../utils/resize-dimension'
@@ -6,17 +5,10 @@ import { evaluateSolutions } from './evaluate-solutions'
 import { positionSolution } from './position-solution'
 import { toRandomTree } from './to-random-tree'
 
-const defaultConfig: Config = {
-  aspectRatioThreshold,
-  maxComputationTime,
-  minImages,
-  sizeHomogenity
-}
-
 export const findSolution = (
   pictures: Picture[],
   targetDimension: Dimension,
-  config = defaultConfig
+  config: Config
 ): Solution => {
   const start = Date.now()
   const arTarget = targetDimension.width / targetDimension.height
