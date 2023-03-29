@@ -9,7 +9,7 @@ export const evaluateSolutions = (results: NonEmptyArray<Solution>, config: Conf
     (solution.aspectRatioDelta + solution.sizeHomogeneity * config.sizeHomogeneity) /
     (config.sizeHomogeneity + 1)
 
-  const rated = sortBy(aspectRatioAndSize, results) as NonEmptyArray<Solution>
+  const rated = sortBy(aspectRatioAndSize, results)
   const winner = last(rated)
   return evolve({ pictures: sortBy<PositionedPicture>(prop('url')) }, winner)
 }
