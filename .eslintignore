@@ -4,3 +4,5 @@ dist/
 **/*.html
 *.md
 env.d.ts
+lib
+build
