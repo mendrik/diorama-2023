@@ -1,27 +1,36 @@
-/// <reference types="vite-plugin-comlink/client" />
-
-import { aspectRatioThreshold, maxComputationTime, minImages } from '../constants'
-import type { Dimension, Picture, Solution } from '../types/types'
+import { aspectRatioThreshold, maxComputationTime, minImages, sizeHomogenity } from '../constants'
+import type { Config, Dimension, Picture, Solution } from '../types/types'
 import { isNotEmpty } from '../utils/isNotEmpty'
 import { resizeDimension } from '../utils/resize-dimension'
 import { evaluateSolutions } from './evaluate-solutions'
 import { positionSolution } from './position-solution'
 import { toRandomTree } from './to-random-tree'
 
-export const findSolution = (pictures: Picture[], targetDimension: Dimension): Solution => {
+const defaultConfig: Config = {
+  aspectRatioThreshold,
+  maxComputationTime,
+  minImages,
+  sizeHomogenity
+}
+
+export const findSolution = (
+  pictures: Picture[],
+  targetDimension: Dimension,
+  config = defaultConfig
+): Solution => {
   const start = Date.now()
   const arTarget = targetDimension.width / targetDimension.height
   const solutions: Solution[] = []
 
   // search possible solutions for a limited amount of time
   // eslint-disable-next-line functional/no-loop-statements
-  while (Date.now() - start < maxComputationTime) {
+  while (Date.now() - start < config.maxComputationTime) {
     const root = toRandomTree(pictures)
     const distance = Math.abs(root.aspectRatio - arTarget)
     const score = Math.max(0, 1 - distance / arTarget)
 
     // discard non-fitting solutions (too much crop)
-    if (pictures.length <= minImages || score > aspectRatioThreshold) {
+    if (pictures.length <= config.minImages || score > config.aspectRatioThreshold) {
       const actualDimensions = resizeDimension(targetDimension, root.aspectRatio)
       const finalLayout = positionSolution(actualDimensions, score, root)
       // eslint-disable-next-line functional/immutable-data
@@ -32,5 +41,5 @@ export const findSolution = (pictures: Picture[], targetDimension: Dimension): S
     // eslint-disable-next-line functional/no-throw-statements
     throw new Error('No solution')
   }
-  return evaluateSolutions(solutions)
+  return evaluateSolutions(solutions, config)
 }

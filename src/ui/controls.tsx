@@ -1,8 +1,8 @@
-import { PropsWithChildren, createContext, useCallback } from 'react'
-import type { Config, OnAction, Unsubscribe } from '../types/types'
+import {PropsWithChildren, createContext, useCallback, EffectCallback} from 'react'
 import { iconSize } from '../constants'
 import { BoxPadding, LayoutGridAdd, Refresh, Trash, WindowMaximize } from 'tabler-icons-react'
 import { concat, without } from 'ramda'
+import type { AnyFunction } from 'ramda'
 import { uninitialized } from '../utils/uninitialized'
 import screenfull from 'screenfull'
 import styled from 'styled-components'
@@ -15,7 +15,13 @@ export enum Action {
   removeImage = 'removeImage'
 }
 
-export const controlContext = createContext<Config<Action>>(uninitialized())
+type Unsubscribe = Exclude<ReturnType<EffectCallback>, void>
+type OnAction = AnyFunction
+
+type Subscriber<T> = {
+  subscribe: (action: T, fn: OnAction) => Unsubscribe
+}
+export const controlContext = createContext<Subscriber<Action>>(uninitialized())
 
 const ButtonList = styled.ol`
   position: absolute;
