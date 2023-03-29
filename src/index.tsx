@@ -6,7 +6,7 @@ import { throwError } from './utils/throw-error'
 import { loadImages } from './utils/load-images'
 import { images } from './constants'
 import { MainPage } from './ui/main-page'
-import { StrictMode } from 'react'
+import React, { StrictMode } from 'react'
 
 Maybe.fromNullable(document.getElementById('root'))
   .ifNothing(() => throwError('#root element not found'))
