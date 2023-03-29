@@ -1,17 +1,29 @@
-/// <reference types="vitest" />
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { comlink } from 'vite-plugin-comlink'
+import { resolve } from 'path'
 
-// https://vitejs.dev/config/
 import postcss_import from 'postcss-import'
 import postcss_nesting from 'postcss-nesting'
+// @ts-ignore
 import autoprefixer from 'autoprefixer'
 
-export default defineConfig({
-  build: {
-    outDir: 'docs'
+const libraryOptions = {
+  lib: {
+    entry: resolve(__dirname, 'lib/diorama.js'),
+    name: 'Diorama',
+    fileName: 'diorama'
   },
+  outDir: 'lib',
+  assetsDir: 'none',
+  rollupOptions: {
+    input: 'src/layout/worker.ts',
+  }
+}
+
+export default defineConfig(({ mode }) => ({
+  publicDir: mode === 'library' ? false : 'public',
+  build: mode === 'library' ? libraryOptions : { outDir: 'docs' },
   css: {
     devSourcemap: true,
     postcss: {
@@ -26,4 +38,4 @@ export default defineConfig({
   worker: {
     plugins: [comlink()]
   }
-})
+}))
