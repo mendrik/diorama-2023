@@ -1,16 +1,28 @@
 {
-  "name": "diorama-2023",
-  "private": true,
-  "version": "0.0.1",
+  "name": "diorama",
+  "version": "2.0.7",
+  "keywords": ["gallery", "webworker", "typescipt", "image layout", "gallery", "picture arrangement", "box layout"],
   "type": "module",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "url": "https://github.com/mendrik/diorama-2023",
+    "type": "github"
+  },
+  "main": "./lib/diorama.umd.cjs",
+  "module": "./dist/diorama.js",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build --base=/diorama-2023/",
+    "types": "tsc --project tsconfig.lib.json",
+    "library": "vite build --mode library && npm run types",
     "preview": "vite preview",
     "lint": "eslint . --ext .ts,.tsx",
     "test": "vitest"
   },
-  "dependencies": {
+  "devDependencies": {
     "comlink": "4.4.1",
     "ramda": "0.28.0",
     "react": "18.2.0",
@@ -18,35 +30,33 @@
     "react-use": "17.4.0",
     "screenfull": "6.0.2",
     "styled-components": "5.3.9",
-    "tabler-icons-react": "1.56.0"
-  },
-  "devDependencies": {
+    "tabler-icons-react": "1.56.0",
     "@types/ramda": "0.28.23",
-    "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
+    "@types/react": "18.0.28",
     "@types/styled-components": "5.1.26",
     "@typescript-eslint/eslint-plugin": "5.55.0",
     "@typescript-eslint/parser": "5.55.0",
     "@vitejs/plugin-react": "3.1.0",
     "@welldone-software/why-did-you-render": "7.0.1",
     "autoprefixer": "10.4.14",
-    "eslint": "8.36.0",
     "eslint-config-prettier": "8.7.0",
     "eslint-plugin-functional": "5.0.6",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-jsx-a11y": "6.7.1",
-    "eslint-plugin-react": "7.32.2",
     "eslint-plugin-react-hooks": "4.6.0",
+    "eslint-plugin-react": "7.32.2",
     "eslint-plugin-unused-imports": "2.0.0",
+    "eslint": "8.36.0",
     "happy-dom": "8.9.0",
-    "postcss": "8.4.21",
     "postcss-import": "15.1.0",
     "postcss-nesting": "11.2.1",
+    "postcss": "8.4.21",
     "prettier": "2.8.6",
     "purify-ts": "2.0.0",
     "typescript": "5.0.2",
-    "vite": "4.2.1",
     "vite-plugin-comlink": "3.0.5",
-    "vitest": "0.29.7"
+    "vite": "4.2.1",
+    "vitest": "0.29.8"
   }
 }
