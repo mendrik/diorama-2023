@@ -1,6 +1,6 @@
 {
   "name": "diorama",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "keywords": ["gallery", "webworker", "typescipt", "image layout", "gallery", "picture arrangement", "box layout"],
   "type": "module",
   "types": "./lib/index.d.ts",
