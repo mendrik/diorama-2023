@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "src",
+    "outDir": "lib",
+    "declaration": true,
+    "module": "ESNext",
+    "lib": ["DOM", "ESNext"],
+    "esModuleInterop": true,
+    "emitDeclarationOnly": true,
+    "resolveJsonModule": false,
+    "noEmit": false,
+    "isolatedModules": false,
+    "jsx": "preserve",
+    "jsxFactory": ""
+  },
+  "include": ["src/index.ts"],
+  "exclude": ["src/images"]
+}
