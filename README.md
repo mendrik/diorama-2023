@@ -17,7 +17,7 @@ If you want to use this algorithm in your own project you can install the librar
 export const findSolution = (
   pictures: Picture[],
   targetDimension: Dimension,
-  config: Config
+  config?: Config
 ): Solution
 ```
 
@@ -27,7 +27,7 @@ export const findSolution = (
 
 ```typescript
 export type Config = {
-  maxComputationTime: number // ms how long the algorithm is allowed to search for a good solution
+  maxComputationTime: number // ms how long the algorithm is allowed to search for a good solution, default 300ms
   sizeHomogenity: number // how imporant equal picture-sizes are. If you don't care about cropping at all set this to 1000
   aspectRatioThreshold: number // minimum requirement for aspect ratio match, should be somewhere around 0.95 - 0.995.
   minImages: number // the minimum amount of images where the algorithm even bothers to search solutions
