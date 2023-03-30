@@ -34,7 +34,7 @@ export const findSolution = (
       const actualDimensions = resizeDimension(targetDimension, root.aspectRatio)
       const finalLayout = positionSolution(actualDimensions, score, root)
       // eslint-disable-next-line functional/immutable-data
-      solutions.unshift(finalLayout)
+      solutions.push(finalLayout)
     }
   }
   if (!isNotEmpty(solutions)) {
