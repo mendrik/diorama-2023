@@ -1,4 +1,4 @@
-# Diorama v2 - 27.03.2023
+# Diorama v2
 
 Almost 10 years ago I [wrote an algorithm](https://github.com/mendrik/diorama) that layouts a set of images into a fixed-size rectangle. The old algorithm was heavily optimized for speed, making the code hard to read and even harder to maintain.
 
@@ -9,7 +9,7 @@ The result [can be seen here](https://mendrik.github.io/diorama-2023/).
 
 I will probably make this an installable React component in the near future.
 
-## Layout alogorithm
+## Layout algorithm
 
 If you want to use this algorithm in your own project you can install the library via `npm i diorama` which exports a single function "findSolution".
 
@@ -21,7 +21,7 @@ export const findSolution = (
 ): Solution
 ```
 
-`targetDimension` is the rectangle the list of `pictures` are going to be placed in. Config can customize the behavior of the algorithm. Beware that this is a long running task and you are advised to wrap it in a Promise or use a WebWorker for it. Check this repository how it can be done. The result object `Solution` contains all you need to know, so let the types guide you. Note that a solution has its own property `dimension` which might slightly differ from the targetDimension. It's up to you to scale the solution up or down.
+`targetDimension` is the rectangle the list of `pictures` are going to be placed in. Config can customize the behavior of the algorithm. Beware that this is a long running task and you are advised to wrap it in a Promise or use a WebWorker. As a matter of fact this repository utilizes a WebWorker which might work as an example. The returned `Solution` contains all you need to know, so let the types guide you. Note that a solution has its own property `dimension` which might slightly differ from the targetDimension. It's up to you to scale the solution up or down.
 
 ## Configuration
 
