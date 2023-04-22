@@ -1,6 +1,6 @@
 {
   "name": "diorama",
-  "version": "2.0.9",
+  "version": "2.0.11",
   "keywords": ["gallery", "webworker", "typescipt", "image layout", "gallery", "picture arrangement", "box layout"],
   "type": "module",
   "types": "./lib/index.d.ts",
@@ -12,7 +12,7 @@
     "type": "github"
   },
   "main": "./lib/diorama.umd.cjs",
-  "module": "./dist/diorama.js",
+  "module": "./lib/diorama.js",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build --base=/diorama-2023/",

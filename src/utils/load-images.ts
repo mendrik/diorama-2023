@@ -1,7 +1,7 @@
 /* eslint-disable functional/immutable-data */
-import type { Picture, RelaltiveUrl } from '../types/types'
+import type { Picture, RelativeUrl } from '../types/types'
 
-const imagePromise = (url: RelaltiveUrl): Promise<Picture> =>
+const imagePromise = (url: RelativeUrl): Promise<Picture> =>
   new Promise<Picture>((res, rej) => {
     const img = new Image()
     img.onload = (): void =>
@@ -17,5 +17,5 @@ const imagePromise = (url: RelaltiveUrl): Promise<Picture> =>
     img.src = url
   })
 
-export const loadImages = (imageUrls: RelaltiveUrl[]): Promise<Picture[]> =>
+export const loadImages = (imageUrls: RelativeUrl[]): Promise<Picture[]> =>
   Promise.all(imageUrls.map(imagePromise))

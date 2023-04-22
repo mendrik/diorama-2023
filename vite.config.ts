@@ -17,7 +17,7 @@ const libraryOptions = {
   outDir: 'lib',
   assetsDir: 'none',
   rollupOptions: {
-    input: 'src/layout/worker.ts',
+    input: 'src/layout/worker.ts'
   }
 }
 

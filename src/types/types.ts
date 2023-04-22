@@ -1,21 +1,20 @@
-import { Composition } from '../layout/composition'
-import {sizeHomogeneity} from '../constants'
+import {Composition} from '../layout/composition'
 
 type Brand<T extends string> = { __tag: T }
 
-export type RelaltiveUrl = string
+export type RelativeUrl = string
 export type Milliseconds = number & Brand<'ms'>
 
 export type Picture = {
   dimension: Dimension
   aspectRatio: number
-  url: RelaltiveUrl
+  url: RelativeUrl
 }
 
 export type PositionedPicture = {
   position: Position
   dimension: Dimension
-  url: RelaltiveUrl
+  url: RelativeUrl
 }
 
 export type Solution = {
