@@ -7,5 +7,5 @@ export const workerInstance = new ComlinkWorker<typeof import('./worker')>(
 export const findSolution = (
   pictures: Picture[],
   targetDimension: Dimension,
-  config?: Config
+  config?: Partial<Config>
 ): Promise<Solution> => workerInstance.findSolution(pictures, targetDimension, config)

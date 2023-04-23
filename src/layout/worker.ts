@@ -5,6 +5,7 @@ import { resizeDimension } from '../utils/resize-dimension'
 import { evaluateSolutions } from './evaluate-solutions'
 import { positionSolution } from './position-solution'
 import { toRandomTree } from './to-random-tree'
+import {mergeLeft} from 'ramda'
 
 const defaultConfig: Config = {
   aspectRatioThreshold,
@@ -16,8 +17,9 @@ const defaultConfig: Config = {
 export const findSolution = (
   pictures: Picture[],
   targetDimension: Dimension,
-  config = defaultConfig
+  partialConfig?: Partial<Config>
 ): Solution => {
+  const config = mergeLeft(partialConfig ?? {}, defaultConfig)
   const start = Date.now()
   const arTarget = targetDimension.width / targetDimension.height
   const solutions: Solution[] = []
