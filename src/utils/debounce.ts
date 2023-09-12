@@ -1,6 +1,6 @@
 /* eslint-disable functional/no-let */
-import type { AnyFunction } from 'ramda'
-export const debounce = <T extends AnyFunction>(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const debounce = <T extends (...args: any[]) => any>(
   delay: number,
   func: T
 ): ((...args: Parameters<T>) => void) => {

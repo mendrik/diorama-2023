@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { CondPair, Ord } from 'ramda'
-import type { NonEmptyArray } from './types'
+import type {CondPair, Ord} from 'ramda'
+import {isNil} from 'ramda'
+import type {NonEmptyArray} from './types'
 
 declare module 'ramda' {
   export function head<T>(arr: NonEmptyArray<T>): T

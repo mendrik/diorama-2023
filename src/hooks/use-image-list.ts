@@ -5,7 +5,12 @@ import type { Picture } from '../types/types'
 import { inc, pipe, take, length, flip, curry, dec, max } from 'ramda'
 import { useEffectOnce } from 'react-use'
 
-const takeF = curry(flip(take))
+interface TypeF {
+  (data: Picture[]): (l: number) => Picture[],
+  (data: Picture[], l: number): Picture[]
+}
+
+const takeF: TypeF = curry(flip(take))
 
 export const useImageList = (initialImages: Picture[]): Picture[] => {
   const { subscribe } = useContext(controlContext)

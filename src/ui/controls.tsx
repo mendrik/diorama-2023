@@ -2,7 +2,6 @@ import {PropsWithChildren, createContext, useCallback, EffectCallback} from 'rea
 import { iconSize } from '../constants'
 import { BoxPadding, LayoutGridAdd, Refresh, Trash, WindowMaximize } from 'tabler-icons-react'
 import { concat, without } from 'ramda'
-import type { AnyFunction } from 'ramda'
 import { uninitialized } from '../utils/uninitialized'
 import screenfull from 'screenfull'
 import styled from 'styled-components'
@@ -16,7 +15,7 @@ export enum Action {
 }
 
 type Unsubscribe = Exclude<ReturnType<EffectCallback>, void>
-type OnAction = AnyFunction
+type OnAction = (...args: unknown[]) => unknown
 
 type Subscriber<T> = {
   subscribe: (action: T, fn: OnAction) => Unsubscribe
