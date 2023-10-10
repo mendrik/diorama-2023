@@ -19,7 +19,7 @@ export const findSolution = (
 ): Promise<Solution>
 ```
 
-`targetDimension` is the rectangle into which the list of `pictures` is going to be placed in. Config can customize the behavior of the algorithm. Beware that this is a long running task and it runns inside a WebWorker. The returned `Solution` contains all you need to know, so let the types guide you. Note that a solution has its own property `dimension` which might slightly differ from the targetDimension. It's up to you to scale the solution, however the solution's dimension never exceeds the `targetDimension`.
+`targetDimension` is the rectangle into which the list of `pictures` is going to be placed in. Config can customize the behavior of the algorithm. Beware that this is a long running task and it runs inside a WebWorker. The returned `Solution` contains all you need to know, so let the types guide you. Note that a solution has its own property `dimension` which might slightly differ from the targetDimension. It's up to you to scale the solution, however the solution's dimension never exceeds the `targetDimension`.
 
 ## Configuration
 
