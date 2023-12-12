@@ -20,5 +20,5 @@ Maybe.fromNullable(document.getElementById('root'))
           </StrictMode>
         )
       })
-      .catch(() => alert('Failed to load imagges'))
+      .catch(() => alert('Failed to load images'))
   )
