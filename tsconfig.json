@@ -6,7 +6,8 @@
     "types": [
       "vite/client",
       "vitest/globals",
-      "vite-plugin-comlink/client"
+      "vite-plugin-comlink/client",
+      "web"
     ],
     "useDefineForClassFields": true,
     "lib": [
