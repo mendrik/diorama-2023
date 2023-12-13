@@ -1,4 +1,3 @@
-/* eslint-disable functional/immutable-data */
 import type { Picture, RelativeUrl } from '../types/types'
 
 const imagePromise = (url: RelativeUrl): Promise<Picture> =>

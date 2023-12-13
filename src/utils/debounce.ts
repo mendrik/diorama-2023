@@ -1,4 +1,3 @@
-/* eslint-disable functional/no-let */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const debounce = <T extends (...args: any[]) => any>(
   delay: number,

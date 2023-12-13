@@ -1,12 +1,14 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
+  parserOptions: {
+    tsconfigRootDir: __dirname
+  },
   env: {
     es6: true
   },
-  plugins: ['@typescript-eslint', 'functional', 'unused-imports', 'react-hooks'],
+  plugins: ['@typescript-eslint', 'unused-imports', 'react-hooks'],
   extends: [
     'eslint:recommended',
-    'plugin:functional/recommended',
     'plugin:react/recommended',
     'plugin:import/recommended',
     'plugin:jsx-a11y/recommended',
@@ -14,6 +16,7 @@ module.exports = {
     'eslint-config-prettier',
     'plugin:react-hooks/recommended'
   ],
+  ignorePatterns: ['node_modules/', 'dist/', 'build/', 'coverage/', 'vite.config.ts'],
   settings: {
     react: {
       // Tells eslint-plugin-react to automatically detect the version of React to use.
@@ -23,28 +26,22 @@ module.exports = {
     'import/resolver': {
       node: {
         paths: ['src'],
-        extensions: ['.js', '.jsx', '.ts', '.tsx']
+        extensions: ['.ts', '.tsx']
       }
     },
     excludedFiles: ['**/*.spec.*']
   },
   rules: {
     'comma-dangle': ['error', 'never'],
-    'functional/no-classes': ['off'],
-    'functional/no-expression-statements': ['off'],
     '@typescript-eslint/semi': [2, 'never'],
     'prefer-arrow-callback': ['error'],
-    'functional/prefer-readonly-type': ['off'] ,
-    'functional/prefer-immutable-types': ['off'] ,
-    'functional/no-conditional-statements': ['off'] ,
-    'functional/no-return-void': ['off'],
-    'functional/functional-parameters': ['off'],
     'react/react-in-jsx-scope': ['off'],
     'prefer-const': 'error',
     'no-param-reassign': 'error',
     'no-var': 'error',
     'react/prop-types': 'off',
     'import/no-named-as-default': 'off',
+    'import/no-unresolved': 'off',
     '@typescript-eslint/explicit-function-return-type': ['error', { allowHigherOrderFunctions: true,  allowExpressions: true }],
     'no-restricted-syntax': [
       'error',

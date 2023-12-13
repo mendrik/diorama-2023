@@ -1,25 +1,38 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "types": ["vite/client", "vitest/globals", "vite-plugin-comlink/client"],
+    "moduleResolution": "node",
+    "module": "ESNext",
+    "types": [
+      "vite/client",
+      "vitest/globals",
+      "vite-plugin-comlink/client"
+    ],
     "useDefineForClassFields": true,
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "lib": [
+      "ESNext",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "allowJs": false,
     "skipLibCheck": true,
     "strict": true,
     "strictFunctionTypes": true,
     "esModuleInterop": true,
-    "moduleResolution": "Node",
-    "module": "ESNext",
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "listFiles": false,
     "jsx": "react-jsx"
   },
   "include": [
     "src"
   ],
-  "exclude": ["node_modules", "lib", "docs"]
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }

@@ -25,7 +25,6 @@ export const findSolution = (
   const solutions: Solution[] = []
 
   // search possible solutions for a limited amount of time
-  // eslint-disable-next-line functional/no-loop-statements
   while (Date.now() - start < config.maxComputationTime) {
     const root = toRandomTree(pictures)
     const distance = Math.abs(root.aspectRatio - arTarget)
@@ -35,12 +34,10 @@ export const findSolution = (
     if (pictures.length <= config.minImages || score > config.aspectRatioThreshold) {
       const actualDimensions = resizeDimension(targetDimension, root.aspectRatio)
       const finalLayout = positionSolution(actualDimensions, score, root)
-      // eslint-disable-next-line functional/immutable-data
       solutions.push(finalLayout)
     }
   }
   if (!isNotEmpty(solutions)) {
-    // eslint-disable-next-line functional/no-throw-statements
     throw new Error('No solution')
   }
   return evaluateSolutions(solutions, config)

@@ -1,5 +1,4 @@
 {
-  "extends": "./tsconfig.json",
   "compilerOptions": {
     "baseUrl": "src",
     "outDir": "lib",
@@ -15,5 +14,10 @@
     "jsxFactory": ""
   },
   "include": ["src/index.ts"],
-  "exclude": ["src/images"]
+  "exclude": ["src/images"],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }
