@@ -15,7 +15,7 @@ export const toRandomTree = (compositions: Rect[]): Composition => {
   }
   const index1 = randomInt(0, max)
   // eslint-disable-next-line no-var
-  var index2
+  let index2
   do {
     index2 = randomInt(0, max)
   } while(index1 === index2)

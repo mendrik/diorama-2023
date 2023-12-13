@@ -12,21 +12,25 @@ export const positionPictures = (
     return [{ position, dimension, url: rect.url }]
   }
 
-  const length: number = rect.horizontal
-    ? dimension.height * rect.first.aspectRatio
-    : dimension.width / rect.first.aspectRatio
+  const lengthHorizontal = dimension.height * rect.first.aspectRatio
+  const lengthVertical = dimension.width / rect.first.aspectRatio
 
-  const position2: Position = rect.horizontal
-    ? { x: position.x + length, y: position.y }
-    : { x: position.x, y: position.y + length }
+  const length = rect.horizontal ? lengthHorizontal : lengthVertical
 
-  const dimension1: Dimension = rect.horizontal
-    ? { width: length, height: dimension.height }
-    : { width: dimension.width, height: length }
+  const positionHorizontal = { x: position.x + length, y: position.y }
+  const positionVertical = { x: position.x, y: position.y + length }
 
-  const dimension2: Dimension = rect.horizontal
-    ? { width: Math.abs(dimension.width - length), height: dimension.height }
-    : { width: dimension.width, height: Math.abs(dimension.height - length) }
+  const dimensionHorizontal = { width: length, height: dimension.height }
+  const dimensionVertical = { width: dimension.width, height: length }
+
+  const remainingWidth = dimension.width - length
+  const remainingHeight = dimension.height - length
+  const dimension2Horizontal = { width: remainingWidth, height: dimension.height }
+  const dimension2Vertical = { width: dimension.width, height: remainingHeight }
+
+  const position2 = rect.horizontal ? positionHorizontal : positionVertical
+  const dimension1 = rect.horizontal ? dimensionHorizontal : dimensionVertical
+  const dimension2 = rect.horizontal ? dimension2Horizontal : dimension2Vertical
 
   return concat(
     positionPictures(position, dimension1, rect.first),

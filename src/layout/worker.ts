@@ -23,6 +23,7 @@ export const findSolution = (
   const start = Date.now()
   const arTarget = targetDimension.width / targetDimension.height
   const solutions: Solution[] = []
+  let cycles = 0
 
   // search possible solutions for a limited amount of time
   while (Date.now() - start < config.maxComputationTime) {
@@ -36,7 +37,9 @@ export const findSolution = (
       const finalLayout = positionSolution(actualDimensions, score, root)
       solutions.push(finalLayout)
     }
+    cycles++
   }
+  console.log('cycles ran:', cycles)
   if (!isNotEmpty(solutions)) {
     throw new Error('No solution')
   }
