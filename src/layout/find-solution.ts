@@ -1,4 +1,4 @@
-import { aspectRatioThreshold, captionHeight, maxComputationTime, sizeHomogeneity } from '../constants'
+import {  maxComputationTime, sizeHomogeneity } from '../constants'
 import type { Config, Dimension, Picture, Solution } from '../types/types'
 import { isNotEmpty } from '../utils/isNotEmpty'
 import { evaluateSolutions } from './evaluate-solutions'
@@ -8,10 +8,8 @@ import { mergeLeft } from 'ramda'
 import { resizeDimension } from '../utils/resize-dimension'
 
 const defaultConfig: Config = {
-  aspectRatioThreshold,
   maxComputationTime,
-  sizeHomogeneity,
-  captionHeight
+  sizeHomogeneity
 }
 
 export const findSolution = (

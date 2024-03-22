@@ -1,6 +1,6 @@
 import {PropsWithChildren, createContext, useCallback, EffectCallback} from 'react'
 import { iconSize } from '../constants'
-import { BoxPadding, LayoutGridAdd, Refresh, Trash, WindowMaximize } from 'tabler-icons-react'
+import { LayoutGridAdd, Refresh, Trash, WindowMaximize } from 'tabler-icons-react'
 import { concat, without } from 'ramda'
 import { uninitialized } from '../utils/uninitialized'
 import screenfull from 'screenfull'
@@ -92,11 +92,6 @@ export const Controls = ({ children }: PropsWithChildren<unknown>): JSX.Element 
         <li>
           <button onClick={call(Action.refresh)} title="rearrange">
             <Refresh size={iconSize} color="white" />
-          </button>
-        </li>
-        <li>
-          <button onClick={call(Action.showCrop)} title="show cropping">
-            <BoxPadding size={iconSize} color="white" />
           </button>
         </li>
         <li>
