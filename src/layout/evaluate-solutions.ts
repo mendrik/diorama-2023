@@ -4,12 +4,12 @@ import type { PositionedPicture, Config, NonEmptyArray, Solution } from '../type
 import { evolve, last, prop, sortBy } from 'ramda'
 import type { Ord } from 'ramda'
 
-export const evaluateSolutions = (results: NonEmptyArray<Solution>, config: Config): Solution => {
-  const aspectRatioAndSize = (solution: Solution): Ord =>
-    (solution.aspectRatioDelta + solution.sizeHomogeneity * config.sizeHomogeneity) /
-    (config.sizeHomogeneity + 1)
+const aspectRatioAndSize = (config:Config) => (solution: Solution): Ord =>
+  (solution.score + solution.sizeHomogeneity * config.sizeHomogeneity) /
+  (config.sizeHomogeneity + 1)
 
-  const rated = sortBy(aspectRatioAndSize, results)
+export const evaluateSolutions = (results: NonEmptyArray<Solution>, config: Config): Solution => {
+  const rated = sortBy(aspectRatioAndSize(config), results)
   const winner = last(rated)
   return evolve({ pictures: sortBy<PositionedPicture>(prop('url')) }, winner)
 }
