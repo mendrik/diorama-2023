@@ -11,29 +11,28 @@ export const positionPictures = (
   if (isPicture(rect)) {
     return [{ position, dimension, url: rect.url }]
   }
+  if (rect.horizontal) {
+    const lengthHorizontal = dimension.height * rect.first.aspectRatio
+    const positionHorizontal = { x: position.x + lengthHorizontal, y: position.y }
+    const dimensionHorizontal = { width: lengthHorizontal, height: dimension.height }
+    const remainingWidth = dimension.width - lengthHorizontal
+    const dimension2Horizontal = { width: remainingWidth, height: dimension.height }
 
-  const lengthHorizontal = dimension.height * rect.first.aspectRatio
-  const lengthVertical = dimension.width / rect.first.aspectRatio
+    return concat(
+      positionPictures(position, dimensionHorizontal, rect.first),
+      positionPictures(positionHorizontal, dimension2Horizontal, rect.second)
+    )
+  } else {
+    const lengthVertical = dimension.width / rect.first.aspectRatio
+    const positionVertical = { x: position.x, y: position.y + lengthVertical }
+    const dimensionVertical = { width: dimension.width, height: lengthVertical }
+    const remainingHeight = dimension.height - lengthVertical
+    const dimension2Vertical = { width: dimension.width, height: remainingHeight }
 
-  const length = rect.horizontal ? lengthHorizontal : lengthVertical
+    return concat(
+      positionPictures(position, dimensionVertical, rect.first),
+      positionPictures(positionVertical, dimension2Vertical, rect.second)
+    )
+  }
 
-  const positionHorizontal = { x: position.x + length, y: position.y }
-  const positionVertical = { x: position.x, y: position.y + length }
-
-  const dimensionHorizontal = { width: length, height: dimension.height }
-  const dimensionVertical = { width: dimension.width, height: length }
-
-  const remainingWidth = dimension.width - length
-  const remainingHeight = dimension.height - length
-  const dimension2Horizontal = { width: remainingWidth, height: dimension.height }
-  const dimension2Vertical = { width: dimension.width, height: remainingHeight }
-
-  const position2 = rect.horizontal ? positionHorizontal : positionVertical
-  const dimension1 = rect.horizontal ? dimensionHorizontal : dimensionVertical
-  const dimension2 = rect.horizontal ? dimension2Horizontal : dimension2Vertical
-
-  return concat(
-    positionPictures(position, dimension1, rect.first),
-    positionPictures(position2, dimension2, rect.second)
-  )
 }

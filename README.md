@@ -2,10 +2,12 @@
 
 Almost 10 years ago I [wrote an algorithm](https://github.com/mendrik/diorama) that layouts a set of images into a fixed-size rectangle. The old algorithm was heavily optimized for speed, making the code hard to read and even harder to maintain.
 
-Recently (2023) I had an idea how to simplify the algortihm and decided to put this on to a more modern foundation.
-The current configuration values size uniformity over cropping.
+Recently (2023) I had an idea how to simplify the algorithm and decided to put this on to a more modern foundation.
 
-The result [can be seen here](https://mendrik.github.io/diorama-2023/).
+Though the algorithm searches for gap-less solutions the provided demo here cheats by giving images a bit of space and avoids cropping.
+It should be fairly trivial to display images via contain/cover modes in other scenarios.
+
+The result [can be seen here](https://mendrik.github.io/diorama-2023/). 
 
 ## Layout algorithm
 
@@ -27,7 +29,5 @@ export const findSolution = (
 export type Config = {
   maxComputationTime: number // ms how long the algorithm is allowed to search for a good solution, default 300ms
   sizeHomogenity: number // how imporant equal picture-sizes are. If you don't care about cropping at all set this to 1000
-  aspectRatioThreshold: number // minimum requirement for aspect ratio match, should be somewhere around 0.95 - 0.995.
-  minImages: number // the minimum amount of images where the algorithm even bothers to search solutions
 }
 ```
