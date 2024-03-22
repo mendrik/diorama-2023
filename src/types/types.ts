@@ -4,6 +4,7 @@ type Brand<T extends string> = { __tag: T }
 
 export type RelativeUrl = string
 export type Milliseconds = number & Brand<'ms'>
+export type Pixels = number & Brand<'px'>
 
 export type Picture = {
   dimension: Dimension
