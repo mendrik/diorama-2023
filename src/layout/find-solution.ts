@@ -23,7 +23,6 @@ export const findSolution = (
   const start = Date.now()
   const arTarget = targetDimension.width / targetDimension.height
   const solutions: Solution[] = []
-  let cycles = 0
 
   while (Date.now() - start < config.maxComputationTime) {
     const root = toRandomTree(pictures)
@@ -31,9 +30,7 @@ export const findSolution = (
     const score = Math.max(0, 1 - distance / arTarget)
     const actualDimensions = resizeDimension(targetDimension, root.aspectRatio)
     solutions.push(positionSolution(actualDimensions, score, root))
-    cycles++
   }
-  console.log('cycles ran:', cycles)
   if (!isNotEmpty(solutions)) {
     throw new Error('No solution')
   }
