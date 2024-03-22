@@ -2,7 +2,7 @@ import { useAsyncFn, useEffectOnce } from 'react-use'
 import { Action, controlContext } from '../ui/controls'
 import { useContext, useLayoutEffect, useState } from 'react'
 import type { Dimension, Picture, Solution } from '../types/types'
-import { findSolution } from '../layout/find-solution'
+import { worker } from '../layout/worker'
 import type { AsyncState } from 'react-use/lib/useAsyncFn'
 import { inc } from 'ramda'
 
@@ -10,7 +10,7 @@ export const useCalculate = (images: Picture[], dimension: Dimension): AsyncStat
   const [redraw, forceUpdate] = useState(0)
   const { subscribe } = useContext(controlContext)
   const [status, trigger] = useAsyncFn(
-    async () => findSolution(images, dimension),
+    async () => worker(images, dimension),
     [images.length, dimension.width, dimension.height, redraw]
   )
 
