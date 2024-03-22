@@ -1,4 +1,4 @@
-import { aspectRatioThreshold, maxComputationTime, minImages, sizeHomogeneity } from '../constants'
+import { aspectRatioThreshold, captionHeight, maxComputationTime, minImages, sizeHomogeneity } from '../constants'
 import type { Config, Dimension, Picture, Solution } from '../types/types'
 import { isNotEmpty } from '../utils/isNotEmpty'
 import { resizeDimension } from '../utils/resize-dimension'
@@ -11,7 +11,8 @@ const defaultConfig: Config = {
   aspectRatioThreshold,
   maxComputationTime,
   minImages,
-  sizeHomogeneity
+  sizeHomogeneity,
+  captionHeight
 }
 
 export const findSolution = (

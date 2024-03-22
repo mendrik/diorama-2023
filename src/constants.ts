@@ -8,4 +8,4 @@ export const aspectRatioThreshold = 0.98 // minimum requirement for aspect ratio
 export const iconSize = 20
 export const minImages = 4
 export const initialImageAmount = 8
-export const imageCaption = 40 as Pixels
+export const captionHeight = 40 as Pixels

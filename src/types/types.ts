@@ -49,4 +49,5 @@ export type Config = {
   sizeHomogeneity: number // the higher the value, the more pictures will approach the same size
   aspectRatioThreshold: number // minimum requirement for aspect ratio match 0-1
   minImages: number
+  captionHeight: number
 }
