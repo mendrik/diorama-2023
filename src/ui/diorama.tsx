@@ -10,10 +10,14 @@ type OwnProps = {
   images: Picture[]
 }
 
-
 const scale = (value: Solution, dimension: Dimension, p: 'width' | 'height'): number =>
   prop(p, dimension) / prop(p, value.dimension)
 
+declare global {
+  interface Window {
+    solution: Solution
+  }
+}
 export const Diorama = ({ images: initialImages }: OwnProps): JSX.Element => {
   const [ref, dimension] = useParentResize<HTMLOListElement>()
   const images = useImageList(initialImages)
@@ -22,13 +26,13 @@ export const Diorama = ({ images: initialImages }: OwnProps): JSX.Element => {
   const renderedList = useMemo(
     () => (
       <ol ref={ref} className="diorama-list">
-        {value?.pictures.map((pic, idx) => (
+        {(window.solution ?? value)?.pictures.map((pic, idx) => (
           <PictureListItem
             picture={pic}
             idx={idx}
             key={pic.url}
-            scaleX={scale(value, dimension, 'width')}
-            scaleY={scale(value, dimension, 'height')}
+            scaleX={scale(window.solution ?? value, dimension, 'width')}
+            scaleY={scale(window.solution ?? value, dimension, 'height')}
           />
         ))}
       </ol>

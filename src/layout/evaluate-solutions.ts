@@ -2,16 +2,10 @@
 import '../types/ramda'
 
 import type { PositionedPicture, NonEmptyArray, Solution } from '../types/types'
-import { evolve, last, pipe, prop, reject, sortBy } from 'ramda'
-import { aspectRatioAndSize, aspectRatioThreshold } from '../constants'
+import { evolve, last, pipe, prop, sortBy, takeLast } from 'ramda'
+import { aspectRatioAndSize } from '../constants'
 
 export const evaluateSolutions = (results: NonEmptyArray<Solution>): Solution => {
-  const withOutGaps = reject<Solution>(({ score }) => score < aspectRatioThreshold)(results)
-
-  const winner = pipe(
-    sortBy(aspectRatioAndSize) as any,
-    last
-  )(withOutGaps.length > 0 ? withOutGaps : results) as Solution
-
-  return evolve({ pictures: sortBy<PositionedPicture>(prop('url')) }, winner)
+  const sorted = pipe(sortBy(aspectRatioAndSize), takeLast(10), sortBy(prop('score')))(results)
+  return evolve({ pictures: sortBy<PositionedPicture>(prop('url')) }, last(sorted) as Solution)
 }
