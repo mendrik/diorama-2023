@@ -1,4 +1,4 @@
-import { maxComputationTime, randomizeThreshold, sizeHomogeneity } from '../constants'
+import { maxComputationTime, randomizeThreshold } from '../constants'
 import type { Config, Dimension, Picture, Solution } from '../types/types'
 import { isNotEmpty } from '../utils/isNotEmpty'
 import { evaluateSolutions } from './evaluate-solutions'
@@ -9,7 +9,6 @@ import { resizeDimension } from '../utils/resize-dimension'
 
 const defaultConfig: Config = {
   maxComputationTime,
-  sizeHomogeneity,
   randomizeThreshold
 }
 
@@ -22,13 +21,14 @@ export const findSolution = (
   const start = Date.now()
   const arTarget = targetDimension.width / targetDimension.height
   const solutions: Solution[] = []
-  console.log(pictures.length < config.randomizeThreshold ? 'all': 'random')
-  const trees = pictures.length < config.randomizeThreshold
-    ? generateTreeCompositions(pictures)
-    : toRandomTreeGenerator(pictures)
+  console.log(pictures.length < config.randomizeThreshold ? 'all' : 'random')
+  const trees =
+    pictures.length < config.randomizeThreshold
+      ? generateTreeCompositions(pictures)
+      : toRandomTreeGenerator(pictures)
   for (const root of trees) {
     const distance = Math.abs(root.aspectRatio - arTarget)
-    const score = Math.max(0, 1 - distance / arTarget)
+    const score = 1 / (1 + distance)
     const actualDimensions = resizeDimension(targetDimension, root.aspectRatio)
     solutions.push(positionSolution(actualDimensions, score, root))
     if (Date.now() - start > config.maxComputationTime) {
@@ -36,9 +36,8 @@ export const findSolution = (
       break
     }
   }
-  console.log('solutions', solutions.length)
   if (!isNotEmpty(solutions)) {
     throw new Error('No solution')
   }
-  return evaluateSolutions(solutions, config)
+  return evaluateSolutions(solutions)
 }

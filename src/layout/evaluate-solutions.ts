@@ -1,15 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import '../types/ramda'
 
-import type { PositionedPicture, Config, NonEmptyArray, Solution } from '../types/types'
-import { evolve, last, prop, sortBy } from 'ramda'
-import type { Ord } from 'ramda'
+import type { PositionedPicture, NonEmptyArray, Solution } from '../types/types'
+import { evolve, last, pipe, prop, reject, sortBy } from 'ramda'
+import { aspectRatioAndSize, aspectRatioThreshold } from '../constants'
 
-const aspectRatioAndSize = (config:Config) => (solution: Solution): Ord =>
-  (solution.score + solution.sizeHomogeneity * config.sizeHomogeneity) /
-  (config.sizeHomogeneity + 1)
+export const evaluateSolutions = (results: NonEmptyArray<Solution>): Solution => {
+  const withOutGaps = reject<Solution>(({ score }) => score < aspectRatioThreshold)(results)
 
-export const evaluateSolutions = (results: NonEmptyArray<Solution>, config: Config): Solution => {
-  const rated = sortBy(aspectRatioAndSize(config), results)
-  const winner = last(rated)
+  const winner = pipe(
+    sortBy(aspectRatioAndSize) as any,
+    last
+  )(withOutGaps.length > 0 ? withOutGaps : results) as Solution
+
   return evolve({ pictures: sortBy<PositionedPicture>(prop('url')) }, winner)
 }

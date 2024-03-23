@@ -1,6 +1,6 @@
 {
   "name": "diorama",
-  "version": "2.0.15",
+  "version": "2.0.16",
   "keywords": [
     "gallery",
     "webworker",
@@ -16,7 +16,7 @@
     "lib"
   ],
   "repository": {
-    "url": "https://github.com/mendrik/diorama-2023",
+    "url": "git+https://github.com/mendrik/diorama-2023.git",
     "type": "github"
   },
   "main": "./lib/diorama.umd.cjs",

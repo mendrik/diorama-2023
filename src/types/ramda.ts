@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type {CondPair, Ord } from 'ramda'
 import type {NonEmptyArray} from './types'
+import 'ramda'
 
 type isNil = (value: any) => value is null | undefined
+type CondPair<T extends any[], R> = [(...val: T) => boolean, (...val: T) => R]
 
 declare module 'ramda' {
   export function head<T>(arr: NonEmptyArray<T>): T
@@ -15,5 +16,5 @@ declare module 'ramda' {
     whenFalseFn: (a: NonNullable<T>) => U,
     a: T
   ): T | U
-  export function sortBy<T>(fn: (a: T) => Ord, list: NonEmptyArray<T>): NonEmptyArray<T>
+  export function sortBy<T>(fn: (a: T) => number, list: NonEmptyArray<T>): NonEmptyArray<T>
 }

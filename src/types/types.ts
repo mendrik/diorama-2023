@@ -32,6 +32,5 @@ export type NonEmptyArray<T> = [T, ...T[]]
 
 export type Config = {
   maxComputationTime: number
-  sizeHomogeneity: number // the higher the value, the more pictures will approach the same size
   randomizeThreshold: number
 }

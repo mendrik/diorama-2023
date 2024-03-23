@@ -3,11 +3,11 @@
 Almost 10 years ago I [wrote an algorithm](https://github.com/mendrik/diorama) that layouts a set of images into a fixed-size rectangle. The old algorithm was heavily optimized for speed, making the code hard to read and even harder to maintain.
 
 Recently (2023) I had an idea how to simplify the algorithm and decided to put this on to a more modern foundation.
+The algorithm works now with full binary trees instead of full and balanced ones, reducing the amount of calculations needed. Further more for smaller amount of imnages we can now use a generator to get all tree permutations before switching to a random strategy, making this really snappy for smaller image sets.
 
-Though the algorithm searches for gap-less solutions the provided demo here cheats by giving images a bit of space and avoids cropping.
-It should be fairly trivial to display images via contain/cover modes in other scenarios.
+The demo uses some css sugar (paddings, borders and rotation) for dramatic effect but under the bonnet the algorithm still creates gapless rectangles.
 
-The result [can be seen here](https://mendrik.github.io/diorama-2023/). 
+The demo [can be seen here](https://mendrik.github.io/diorama-2023/). 
 
 ## Layout algorithm
 
@@ -28,6 +28,6 @@ export const findSolution = (
 ```typescript
 export type Config = {
   maxComputationTime: number // ms how long the algorithm is allowed to search for a good solution, default 300ms
-  sizeHomogenity: number // how imporant equal picture-sizes are. If you don't care about cropping at all set this to 1000
+  randomizeThreshold: number // when to switch to random tree layout strategy
 }
 ```

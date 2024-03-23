@@ -1,4 +1,4 @@
-import type { JSX }   from 'react'
+import type { JSX } from 'react'
 import styled from 'styled-components'
 import type { Picture } from '../types/types'
 import { Controls } from './controls'
@@ -9,8 +9,8 @@ type OwnProps = {
 }
 
 const FullSize = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width: 98svw;
+  height: 98svh;
 `
 
 export const MainPage = ({ images }: OwnProps): JSX.Element => (
