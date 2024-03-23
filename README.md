@@ -3,9 +3,9 @@
 Almost 10 years ago I [wrote an algorithm](https://github.com/mendrik/diorama) that layouts a set of images into a fixed-size rectangle. The old algorithm was heavily optimized for speed, making the code hard to read and even harder to maintain.
 
 Recently (2023) I had an idea how to simplify the algorithm and decided to put this on to a more modern foundation.
-The algorithm works now with full binary trees instead of full and balanced ones, reducing the amount of calculations needed. Further more for smaller amount of imnages we can now use a generator to get all tree permutations before switching to a random strategy, making this really snappy for smaller image sets.
+The algorithm works now with full binary trees instead of full and balanced ones, reducing the amount of calculations needed. Further more, for smaller amount of images we can now use a generator to get all tree permutations before switching to a random strategy, making this really snappy for smaller image sets.
 
-The demo uses some css sugar (paddings, borders and rotation) for dramatic effect but under the bonnet the algorithm still creates gapless rectangles.
+The demo uses some css sugar (paddings, borders and rotation) for dramatic effect but under the bonnet the algorithm still creates gap-less rectangles.
 
 The demo [can be seen here](https://mendrik.github.io/diorama-2023/). 
 
