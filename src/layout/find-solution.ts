@@ -1,15 +1,16 @@
-import {  maxComputationTime, sizeHomogeneity } from '../constants'
+import { maxComputationTime, randomizeThreshold, sizeHomogeneity } from '../constants'
 import type { Config, Dimension, Picture, Solution } from '../types/types'
 import { isNotEmpty } from '../utils/isNotEmpty'
 import { evaluateSolutions } from './evaluate-solutions'
 import { positionSolution } from './position-solution'
-import { toRandomTree } from './to-random-tree'
+import { generateTreeCompositions, toRandomTreeGenerator } from './to-random-tree'
 import { mergeLeft } from 'ramda'
 import { resizeDimension } from '../utils/resize-dimension'
 
 const defaultConfig: Config = {
   maxComputationTime,
-  sizeHomogeneity
+  sizeHomogeneity,
+  randomizeThreshold
 }
 
 export const findSolution = (
@@ -21,14 +22,21 @@ export const findSolution = (
   const start = Date.now()
   const arTarget = targetDimension.width / targetDimension.height
   const solutions: Solution[] = []
-
-  while (Date.now() - start < config.maxComputationTime) {
-    const root = toRandomTree(pictures)
+  console.log(pictures.length < config.randomizeThreshold ? 'all': 'random')
+  const trees = pictures.length < config.randomizeThreshold
+    ? generateTreeCompositions(pictures)
+    : toRandomTreeGenerator(pictures)
+  for (const root of trees) {
     const distance = Math.abs(root.aspectRatio - arTarget)
     const score = Math.max(0, 1 - distance / arTarget)
     const actualDimensions = resizeDimension(targetDimension, root.aspectRatio)
     solutions.push(positionSolution(actualDimensions, score, root))
+    if (Date.now() - start > config.maxComputationTime) {
+      console.log('computation took too long, aborting')
+      break
+    }
   }
+  console.log('solutions', solutions.length)
   if (!isNotEmpty(solutions)) {
     throw new Error('No solution')
   }
