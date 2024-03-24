@@ -1,4 +1,4 @@
-import {PropsWithChildren, createContext, useCallback, EffectCallback} from 'react'
+import { PropsWithChildren, createContext, useCallback, EffectCallback } from 'react'
 import { iconSize } from '../constants'
 import { LayoutGridAdd, Refresh, Trash, WindowMaximize } from 'tabler-icons-react'
 import { concat, without } from 'ramda'
@@ -27,7 +27,7 @@ const ButtonList = styled.ol`
   display: flex;
   gap: 10px;
   top: 5px;
-  left: 5px;
+  right: 5px;
   width: fit-content;
   height: auto;
   z-index: 1;
@@ -35,7 +35,9 @@ const ButtonList = styled.ol`
   border-radius: 4px;
   list-style: none;
   padding: 4px;
-  box-shadow: inset 1px 1px 1px rgba(200, 200, 200, 0.7), inset -1px -1px 1px rgba(60, 60, 60, 0.7),
+  box-shadow:
+    inset 1px 1px 1px rgba(200, 200, 200, 0.7),
+    inset -1px -1px 1px rgba(60, 60, 60, 0.7),
     3px 3px 7px -3px rgba(0, 0, 0, 0.7);
 
   > li {
