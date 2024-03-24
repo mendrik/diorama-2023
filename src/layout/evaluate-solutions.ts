@@ -6,6 +6,10 @@ import { evolve, last, pipe, prop, sortBy, takeLast } from 'ramda'
 import { aspectRatioAndSize } from '../constants'
 
 export const evaluateSolutions = (results: NonEmptyArray<Solution>): Solution => {
-  const sorted = pipe(sortBy(aspectRatioAndSize), takeLast(20), sortBy(prop('score')))(results)
+  const sorted = pipe(
+    sortBy(aspectRatioAndSize),
+    takeLast(20 - results[0].pictures.length),
+    sortBy(prop('score'))
+  )(results)
   return evolve({ pictures: sortBy<PositionedPicture>(prop('url')) }, last(sorted) as Solution)
 }
