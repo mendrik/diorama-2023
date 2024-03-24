@@ -28,7 +28,7 @@ export const findSolution = (
     const distance = Math.abs(root.aspectRatio - arTarget)
     const score = 1 / (1 + distance)
     cycles++
-    if (!isFull && score < 0.8) {
+    if (!isFull && score < 0.9) {
       continue
     }
     const actualDimensions = resizeDimension(targetDimension, root.aspectRatio)
