@@ -1,4 +1,4 @@
-import { maxComputationTime, randomizeThreshold } from '../constants'
+import { discardBadRatio, maxComputationTime, randomizeThreshold } from '../constants'
 import type { Config, Dimension, Picture, Solution } from '../types/types'
 import { isNotEmpty } from '../utils/isNotEmpty'
 import { evaluateSolutions } from './evaluate-solutions'
@@ -24,17 +24,18 @@ export const findSolution = (
   const isFull = pictures.length < config.randomizeThreshold
   const trees = isFull ? generateTreeCompositions(pictures) : toRandomTreeGenerator(pictures)
   let cycles = 0
+  const { abs } = Math
+  const { now } = Date
   for (const root of trees) {
-    const distance = Math.abs(root.aspectRatio - arTarget)
+    const distance = abs(root.aspectRatio - arTarget)
     const score = 1 / (1 + distance)
     cycles++
-    if (!isFull && score < 0.9) {
+    if (!isFull && score < discardBadRatio) {
       continue
     }
     const actualDimensions = resizeDimension(targetDimension, root.aspectRatio)
     solutions.push(positionSolution(actualDimensions, score, root))
-    if (Date.now() - start > config.maxComputationTime) {
-      console.debug('computation took too long, aborting')
+    if (now() - start > config.maxComputationTime) {
       break
     }
   }

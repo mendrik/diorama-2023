@@ -10,23 +10,30 @@ export const positionPictures = (
   if (isPicture(rect)) {
     return [{ position, dimension, url: rect.url }]
   }
+  // Calculate dimensions and positions for recursive calls more directly.
   if (rect.horizontal) {
     const lengthHorizontal = dimension.height * rect.first.aspectRatio
-    const rightPosition = { x: position.x + lengthHorizontal, y: position.y }
-    const leftDim = { width: lengthHorizontal, height: dimension.height }
-    const rightDim = { width: dimension.width - lengthHorizontal, height: dimension.height }
-
-    return positionPictures(position, leftDim, rect.first).concat(
-      positionPictures(rightPosition, rightDim, rect.second)
-    )
+    return [
+      ...positionPictures(
+        position,
+        { width: lengthHorizontal, height: dimension.height },
+        rect.first
+      ),
+      ...positionPictures(
+        { x: position.x + lengthHorizontal, y: position.y },
+        { width: dimension.width - lengthHorizontal, height: dimension.height },
+        rect.second
+      )
+    ]
   } else {
     const lengthVertical = dimension.width / rect.first.aspectRatio
-    const bottomPosition = { x: position.x, y: position.y + lengthVertical }
-    const topDim = { width: dimension.width, height: lengthVertical }
-    const bottomDim = { width: dimension.width, height: dimension.height - lengthVertical }
-
-    return positionPictures(position, topDim, rect.first).concat(
-      positionPictures(bottomPosition, bottomDim, rect.second)
-    )
+    return [
+      ...positionPictures(position, { width: dimension.width, height: lengthVertical }, rect.first),
+      ...positionPictures(
+        { x: position.x, y: position.y + lengthVertical },
+        { width: dimension.width, height: dimension.height - lengthVertical },
+        rect.second
+      )
+    ]
   }
 }
