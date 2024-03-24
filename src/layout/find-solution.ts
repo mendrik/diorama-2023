@@ -21,14 +21,14 @@ export const findSolution = (
   const start = Date.now()
   const arTarget = targetDimension.width / targetDimension.height
   const solutions: Solution[] = []
-  const isRandom = pictures.length < config.randomizeThreshold
-  const trees = isRandom ? generateTreeCompositions(pictures) : toRandomTreeGenerator(pictures)
+  const isFull = pictures.length < config.randomizeThreshold
+  const trees = isFull ? generateTreeCompositions(pictures) : toRandomTreeGenerator(pictures)
   let cycles = 0
   for (const root of trees) {
     const distance = Math.abs(root.aspectRatio - arTarget)
     const score = 1 / (1 + distance)
     cycles++
-    if (isRandom && score < 0.8) {
+    if (!isFull && score < 0.8) {
       continue
     }
     const actualDimensions = resizeDimension(targetDimension, root.aspectRatio)
@@ -39,6 +39,7 @@ export const findSolution = (
     }
   }
   console.log('solution checked: ', cycles)
+  console.log('solution found: ', solutions)
   if (!isNotEmpty(solutions)) {
     throw new Error('No solution')
   }
