@@ -23,13 +23,11 @@ export const findSolution = (
   const solutions: Solution[] = []
   const isFull = pictures.length < config.randomizeThreshold
   const trees = isFull ? generateTreeCompositions(pictures) : toRandomTreeGenerator(pictures)
-  let cycles = 0
   const { abs } = Math
   const { now } = Date
   for (const root of trees) {
     const distance = abs(root.aspectRatio - arTarget)
     const score = 1 / (1 + distance)
-    cycles++
     if (!isFull && score < discardBadRatio) {
       continue
     }
@@ -39,7 +37,6 @@ export const findSolution = (
       break
     }
   }
-  console.debug('solution checked: ', cycles)
   console.debug('solutions found: ', solutions.length)
   if (!isNotEmpty(solutions)) {
     throw new Error('No solution')
