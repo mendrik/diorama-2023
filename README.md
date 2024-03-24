@@ -31,3 +31,6 @@ export type Config = {
   randomizeThreshold: number // when to switch to random tree layout strategy
 }
 ```
+
+## 2024 update
+I have found a nice way to balance gaps and sizes, so there is now a new strategy for finding a good looking solution.
