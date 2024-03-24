@@ -26,10 +26,10 @@ const ButtonList = styled.ol`
   position: absolute;
   display: flex;
   gap: 10px;
-  top: 5px;
-  right: 5px;
+  right: 1px;
+  bottom: 1px;
   width: fit-content;
-  height: auto;
+  height: fit-content;
   z-index: 1;
   background-color: rgb(108, 108, 108);
   border-radius: 4px;
