@@ -33,4 +33,4 @@ export type Config = {
 ```
 
 ## 2024 update
-I have found a nice way to balance gaps and sizes, so there is now a new strategy for finding a good looking solution. Additionally for image sets smaller than 10 we can compute all possible solutions since it's rather fast to do.
+I have found a nice way to balance gaps and sizes, so there is now a new strategy for finding a good looking solution.
