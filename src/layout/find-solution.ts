@@ -34,12 +34,12 @@ export const findSolution = (
     const actualDimensions = resizeDimension(targetDimension, root.aspectRatio)
     solutions.push(positionSolution(actualDimensions, score, root))
     if (Date.now() - start > config.maxComputationTime) {
-      console.log('computation took too long, aborting')
+      console.debug('computation took too long, aborting')
       break
     }
   }
-  console.log('solution checked: ', cycles)
-  console.log('solution found: ', solutions)
+  console.debug('solution checked: ', cycles)
+  console.debug('solutions found: ', solutions.length)
   if (!isNotEmpty(solutions)) {
     throw new Error('No solution')
   }
