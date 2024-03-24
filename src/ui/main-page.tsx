@@ -9,8 +9,8 @@ type OwnProps = {
 }
 
 const FullSize = styled.div`
-  width: 98svw;
-  height: 98svh;
+  width: 100%;
+  height: 100%;
 `
 
 export const MainPage = ({ images }: OwnProps): JSX.Element => (
