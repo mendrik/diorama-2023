@@ -1,4 +1,3 @@
-import { concat } from 'ramda'
 import type { Dimension, Picture, Position, PositionedPicture, Rect } from '../types/types'
 
 const isPicture = (rect: Rect): rect is Picture => 'url' in rect
@@ -13,26 +12,21 @@ export const positionPictures = (
   }
   if (rect.horizontal) {
     const lengthHorizontal = dimension.height * rect.first.aspectRatio
-    const positionHorizontal = { x: position.x + lengthHorizontal, y: position.y }
-    const dimensionHorizontal = { width: lengthHorizontal, height: dimension.height }
-    const remainingWidth = dimension.width - lengthHorizontal
-    const dimension2Horizontal = { width: remainingWidth, height: dimension.height }
+    const rightPosition = { x: position.x + lengthHorizontal, y: position.y }
+    const leftDim = { width: lengthHorizontal, height: dimension.height }
+    const rightDim = { width: dimension.width - lengthHorizontal, height: dimension.height }
 
-    return concat(
-      positionPictures(position, dimensionHorizontal, rect.first),
-      positionPictures(positionHorizontal, dimension2Horizontal, rect.second)
+    return positionPictures(position, leftDim, rect.first).concat(
+      positionPictures(rightPosition, rightDim, rect.second)
     )
   } else {
     const lengthVertical = dimension.width / rect.first.aspectRatio
-    const positionVertical = { x: position.x, y: position.y + lengthVertical }
-    const dimensionVertical = { width: dimension.width, height: lengthVertical }
-    const remainingHeight = dimension.height - lengthVertical
-    const dimension2Vertical = { width: dimension.width, height: remainingHeight }
+    const bottomPosition = { x: position.x, y: position.y + lengthVertical }
+    const topDim = { width: dimension.width, height: lengthVertical }
+    const bottomDim = { width: dimension.width, height: dimension.height - lengthVertical }
 
-    return concat(
-      positionPictures(position, dimensionVertical, rect.first),
-      positionPictures(positionVertical, dimension2Vertical, rect.second)
+    return positionPictures(position, topDim, rect.first).concat(
+      positionPictures(bottomPosition, bottomDim, rect.second)
     )
   }
-
 }
