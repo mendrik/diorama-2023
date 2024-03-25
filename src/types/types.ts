@@ -33,5 +33,4 @@ export type NonEmptyArray<T> = [T, ...T[]]
 export type Config = {
   maxComputationTime: number
   randomizeThreshold: number
-  preferAspectRatio: boolean
 }
