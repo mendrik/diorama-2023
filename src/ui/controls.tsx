@@ -1,6 +1,7 @@
-import { PropsWithChildren, createContext, useCallback, EffectCallback } from 'react'
-import { iconSize } from '../constants'
-import { PhotoPlus, PhotoMinus, Refresh, WindowMaximize, Layout2 } from 'tabler-icons-react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { PropsWithChildren, createContext, useCallback, EffectCallback } from 'react'
+import { iconSize, ImageSet } from '../constants'
+import { PhotoMinus, WindowMaximize, Layout2, Users, Paw, PhotoPlus } from 'tabler-icons-react'
 import { concat, without } from 'ramda'
 import { uninitialized } from '../utils/uninitialized'
 import screenfull from 'screenfull'
@@ -8,7 +9,7 @@ import styled from 'styled-components'
 import { useMap } from 'react-use'
 
 export enum Action {
-  refresh = 'refresh',
+  switchImageSet = 'switchImageSet',
   showCrop = 'showCrop',
   addImage = 'addImage',
   removeImage = 'removeImage',
@@ -89,17 +90,24 @@ export const Controls = ({ children }: PropsWithChildren<unknown>): JSX.Element 
     [get, set, unsubscribe]
   )
 
-  const call = (action: Action) => () => {
-    const subs = get(action)
-    subs?.forEach(doAction => doAction())
-  }
+  const call =
+    (action: Action, ...args: any[]) =>
+    () => {
+      const subs = get(action)
+      subs?.forEach(doAction => doAction(...args))
+    }
 
   return (
     <controlContext.Provider value={{ subscribe }}>
       <ButtonList>
         <li>
-          <button onClick={call(Action.refresh)} title="rearrange">
-            <Refresh size={iconSize} color="white" />
+          <button onClick={call(Action.switchImageSet, ImageSet.portraits)} title="Portraits">
+            <Users size={iconSize} color="white" />
+          </button>
+        </li>
+        <li>
+          <button onClick={call(Action.switchImageSet, ImageSet.animals)} title="Animas">
+            <Paw size={iconSize} color="white" />
           </button>
         </li>
         <li>

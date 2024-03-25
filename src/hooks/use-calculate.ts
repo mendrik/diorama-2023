@@ -22,7 +22,6 @@ export const useCalculate = (images: Picture[], dimension: Dimension): AsyncStat
   }, [trigger, images.length, dimension.width, dimension.height, redraw])
 
   useEffectOnce(() => {
-    subscribe(Action.refresh, () => forceUpdate(inc))
     subscribe(Action.switchMode, () => {
       setPreferAspectRatio(not)
       forceUpdate(inc)

@@ -1,22 +1,21 @@
-import type { JSX } from 'react'
-import styled from 'styled-components'
-import type { Picture } from '../types/types'
-import { Controls } from './controls'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { JSX, useContext, useState } from 'react'
 import { Diorama } from './diorama'
+import { useAsync, useEffectOnce } from 'react-use'
+import { ImageSet } from '../constants'
+import { loadImages } from '../utils/load-images'
+import { Action, controlContext } from './controls'
 
-type OwnProps = {
-  images: Picture[]
+export const MainPage = (): JSX.Element | null => {
+  const { subscribe } = useContext(controlContext)
+  const [imageset, setImageset] = useState<ImageSet>(ImageSet.animals)
+  const { value: images } = useAsync(() => loadImages(imageset), [imageset])
+
+  useEffectOnce(() => {
+    subscribe(Action.switchMode, setImageset as any)
+  })
+
+  console.log(images)
+
+  return images ? <Diorama images={images} /> : null
 }
-
-const FullSize = styled.div`
-  width: 100%;
-  height: 100%;
-`
-
-export const MainPage = ({ images }: OwnProps): JSX.Element => (
-  <Controls>
-    <FullSize>
-      <Diorama images={images} />
-    </FullSize>
-  </Controls>
-)
