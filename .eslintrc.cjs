@@ -42,11 +42,11 @@ module.exports = {
     'react/prop-types': 'off',
     'import/no-named-as-default': 'off',
     'import/no-unresolved': 'off',
-    '@typescript-eslint/explicit-function-return-type': ['error', { allowHigherOrderFunctions: true,  allowExpressions: true }],
     'no-restricted-syntax': [
       'error',
       'FunctionDeclaration'
     ],
-    'unused-imports/no-unused-imports': 'error'
+    'unused-imports/no-unused-imports': 'error',
+    '@typescript-eslint/no-explicit-any': 'off'
   }
 }

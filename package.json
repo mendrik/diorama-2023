@@ -32,11 +32,12 @@
   },
   "dependencies": {
     "@types/web": "^0.0.127",
+    "effector": "^23.2.0",
+    "effector-react": "^23.2.0",
     "purify-ts": "2.0.1",
     "ramda": "0.29.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-use": "17.4.2",
     "screenfull": "6.0.2",
     "styled-components": "6.1.1",
     "tabler-icons-react": "1.56.0"

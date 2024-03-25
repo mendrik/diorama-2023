@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import '../types/ramda'
 
 import type { Config, NonEmptyArray, PositionedPicture, Solution } from '../types/types'
@@ -9,11 +8,6 @@ export const aspectRatioAndSize = ({ sizeHomogeneity, score }: Solution): Ord =>
 }
 
 export const evaluateSolutions = (config: Config, results: NonEmptyArray<Solution>): Solution => {
-  // prettier-ignore
-  const sorted = pipe(
-    sortBy(aspectRatioAndSize),
-    takeLast(30),
-    sortBy(prop('score'))
-  )(results)
+  const sorted = pipe(sortBy(aspectRatioAndSize), takeLast(30), sortBy(prop('score')))(results)
   return evolve({ pictures: sortBy<PositionedPicture>(prop('url')) }, last(sorted) as Solution)
 }
