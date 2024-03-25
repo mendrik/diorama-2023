@@ -33,4 +33,3 @@ export type Config = {
 ```
 
 ## 2024 update
-I have found a nice way to balance gaps and sizes, so there is now a new strategy for finding a good looking solution.

@@ -1,4 +1,9 @@
-import { discardBadRatio, maxComputationTime, randomizeThreshold } from '../constants'
+import {
+  discardBadRatio,
+  maxComputationTime,
+  preferAspectRatio,
+  randomizeThreshold
+} from '../constants'
 import type { Config, Dimension, Picture, Solution } from '../types/types'
 import { isNotEmpty } from '../utils/isNotEmpty'
 import { evaluateSolutions } from './evaluate-solutions'
@@ -9,7 +14,8 @@ import { resizeDimension } from '../utils/resize-dimension'
 
 const defaultConfig: Config = {
   maxComputationTime,
-  randomizeThreshold
+  randomizeThreshold,
+  preferAspectRatio
 }
 
 export const findSolution = (
@@ -41,5 +47,5 @@ export const findSolution = (
   if (!isNotEmpty(solutions)) {
     throw new Error('No solution')
   }
-  return evaluateSolutions(solutions)
+  return evaluateSolutions(config, solutions)
 }

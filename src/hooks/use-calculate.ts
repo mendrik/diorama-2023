@@ -4,13 +4,14 @@ import { useContext, useLayoutEffect, useState } from 'react'
 import type { Dimension, Picture, Solution } from '../types/types'
 import { worker } from '../layout/worker'
 import type { AsyncState } from 'react-use/lib/useAsyncFn'
-import { inc } from 'ramda'
+import { inc, not } from 'ramda'
 
 export const useCalculate = (images: Picture[], dimension: Dimension): AsyncState<Solution> => {
   const [redraw, forceUpdate] = useState(0)
+  const [preferAspectRatio, setPreferAspectRatio] = useState(false)
   const { subscribe } = useContext(controlContext)
   const [status, trigger] = useAsyncFn(
-    async () => worker(images, dimension),
+    async () => worker(images, dimension, { preferAspectRatio }),
     [images.length, dimension.width, dimension.height, redraw]
   )
 
@@ -20,7 +21,13 @@ export const useCalculate = (images: Picture[], dimension: Dimension): AsyncStat
     }
   }, [trigger, images.length, dimension.width, dimension.height, redraw])
 
-  useEffectOnce(() => subscribe(Action.refresh, () => forceUpdate(inc)))
+  useEffectOnce(() => {
+    subscribe(Action.refresh, () => forceUpdate(inc))
+    subscribe(Action.switchMode, () => {
+      setPreferAspectRatio(not)
+      forceUpdate(inc)
+    })
+  })
 
   return status
 }

@@ -1,6 +1,6 @@
 import { PropsWithChildren, createContext, useCallback, EffectCallback } from 'react'
 import { iconSize } from '../constants'
-import { LayoutGridAdd, Refresh, Trash, WindowMaximize } from 'tabler-icons-react'
+import { PhotoPlus, PhotoMinus, Refresh, WindowMaximize, Layout2 } from 'tabler-icons-react'
 import { concat, without } from 'ramda'
 import { uninitialized } from '../utils/uninitialized'
 import screenfull from 'screenfull'
@@ -11,7 +11,8 @@ export enum Action {
   refresh = 'refresh',
   showCrop = 'showCrop',
   addImage = 'addImage',
-  removeImage = 'removeImage'
+  removeImage = 'removeImage',
+  switchMode = 'switchMode'
 }
 
 type Unsubscribe = Exclude<ReturnType<EffectCallback>, void>
@@ -26,12 +27,12 @@ const ButtonList = styled.ol`
   position: absolute;
   display: flex;
   gap: 10px;
-  right: 1px;
-  bottom: 1px;
+  right: 5px;
+  bottom: 5px;
   width: fit-content;
   height: fit-content;
   z-index: 1;
-  background-color: rgb(108, 108, 108);
+  background-color: rgb(108, 108, 108, 0.7);
   border-radius: 4px;
   list-style: none;
   padding: 4px;
@@ -55,6 +56,11 @@ const ButtonList = styled.ol`
     width: 30px;
     height: 30px;
     border-radius: 2px;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
 
     &:hover,
     &:active {
@@ -98,12 +104,20 @@ export const Controls = ({ children }: PropsWithChildren<unknown>): JSX.Element 
         </li>
         <li>
           <button onClick={call(Action.addImage)} title="add image">
-            <LayoutGridAdd size={iconSize} color="white" />
+            <PhotoPlus size={iconSize} color="white" />
           </button>
         </li>
         <li>
           <button onClick={call(Action.removeImage)} title="remove image">
-            <Trash size={iconSize} color="white" />
+            <PhotoMinus size={iconSize} color="white" />
+          </button>
+        </li>
+        <li>
+          <button
+            onClick={call(Action.switchMode)}
+            title="less gaps, but also less size uniformity"
+          >
+            <Layout2 size={iconSize} color="white" />
           </button>
         </li>
         {screenfull.isEnabled && (

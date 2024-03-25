@@ -1,4 +1,4 @@
-import {Composition} from '../layout/composition'
+import { Composition } from '../layout/composition'
 
 type Brand<T extends string> = { __tag: T }
 
@@ -33,4 +33,5 @@ export type NonEmptyArray<T> = [T, ...T[]]
 export type Config = {
   maxComputationTime: number
   randomizeThreshold: number
+  preferAspectRatio: boolean
 }
