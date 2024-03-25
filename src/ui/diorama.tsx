@@ -11,7 +11,7 @@ const scale = (value: Solution, dimension: Dimension, p: 'width' | 'height'): nu
   prop(p, dimension) / prop(p, value.dimension)
 
 const updateDimensionsOf = debounce(
-  100,
+  400,
   pipe(invoker(0, 'getBoundingClientRect'), pick(['width', 'height']) as any, dimensionChanged)
 )
 

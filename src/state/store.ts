@@ -35,7 +35,6 @@ $currentImageCount.on(removeImage, dec)
 $currentImageCount.on(loadImageSet, () => initialImageAmount)
 $imageStore.on(loadImageSet.doneData, nthArg(1))
 $targetDimension.on(dimensionChanged, nthArg(1))
-$targetDimension.watch(console.log)
 
 const solutionSource = combine($currentImages, $targetDimension)
 
