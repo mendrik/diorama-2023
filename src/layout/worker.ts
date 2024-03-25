@@ -4,9 +4,8 @@ export const workerInstance = new ComlinkWorker<typeof import('./find-solution')
   new URL('./find-solution', import.meta.url)
 )
 
-export const worker = (
+export const runWorker = (
   pictures: Picture[],
   targetDimension: Dimension,
   config?: Partial<Config>
 ): Promise<Solution> => workerInstance.findSolution(pictures, targetDimension, config)
-

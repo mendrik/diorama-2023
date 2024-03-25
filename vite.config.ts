@@ -36,6 +36,6 @@ export default defineConfig(({ mode }) => ({
     environment: 'happy-dom'
   },
   worker: {
-    plugins: [comlink()]
+    plugins: () => [comlink()]
   }
 }))

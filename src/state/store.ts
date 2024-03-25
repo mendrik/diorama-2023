@@ -3,9 +3,9 @@ import { Picture } from '../../lib'
 import { Dimension, Solution } from '../types/types'
 import { initialImageAmount } from '../constants'
 import { loadImages } from '../utils/load-images'
-import { dec, inc, nthArg, apply, min } from 'ramda'
-import { findSolution } from '../layout/find-solution'
+import { dec, inc, min, nthArg } from 'ramda'
 import { isNotEmpty } from '../utils/isNotEmpty'
+import { runWorker } from '../layout/worker'
 
 const $imageStore = createStore<Picture[]>([])
 const $imageStoreLength = $imageStore.map(pics => pics.length)
@@ -36,28 +36,29 @@ $currentImageCount.on(loadImageSet, () => initialImageAmount)
 $imageStore.on(loadImageSet.doneData, nthArg(1))
 $targetDimension.on(dimensionChanged, nthArg(1))
 
-const solutionSource = combine($currentImages, $targetDimension)
-
-const canFindSolution = ([pics, dim]: [Picture[], Dimension]) =>
-  isNotEmpty(pics) && dim.width > 0 && dim.height > 0
-
 sample({
   source: [$imageStore, $currentImageCount] as [typeof $imageStore, typeof $currentImageCount],
   fn: ([pics, count]) => pics.slice(0, count),
   target: $currentImages
 })
 
-sample({
-  source: solutionSource,
-  fn: apply(findSolution),
-  filter: canFindSolution,
-  target: $solution
-})
+const solutionSource = combine($currentImages, $targetDimension)
+
+const canFindSolution = ([pics, dim]: [Picture[], Dimension]) =>
+  isNotEmpty(pics) && dim.width > 0 && dim.height > 0
+
+const calculateSolution = createEffect(([pic, dim]: [Picture[], Dimension]) => runWorker(pic, dim))
+$solution.on(calculateSolution.doneData, nthArg(1))
 
 sample({
   source: solutionSource,
   clock: refresh,
   filter: canFindSolution,
-  fn: apply(findSolution),
-  target: $solution
+  target: calculateSolution
+})
+
+sample({
+  source: solutionSource,
+  filter: canFindSolution,
+  target: calculateSolution
 })

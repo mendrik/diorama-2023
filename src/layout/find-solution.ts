@@ -23,17 +23,15 @@ export const findSolution = (
   const solutions: Solution[] = []
   const runForEver = pictures.length >= config.randomizeThreshold
   const trees = runForEver ? toRandomTreeGenerator(pictures) : generateTreeCompositions(pictures)
-  const { abs } = Math
-  const { now } = Date
   for (const root of trees) {
-    const distance = abs(root.aspectRatio - arTarget)
+    const distance = Math.abs(root.aspectRatio - arTarget)
     const score = 1 / (1 + distance)
     if (runForEver && score < discardBadRatio) {
       continue
     }
     const actualDimensions = resizeDimension(targetDimension, root.aspectRatio)
     solutions.push(positionSolution(actualDimensions, score, root))
-    if (runForEver && now() - start > config.maxComputationTime) {
+    if (runForEver && Date.now() - start > config.maxComputationTime) {
       break
     }
   }
