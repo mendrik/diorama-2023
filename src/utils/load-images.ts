@@ -19,6 +19,8 @@ const imagePromise = (url: RelativeUrl): Promise<Picture> =>
   })
 
 export const loadImages = (imageset: ImageSet): Promise<Picture[]> => {
-  const imageUrls = range(1, maxImages[imageset]).map(i => `/images/${ImageSet[imageset]}/${i}.jpg`)
+  const imageUrls = range(1, maxImages[imageset]).map(
+    i => `./images/${ImageSet[imageset]}/${i}.jpg`
+  )
   return Promise.all(imageUrls.map(imagePromise))
 }
