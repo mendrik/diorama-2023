@@ -1,26 +1,11 @@
-import { PropsWithChildren, createContext, useCallback, EffectCallback } from 'react'
-import { iconSize } from '../constants'
+import { ReactElement } from 'react'
+import { iconSize, ImageSet } from '../constants'
 import { PhotoPlus, PhotoMinus, Refresh, WindowMaximize } from 'tabler-icons-react'
-import { concat, without } from 'ramda'
-import { uninitialized } from '../utils/uninitialized'
 import screenfull from 'screenfull'
 import styled from 'styled-components'
-import { useMap } from 'react-use'
-
-export enum Action {
-  refresh = 'refresh',
-  showCrop = 'showCrop',
-  addImage = 'addImage',
-  removeImage = 'removeImage'
-}
-
-type Unsubscribe = Exclude<ReturnType<EffectCallback>, void>
-type OnAction = (...args: unknown[]) => unknown
-
-type Subscriber<T> = {
-  subscribe: (action: T, fn: OnAction) => Unsubscribe
-}
-export const controlContext = createContext<Subscriber<Action>>(uninitialized())
+import { addImage, loadImageSet, refresh, removeImage } from '../state/store'
+import { pipe } from 'ramda'
+import { eventValue } from '../utils/dom-event'
 
 const ButtonList = styled.ol`
   position: absolute;
@@ -68,58 +53,38 @@ const ButtonList = styled.ol`
   }
 `
 
-export const Controls = ({ children }: PropsWithChildren<unknown>): JSX.Element => {
-  const [, { set, get }] = useMap<Record<Action, Array<OnAction>>>()
-
-  const unsubscribe = useCallback(
-    (action: Action, fn: OnAction): void => {
-      const subs = get(action) ?? []
-      set(action, without([fn], subs))
-    },
-    [set, get]
-  )
-
-  const subscribe = useCallback(
-    (action: Action, fn: OnAction): Unsubscribe => {
-      const subs = get(action) ?? []
-      set(action, concat([fn], subs))
-      return () => unsubscribe(action, fn)
-    },
-    [get, set, unsubscribe]
-  )
-
-  const call = (action: Action) => () => {
-    const subs = get(action)
-    subs?.forEach(doAction => doAction())
-  }
-
+export const Controls = (): ReactElement => {
   return (
-    <controlContext.Provider value={{ subscribe }}>
-      <ButtonList>
+    <ButtonList>
+      <li>
+        <select onChange={pipe(eventValue, loadImageSet)}>
+          <option value={ImageSet.animals}>Animals</option>
+          <option value={ImageSet.family}>Photos</option>
+          <option value={ImageSet.art}>Art</option>
+        </select>
+      </li>
+      <li>
+        <button onClick={() => refresh()} title="rearrange">
+          <Refresh size={iconSize} color="white" />
+        </button>
+      </li>
+      <li>
+        <button onClick={() => addImage()} title="add image">
+          <PhotoPlus size={iconSize} color="white" />
+        </button>
+      </li>
+      <li>
+        <button onClick={() => removeImage()} title="remove image">
+          <PhotoMinus size={iconSize} color="white" />
+        </button>
+      </li>
+      {screenfull.isEnabled && (
         <li>
-          <button onClick={call(Action.refresh)} title="rearrange">
-            <Refresh size={iconSize} color="white" />
+          <button onClick={() => void screenfull.request()} title="fullscreen">
+            <WindowMaximize size={iconSize} color="white" />
           </button>
         </li>
-        <li>
-          <button onClick={call(Action.addImage)} title="add image">
-            <PhotoPlus size={iconSize} color="white" />
-          </button>
-        </li>
-        <li>
-          <button onClick={call(Action.removeImage)} title="remove image">
-            <PhotoMinus size={iconSize} color="white" />
-          </button>
-        </li>
-        {screenfull.isEnabled && (
-          <li>
-            <button onClick={() => void screenfull.request()} title="fullscreen">
-              <WindowMaximize size={iconSize} color="white" />
-            </button>
-          </li>
-        )}
-      </ButtonList>
-      {children}
-    </controlContext.Provider>
+      )}
+    </ButtonList>
   )
 }

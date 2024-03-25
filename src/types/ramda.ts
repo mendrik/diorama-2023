@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import type {NonEmptyArray} from './types'
+import type { NonEmptyArray } from './types'
 import 'ramda'
 
 type isNil = (value: any) => value is null | undefined
@@ -11,10 +10,6 @@ declare module 'ramda' {
   export function cond<T extends any[], R>(
     pairs: ReadonlyArray<CondPair<T, R>>
   ): <T2 extends T>(...args: T2) => R
-  export function unless<T, U>(
-    pred: isNil,
-    whenFalseFn: (a: NonNullable<T>) => U,
-    a: T
-  ): T | U
+  export function unless<T, U>(pred: isNil, whenFalseFn: (a: NonNullable<T>) => U, a: T): T | U
   export function sortBy<T>(fn: (a: T) => number, list: NonEmptyArray<T>): NonEmptyArray<T>
 }

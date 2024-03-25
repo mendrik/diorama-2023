@@ -21,19 +21,19 @@ export const findSolution = (
   const start = Date.now()
   const arTarget = targetDimension.width / targetDimension.height
   const solutions: Solution[] = []
-  const isFull = pictures.length < config.randomizeThreshold
-  const trees = isFull ? generateTreeCompositions(pictures) : toRandomTreeGenerator(pictures)
+  const runForEver = pictures.length >= config.randomizeThreshold
+  const trees = runForEver ? toRandomTreeGenerator(pictures) : generateTreeCompositions(pictures)
   const { abs } = Math
   const { now } = Date
   for (const root of trees) {
     const distance = abs(root.aspectRatio - arTarget)
     const score = 1 / (1 + distance)
-    if (!isFull && score < discardBadRatio) {
+    if (runForEver && score < discardBadRatio) {
       continue
     }
     const actualDimensions = resizeDimension(targetDimension, root.aspectRatio)
     solutions.push(positionSolution(actualDimensions, score, root))
-    if (now() - start > config.maxComputationTime) {
+    if (runForEver && now() - start > config.maxComputationTime) {
       break
     }
   }

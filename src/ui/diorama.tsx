@@ -1,44 +1,43 @@
-import { isNil, prop } from 'ramda'
-import { useCalculate } from '../hooks/use-calculate'
-import { useImageList } from '../hooks/use-image-list'
-import type { Dimension, Picture, Solution } from '../types/types'
+import { invoker, pick, pipe, prop } from 'ramda'
+import type { Dimension, Solution } from '../types/types'
 import { PictureListItem } from './picture-list-item'
-import { useParentResize } from '../hooks/use-parent-resize'
-import { useMemo } from 'react'
-
-type OwnProps = {
-  images: Picture[]
-}
+import { useUnit } from 'effector-react'
+import { $solution, $targetDimension, dimensionChanged, loadImageSet } from '../state/store'
+import { useEffect, useRef } from 'react'
+import { debounce } from '../utils/debounce'
+import { ImageSet } from '../constants'
 
 const scale = (value: Solution, dimension: Dimension, p: 'width' | 'height'): number =>
   prop(p, dimension) / prop(p, value.dimension)
 
-export const Diorama = ({ images: initialImages }: OwnProps): JSX.Element => {
-  const [ref, dimension] = useParentResize<HTMLOListElement>()
-  const images = useImageList(initialImages)
-  const { error, value } = useCalculate(images, dimension)
+const updateDimensionsOf = debounce(
+  400,
+  pipe(invoker(0, 'getBoundingClientRect'), pick(['width', 'height']) as any, dimensionChanged)
+)
 
-  const renderedList = useMemo(
-    () => (
-      <ol ref={ref} className="diorama-list">
-        {value?.pictures.map((pic, idx) => (
-          <PictureListItem
-            picture={pic}
-            idx={idx}
-            key={pic.url}
-            scaleX={scale(value, dimension, 'width')}
-            scaleY={scale(value, dimension, 'height')}
-          />
-        ))}
-      </ol>
-    ),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [ref, value]
+export const Diorama = () => {
+  const ref = useRef(null)
+  const [solution, dimension] = useUnit([$solution, $targetDimension])
+
+  useEffect(() => {
+    const el = document.getElementById('diorama-list')!
+    const ob = new ResizeObserver(() => updateDimensionsOf(el))
+    ob.observe(el)
+    updateDimensionsOf(el)
+    void loadImageSet(ImageSet.animals)
+  }, [])
+
+  return (
+    <ol id="diorama-list" ref={ref}>
+      {solution?.pictures.map((pic, idx) => (
+        <PictureListItem
+          picture={pic}
+          idx={idx}
+          key={pic.url}
+          scaleX={scale(solution, dimension, 'width')}
+          scaleY={scale(solution, dimension, 'height')}
+        />
+      ))}
+    </ol>
   )
-
-  if (!isNil(error)) {
-    return <div>Failed to layout: {error.message}</div>
-  }
-
-  return renderedList
 }
