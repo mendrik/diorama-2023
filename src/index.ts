@@ -1,2 +1,2 @@
-export { worker } from './layout/worker'
+export { runWorker } from './layout/worker'
 export * from './types/types'
