@@ -18,7 +18,7 @@ export const PictureListItem = ({
     <li
       className={'photo-frame'}
       style={{
-        rotate: `${((position.x + position.y + idx) % 5) - 2}deg`,
+        rotate: `${((position.x + position.y + idx) % 3) - 1}deg`,
         left: position.x * scaleX,
         top: position.y * scaleY,
         aspectRatio,

@@ -8,7 +8,10 @@ export const positionSolution = (
   composition: Rect
 ): Solution => {
   const pictures = positionPictures({ x: 0, y: 0 }, dimension, composition)
-  const sizeHomogeneity = sizeVariation(pictures.map(p => p.dimension))
+  const sizeHomogeneity = sizeVariation(
+    pictures.map(p => p.dimension),
+    dimension
+  )
   return {
     dimension,
     score,

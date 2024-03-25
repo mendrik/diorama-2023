@@ -1,6 +1,6 @@
 import { PropsWithChildren, createContext, useCallback, EffectCallback } from 'react'
 import { iconSize } from '../constants'
-import { PhotoPlus, PhotoMinus, Refresh, WindowMaximize, Layout2 } from 'tabler-icons-react'
+import { PhotoPlus, PhotoMinus, Refresh, WindowMaximize } from 'tabler-icons-react'
 import { concat, without } from 'ramda'
 import { uninitialized } from '../utils/uninitialized'
 import screenfull from 'screenfull'
@@ -11,8 +11,7 @@ export enum Action {
   refresh = 'refresh',
   showCrop = 'showCrop',
   addImage = 'addImage',
-  removeImage = 'removeImage',
-  switchMode = 'switchMode'
+  removeImage = 'removeImage'
 }
 
 type Unsubscribe = Exclude<ReturnType<EffectCallback>, void>
@@ -110,14 +109,6 @@ export const Controls = ({ children }: PropsWithChildren<unknown>): JSX.Element 
         <li>
           <button onClick={call(Action.removeImage)} title="remove image">
             <PhotoMinus size={iconSize} color="white" />
-          </button>
-        </li>
-        <li>
-          <button
-            onClick={call(Action.switchMode)}
-            title="less gaps, but also less size uniformity"
-          >
-            <Layout2 size={iconSize} color="white" />
           </button>
         </li>
         {screenfull.isEnabled && (

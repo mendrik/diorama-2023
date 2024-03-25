@@ -6,15 +6,13 @@ A decade later, inspired by a new approach to streamline the algorithm, I embark
 
 Here's a brief overview of the process: Combining two images either vertically or horizontally, we can deduce new aspect ratios without needing to calculate specific widths and heights. The strategy involves continuously merging these combinations (either horizontally or vertically) until no further combinations are possible, effectively generating a full binary tree. The root of this tree presents a final aspect ratio, which is then compared to the aspect ratio of the target canvas to determine fit. The closer the match, the better the images will align. However, this initial iteration encountered a drawback: some combinations, despite fitting well, produced significantly uneven sizes when rendered onto the canvas. To counter this, it became necessary to compute scores for each potential solution, considering both aspect ratio compatibility and size uniformity. With these metrics, we can evaluate and select the most visually appealing solutions. It's worth noting that, given the algorithm's reliance on the specific images and canvas aspect ratio, outcomes may occasionally appear less than ideal, especially with smaller image sets.
 
-Given the algorithm's mathematical basis, it might eventually be transformed into a WebAssembly (wasm) module.
-
 The demonstration incorporates stylistic enhancements such as padding, borders, and rotation for added visual impact, yet the algorithm maintains its core functionality of creating gap-less rectangles.
 
 The demo [can be seen here](https://mendrik.github.io/diorama-2023/). 
 
 ## Layout algorithm
 
-For those interested in integrating this algorithm into their own projects, the library is available for installation via npm: npm i diorama. It exports a single function, findSolution, detailed as follows:
+For those interested in integrating this algorithm into their own projects, the library is available for installation via npm: `npm i diorama`. It exports a single function, findSolution, detailed as follows:
 
 ```typescript
 export const findSolution = (
