@@ -3,7 +3,7 @@ import { Picture } from '../../lib'
 import { Dimension, Solution } from '../types/types'
 import { initialImageAmount } from '../constants'
 import { loadImages } from '../utils/load-images'
-import { dec, min, nthArg } from 'ramda'
+import { max, min, nthArg, pipe } from 'ramda'
 import { isNotEmpty } from '../utils/isNotEmpty'
 import { runWorker } from '../layout/worker'
 
@@ -29,7 +29,10 @@ sample({
   target: $currentImageCount
 })
 
-$currentImageCount.on(removeImage, dec)
+$currentImageCount.on(
+  removeImage,
+  pipe(n => max(1, n - 1))
+)
 $currentImageCount.on(loadImageSet, () => initialImageAmount)
 $imageStore.on(loadImageSet.doneData, nthArg(1))
 $targetDimension.on(dimensionChanged, nthArg(1))
