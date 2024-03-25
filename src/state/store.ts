@@ -3,7 +3,7 @@ import { Picture } from '../../lib'
 import { Dimension, Solution } from '../types/types'
 import { initialImageAmount } from '../constants'
 import { loadImages } from '../utils/load-images'
-import { dec, inc, min, nthArg } from 'ramda'
+import { dec, min, nthArg } from 'ramda'
 import { isNotEmpty } from '../utils/isNotEmpty'
 import { runWorker } from '../layout/worker'
 
@@ -21,11 +21,9 @@ export const removeImage = createEvent()
 export const refresh = createEvent()
 export const dimensionChanged = createEvent()
 
-$currentImageCount.on(addImage, inc)
-$currentImageCount.on(removeImage, dec)
-
+const addImageSource = combine($currentImageCount, $imageStoreLength)
 sample({
-  source: combine($currentImageCount, $imageStoreLength),
+  source: addImageSource,
   clock: addImage,
   fn: ([count, maxImages]) => min(maxImages, count + 1),
   target: $currentImageCount
