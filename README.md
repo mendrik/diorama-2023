@@ -32,4 +32,22 @@ export type Config = {
 }
 ```
 
-## 2024 update
+## Controls
+
+<img src="https://github.com/mendrik/diorama-2023/assets/160805/f89574db-6b33-4268-ae17-636e2b4c2622" height="60"/>
+
+
+from left to right
+
+Refresh - when we have more than 11 images, the strategy switches to random tree generator, because there is simply too many solutions to be checked. You can refresh the layout with this button as there will be a new layout everytime the algorithm runs
+
+Add image - Add a new image to the set
+
+Remove image - Remove am image from the set
+
+Strategy toggle - There are two modes: one that reduces gaps and one that tries to make all images of equal size. They both are co-dependent but depending on the mode it tries one or the other more.
+
+Fullscreen - Switch to browser full-screen.
+
+
+
