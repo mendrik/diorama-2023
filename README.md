@@ -1,17 +1,20 @@
 # Diorama v2
 
-Almost 10 years ago I [wrote an algorithm](https://github.com/mendrik/diorama) that layouts a set of images into a fixed-size rectangle. The old algorithm was heavily optimized for speed, making the code hard to read and even harder to maintain.
+In 2013, I developed an algorithm ([accessible here]((https://github.com/mendrik/diorama)) designed to arrange a collection of images within a fixed-size rectangle. The original algorithm was intensely optimized for speed, resulting in code that was challenging to read and even more difficult to maintain.
 
-Recently (2023) I had an idea how to simplify the algorithm and decided to put this on to a more modern foundation.
-The algorithm works now with full binary trees instead of full and balanced ones, reducing the amount of calculations needed. Further more, for smaller amount of images we can now use a generator to get all tree permutations before switching to a random strategy, making this really snappy for smaller image sets.
+A decade later, inspired by a new approach to streamline the algorithm, I embarked on updating its foundation. This update includes enhanced code-splitting, the incorporation of functional patterns, generators, and web workers. Previously, the algorithm compensated for irregular image counts by adding dummy images to achieve a balanced and full binary tree structure. Now, it achieves efficiency by utilizing just a full binary tree, significantly reducing the required computations. Remarkably, for sets up to 10-11 images, it's possible to examine every potential combination on an average personal computer. Additionally, fewer images not only expedite the solution process but also stabilize it.
 
-The demo uses some css sugar (paddings, borders and rotation) for dramatic effect but under the bonnet the algorithm still creates gap-less rectangles.
+Here's a brief overview of the process: Combining two images either vertically or horizontally, we can deduce new aspect ratios without needing to calculate specific widths and heights. The strategy involves continuously merging these combinations (either horizontally or vertically) until no further combinations are possible, effectively generating a full binary tree. The root of this tree presents a final aspect ratio, which is then compared to the aspect ratio of the target canvas to determine fit. The closer the match, the better the images will align. However, this initial iteration encountered a drawback: some combinations, despite fitting well, produced significantly uneven sizes when rendered onto the canvas. To counter this, it became necessary to compute scores for each potential solution, considering both aspect ratio compatibility and size uniformity. With these metrics, we can evaluate and select the most visually appealing solutions. It's worth noting that, given the algorithm's reliance on the specific images and canvas aspect ratio, outcomes may occasionally appear less than ideal, especially with smaller image sets.
+
+Given the algorithm's mathematical basis, it might eventually be transformed into a WebAssembly (wasm) module.
+
+The demonstration incorporates stylistic enhancements such as padding, borders, and rotation for added visual impact, yet the algorithm maintains its core functionality of creating gap-less rectangles.
 
 The demo [can be seen here](https://mendrik.github.io/diorama-2023/). 
 
 ## Layout algorithm
 
-If you want to use this algorithm in your own project you can install the library via `npm i diorama` which exports a single function "findSolution".
+For those interested in integrating this algorithm into their own projects, the library is available for installation via npm: npm i diorama. It exports a single function, findSolution, detailed as follows:
 
 ```typescript
 export const findSolution = (
@@ -21,7 +24,7 @@ export const findSolution = (
 ): Promise<Solution>
 ```
 
-`targetDimension` is the rectangle into which the list of `pictures` is going to be placed in. Config can customize the behavior of the algorithm. Beware that this is a long running task and it runs inside a WebWorker. The returned `Solution` contains all you need to know, so let the types guide you. Note that a solution has its own property `dimension` which might slightly differ from the targetDimension. It's up to you to scale the solution, however the solution's dimension never exceeds the `targetDimension`.
+Here, `targetDimension` refers to the rectangle where the pictures will be positioned. The Config parameter allows for customization of the algorithm's behavior. It's important to note that this function operates within a WebWorker. The returned Solution provides comprehensive details for implementation, including a dimension property that may slightly vary from the targetDimension. Adjusting the solution to fit within these dimensions is left to the user, ensuring the solution never surpasses the specified targetDimension.
 
 ## Configuration
 
@@ -36,18 +39,16 @@ export type Config = {
 
 <img src="https://github.com/mendrik/diorama-2023/assets/160805/f89574db-6b33-4268-ae17-636e2b4c2622" height="60"/>
 
+(From left to right)
 
-from left to right
+- Refresh: For image sets exceeding 11, the algorithm defaults to a random tree generation strategy due to the impracticality of evaluating all possible layouts. This button regenerates the layout, offering a fresh arrangement with each execution.
 
-Refresh - when we have more than 11 images, the strategy switches to random tree generator, because there is simply too many solutions to be checked. You can refresh the layout with this button as there will be a new layout everytime the algorithm runs
+- Add Image: Incorporate a new image into the collection.
 
-Add image - Add a new image to the set
+- Remove Image: Eliminate an image from the set.
 
-Remove image - Remove am image from the set
+- Strategy Toggle: Alternates between two strategies: one focusing on minimizing gaps and the other on equalizing image sizes. Though interrelated, each mode emphasizes a different aspect.
 
-Strategy toggle - There are two modes: one that reduces gaps and one that tries to make all images of equal size. They both are co-dependent but depending on the mode it tries one or the other more.
-
-Fullscreen - Switch to browser full-screen.
-
+- Fullscreen: Activates the browser's full-screen mode for an immersive experience.
 
 
