@@ -35,17 +35,17 @@ export type Config = {
 
 ## Controls
 
-<img src="https://github.com/mendrik/diorama-2023/assets/160805/f89574db-6b33-4268-ae17-636e2b4c2622" height="60"/>
+<img src="https://github.com/mendrik/diorama-2023/assets/160805/919d8a2c-555e-4020-9306-30cf6cabc46a" height="60"/>
 
 (From left to right)
+
+- Image set to show
 
 - Refresh: For image sets exceeding 11, the algorithm defaults to a random tree generation strategy due to the impracticality of evaluating all possible layouts. This button regenerates the layout, offering a fresh arrangement with each execution.
 
 - Add Image: Incorporate a new image into the collection.
 
 - Remove Image: Eliminate an image from the set.
-
-- Strategy Toggle: Alternates between two strategies: one focusing on minimizing gaps and the other on equalizing image sizes. Though interrelated, each mode emphasizes a different aspect.
 
 - Fullscreen: Activates the browser's full-screen mode for an immersive experience.
 
