@@ -13,7 +13,7 @@ export enum ImageSet {
 }
 
 export const maxImages = {
-  [ImageSet.animals]: 17,
-  [ImageSet.family]: 13,
-  [ImageSet.art]: 11
+  [ImageSet.animals]: 18,
+  [ImageSet.family]: 14,
+  [ImageSet.art]: 12
 }
