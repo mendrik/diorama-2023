@@ -2,7 +2,7 @@
 
 ![image](https://github.com/mendrik/diorama-2023/assets/160805/38d6c462-da92-4bc8-9420-7f5837f1ff7f)
 
-In 2013, I developed an algorithm ([accessible here](https://github.com/mendrik/diorama)) designed to arrange a collection of images within a fixed-size rectangle. The original algorithm was intensely optimized for speed, resulting in code that was challenging to read and even more difficult to maintain.
+In 2013, I developed an algorithm* designed to arrange a collection of images within a fixed-size rectangle. The original algorithm was intensely optimized for speed, resulting in code that was challenging to read and even more difficult to maintain.
 
 A decade later, inspired by a new approach to streamline the algorithm, I embarked on updating its foundation. This update includes enhanced code-splitting, the incorporation of functional patterns, generators, and web workers. Previously, the algorithm compensated for irregular image counts by adding dummy images to achieve a balanced and full binary tree structure. Now, it achieves efficiency by utilizing just a full binary tree, significantly reducing the required computations. Remarkably, for sets up to 10-11 images, it's possible to examine every potential combination on an average personal computer. Additionally, fewer images not only expedite the solution process but also stabilize it.
 
@@ -52,3 +52,4 @@ export type Config = {
 - Fullscreen: Activates the browser's full-screen mode for an immersive experience.
 
 
+*) ([archived repo](https://github.com/mendrik/diorama))
