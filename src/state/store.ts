@@ -14,6 +14,7 @@ const $currentImageCount = createStore<number>(initialImageAmount)
 const $currentImages = createStore<Picture[]>([])
 export const $solution = createStore<Solution | null>(null)
 export const $targetDimension = createStore<Dimension>({ width: 0, height: 0 })
+export const $blur = createStore(false)
 
 export const loadImageSet = createEffect(loadImages)
 export const addImage = createEvent()
@@ -35,6 +36,8 @@ $currentImageCount.on(
 )
 $currentImageCount.on(loadImageSet, () => initialImageAmount)
 $imageStore.on(loadImageSet.doneData, nthArg(1))
+$blur.on(loadImageSet, () => true)
+$blur.on(loadImageSet.done, () => false)
 $targetDimension.on(dimensionChanged, nthArg(1))
 
 sample({

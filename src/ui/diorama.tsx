@@ -2,8 +2,8 @@ import { invoker, pick, pipe, prop } from 'ramda'
 import type { Dimension, Solution } from '../types/types'
 import { PictureListItem } from './picture-list-item'
 import { useUnit } from 'effector-react'
-import { $solution, $targetDimension, dimensionChanged, loadImageSet } from '../state/store'
-import { useEffect, useRef } from 'react'
+import { $blur, $solution, $targetDimension, dimensionChanged, loadImageSet } from '../state/store'
+import { useEffect } from 'react'
 import { debounce } from '../utils/debounce'
 import { ImageSet } from '../constants'
 
@@ -16,8 +16,7 @@ const updateDimensionsOf = debounce(
 )
 
 export const Diorama = () => {
-  const ref = useRef(null)
-  const [solution, dimension] = useUnit([$solution, $targetDimension])
+  const [solution, dimension, blur] = useUnit([$solution, $targetDimension, $blur])
 
   useEffect(() => {
     const el = document.getElementById('diorama-list')!
@@ -28,7 +27,7 @@ export const Diorama = () => {
   }, [])
 
   return (
-    <ol id="diorama-list" ref={ref}>
+    <ol id="diorama-list" className={blur ? 'blur' : ''}>
       {solution?.pictures.map((pic, idx) => (
         <PictureListItem
           picture={pic}
