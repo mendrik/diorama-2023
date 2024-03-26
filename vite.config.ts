@@ -19,9 +19,20 @@ const libraryOptions: BuildOptions = {
   minify: true,
   rollupOptions: {
     input: 'src/layout/worker.ts',
-    treeshake: {
-      preset: 'smallest'
-    },
+    output: {
+      sourcemap: false,
+      compact: true
+    }
+  }
+}
+
+const buildOptions: BuildOptions = {
+  outDir: 'docs',
+  assetsDir: 'none',
+  minify: true,
+  rollupOptions: {
+    input: 'src/layout/worker.ts',
+    treeshake: true,
     output: {
       sourcemap: false,
       compact: true
@@ -31,7 +42,7 @@ const libraryOptions: BuildOptions = {
 
 export default defineConfig(({ mode }) => ({
   publicDir: mode === 'library' ? false : 'public',
-  build: mode === 'library' ? libraryOptions : { ...libraryOptions, outDir: 'docs' },
+  build: mode === 'library' ? libraryOptions : buildOptions,
   css: {
     devSourcemap: true,
     postcss: {
