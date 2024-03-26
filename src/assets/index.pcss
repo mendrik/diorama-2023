@@ -120,13 +120,13 @@ select {
         display: flex;
         justify-items: center;
         align-items: center;
-        width: 30px;
-        height: 30px;
+        width: 40px;
+        height: 40px;
         border-radius: 2px;
 
         svg {
-            width: 100%;
-            height: 100%;
+            width: 30px;
+            height: 30px
         }
 
         &:hover,
@@ -135,4 +135,14 @@ select {
         }
     }
 
+}
+
+select {
+    min-height: 40px;
+    min-width: fit-content;
+    padding: 2px 5px;
+
+    option {
+        padding: 2px 5px;
+    }
 }

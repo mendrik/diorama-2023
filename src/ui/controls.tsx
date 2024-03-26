@@ -18,23 +18,23 @@ export const Controls = (): ReactElement => {
       </li>
       <li>
         <button onClick={() => refresh()} title="rearrange">
-          <Refresh size={iconSize} color="white" />
+          <Refresh size={iconSize} color="white" strokeWidth={1.5} />
         </button>
       </li>
       <li>
         <button onClick={() => addImage()} title="add image">
-          <PhotoPlus size={iconSize} color="white" />
+          <PhotoPlus size={iconSize} color="white" strokeWidth={1.5} />
         </button>
       </li>
       <li>
         <button onClick={() => removeImage()} title="remove image">
-          <PhotoMinus size={iconSize} color="white" />
+          <PhotoMinus size={iconSize} color="white" strokeWidth={1.5} />
         </button>
       </li>
       {screenfull.isEnabled && (
         <li>
           <button onClick={() => void screenfull.request()} title="fullscreen">
-            <WindowMaximize size={iconSize} color="white" />
+            <WindowMaximize size={iconSize} color="white" strokeWidth={1.5} />
           </button>
         </li>
       )}
