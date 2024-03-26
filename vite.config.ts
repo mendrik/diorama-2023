@@ -31,7 +31,6 @@ const buildOptions: BuildOptions = {
   assetsDir: 'none',
   minify: true,
   rollupOptions: {
-    input: 'src/layout/worker.ts',
     treeshake: true,
     output: {
       sourcemap: false,
