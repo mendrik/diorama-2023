@@ -34,8 +34,8 @@ $currentImageCount.on(
   removeImage,
   pipe(n => max(1, n - 1))
 )
-$currentImageCount.on(loadImageSet, () => initialImageAmount)
 $imageStore.on(loadImageSet.doneData, nthArg(1))
+$currentImageCount.on(loadImageSet.doneData, () => initialImageAmount)
 $blur.on(loadImageSet, () => true)
 $blur.on(loadImageSet.done, () => false)
 $targetDimension.on(dimensionChanged, nthArg(1))
