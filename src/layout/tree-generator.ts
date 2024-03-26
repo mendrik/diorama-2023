@@ -22,7 +22,7 @@ export function* generateTreeCompositions(pictures: Picture[]): Generator<Rect> 
   }
 }
 
-const toRandomTree = (compositions: Rect[]): Composition => {
+const treeGenerator = (compositions: Rect[]): Composition => {
   const max = compositions.length - 1
   if (max === 0) {
     return compositions[0] as Composition
@@ -38,12 +38,12 @@ const toRandomTree = (compositions: Rect[]): Composition => {
   } while (index1 === index2)
   const merged = new Composition(randomInt(0, 1) === 0, compositions[index1], compositions[index2])
 
-  return toRandomTree(compositions.with(index1, merged).toSpliced(index2, 1))
+  return treeGenerator(compositions.with(index1, merged).toSpliced(index2, 1))
 }
 
 // eslint-disable-next-line no-restricted-syntax
 export function* toRandomTreeGenerator(compositions: Picture[]): Generator<Rect> {
   while (true) {
-    yield toRandomTree(compositions)
+    yield treeGenerator(compositions)
   }
 }

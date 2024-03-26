@@ -2,8 +2,8 @@ import { discardBadRatio, maxComputationTime, randomizeThreshold } from '../cons
 import type { Config, Dimension, Picture, Solution } from '../types/types'
 import { isNotEmpty } from '../utils/isNotEmpty'
 import { evaluateSolutions } from './evaluate-solutions'
-import { positionSolution } from './position-solution'
-import { generateTreeCompositions, toRandomTreeGenerator } from './to-random-tree'
+import { sizeSolution } from './size-solution'
+import { generateTreeCompositions, toRandomTreeGenerator } from './tree-generator'
 import { mergeLeft } from 'ramda'
 import { resizeDimension } from '../utils/resize-dimension'
 
@@ -21,17 +21,17 @@ export const findSolution = (
   const start = Date.now()
   const arTarget = targetDimension.width / targetDimension.height
   const solutions: Solution[] = []
-  const runForEver = pictures.length >= config.randomizeThreshold
-  const trees = runForEver ? toRandomTreeGenerator(pictures) : generateTreeCompositions(pictures)
+  const runForever = pictures.length >= config.randomizeThreshold
+  const trees = runForever ? toRandomTreeGenerator(pictures) : generateTreeCompositions(pictures)
   for (const root of trees) {
     const distance = Math.abs(root.aspectRatio - arTarget)
     const score = 1 / (1 + distance)
-    if (runForEver && score < discardBadRatio) {
+    if (runForever && score < discardBadRatio) {
       continue
     }
     const actualDimensions = resizeDimension(targetDimension, root.aspectRatio)
-    solutions.push(positionSolution(actualDimensions, score, root))
-    if (runForEver && Date.now() - start > config.maxComputationTime) {
+    solutions.push(sizeSolution(actualDimensions, score, root))
+    if (runForever && Date.now() - start > config.maxComputationTime) {
       break
     }
   }

@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { BuildOptions, defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { comlink } from 'vite-plugin-comlink'
 import { resolve } from 'path'
@@ -8,7 +8,7 @@ import postcss_nesting from 'postcss-nesting'
 // @ts-ignore
 import autoprefixer from 'autoprefixer'
 
-const libraryOptions = {
+const libraryOptions: BuildOptions = {
   lib: {
     entry: resolve(__dirname, 'lib/diorama.js'),
     name: 'Diorama',
@@ -16,8 +16,10 @@ const libraryOptions = {
   },
   outDir: 'lib',
   assetsDir: 'none',
+  sourcemap: false,
   rollupOptions: {
-    input: 'src/layout/worker.ts'
+    input: 'src/layout/worker.ts',
+    treeshake: true
   }
 }
 

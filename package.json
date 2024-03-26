@@ -31,7 +31,6 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@types/web": "0.0.142",
     "effector": "23.2.0",
     "effector-react": "23.2.0",
     "purify-ts": "2.0.3",
@@ -39,7 +38,6 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "screenfull": "6.0.2",
-    "styled-components": "6.1.8",
     "tabler-icons-react": "1.56.0"
   },
   "devDependencies": {
@@ -48,6 +46,7 @@
     "@types/react": "18.2.70",
     "@types/react-dom": "18.2.22",
     "@types/styled-components": "5.1.34",
+    "@types/web": "0.0.142",
     "@typescript-eslint/eslint-plugin": "7.4.0",
     "@typescript-eslint/parser": "7.4.0",
     "@vitejs/plugin-react": "4.2.1",
