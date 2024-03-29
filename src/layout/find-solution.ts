@@ -6,6 +6,7 @@ import { sizeSolution } from './size-solution'
 import { generateTreeCompositions, toRandomTreeGenerator } from './tree-generator'
 import { mergeLeft } from 'ramda'
 import { resizeDimension } from '../utils/resize-dimension'
+import { flipCount } from '../utils/flip-count'
 
 const defaultConfig: Config = {
   maxComputationTime,
@@ -26,11 +27,12 @@ export const findSolution = (
   for (const root of trees) {
     const distance = Math.abs(root.aspectRatio - arTarget)
     const score = 1 / (1 + distance)
-    if (runForever && score < discardBadRatio) {
+    const flips = flipCount(root, pictures.length)
+    if (runForever && (flips <= 0.5 || score < discardBadRatio)) {
       continue
     }
     const actualDimensions = resizeDimension(targetDimension, root.aspectRatio)
-    solutions.push(sizeSolution(actualDimensions, score, root))
+    solutions.push(sizeSolution(actualDimensions, score, flips, root))
     if (runForever && Date.now() - start > config.maxComputationTime) {
       break
     }

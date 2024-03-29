@@ -11,7 +11,12 @@ function* traverse(node: Rect): Generator<Composition> {
   }
 }
 
-export const flipCount = (root: Rect) =>
-  reduce((acc: number, node: Composition) => (node.horizontal ? acc + 1 : acc), 0, [
-    ...traverse(root)
-  ])
+export const flipCount = (root: Rect, pictures: number) => {
+  const flipCount = reduce(
+    (acc: number, node: Composition) => (node.horizontal ? acc + 1 : acc),
+    0,
+    [...traverse(root)]
+  )
+  const half = (pictures - 1) / 2.0
+  return Math.max(1 - Math.abs(half - flipCount) / half, 0)
+}

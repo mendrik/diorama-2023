@@ -3,8 +3,8 @@ import '../types/ramda'
 import type { NonEmptyArray, PositionedPicture, Solution } from '../types/types'
 import { evolve, last, type Ord, pipe, prop, sortBy, takeLast } from 'ramda'
 
-export const defaultStrategy = ({ sizeHomogeneity, score, flipScore }: Solution): Ord => {
-  return score * score * sizeHomogeneity * flipScore
+export const defaultStrategy = ({ sizeHomogeneity, score }: Solution): Ord => {
+  return score * score * sizeHomogeneity
 }
 
 export const evaluateSolutions = (results: NonEmptyArray<Solution>): Solution => {
