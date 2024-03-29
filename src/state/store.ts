@@ -1,9 +1,9 @@
 import { combine, createEffect, createEvent, createStore, sample } from 'effector'
 import { Picture } from '../../lib'
 import { Dimension, Solution } from '../types/types'
-import { initialImageAmount } from '../constants'
+import { ImageSet, initialImageAmount } from '../constants'
 import { loadImages } from '../utils/load-images'
-import { max, min, nthArg, pipe } from 'ramda'
+import { max, min, nth, nthArg, pipe } from 'ramda'
 import { isNotEmpty } from '../utils/isNotEmpty'
 import { runWorker } from '../layout/worker'
 
@@ -16,7 +16,9 @@ export const $solution = createStore<Solution | null>(null)
 export const $targetDimension = createStore<Dimension>({ width: 0, height: 0 })
 export const $blur = createStore(false)
 
-export const loadImageSet = createEffect(loadImages)
+export const loadImageSet = createEffect((set: ImageSet) =>
+  Promise.all([loadImages(set), new Promise(res => setTimeout(res, 500))]).then(nth(0))
+)
 export const addImage = createEvent()
 export const removeImage = createEvent()
 export const refresh = createEvent()

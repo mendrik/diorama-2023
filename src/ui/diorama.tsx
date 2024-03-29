@@ -3,7 +3,7 @@ import type { Dimension, Solution } from '../types/types'
 import { PictureListItem } from './picture-list-item'
 import { useUnit } from 'effector-react'
 import { $blur, $solution, $targetDimension, dimensionChanged, loadImageSet } from '../state/store'
-import { useEffect } from 'react'
+import { useLayoutEffect } from 'react'
 import { debounce } from '../utils/debounce'
 import { ImageSet } from '../constants'
 
@@ -18,7 +18,7 @@ const updateDimensionsOf = debounce(
 export const Diorama = () => {
   const [solution, dimension, blur] = useUnit([$solution, $targetDimension, $blur])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const el = document.getElementById('diorama-list')!
     const ob = new ResizeObserver(() => updateDimensionsOf(el))
     ob.observe(el)
