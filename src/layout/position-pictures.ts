@@ -1,6 +1,4 @@
-import type { Dimension, Picture, Position, PositionedPicture, Rect } from '../types/types'
-
-const isPicture = (rect: Rect): rect is Picture => 'url' in rect
+import { Dimension, isPicture, Position, PositionedPicture, Rect } from '../types/types'
 
 export const positionPictures = (
   position: Position,

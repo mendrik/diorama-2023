@@ -22,6 +22,7 @@ export type Solution = {
   score: number
   sizeHomogeneity: number
   dimension: Dimension
+  flipScore: number
 }
 
 export type Dimension = { width: number; height: number }
@@ -34,3 +35,5 @@ export type Config = {
   maxComputationTime: number
   randomizeThreshold: number
 }
+
+export const isPicture = (rect: Rect): rect is Picture => 'url' in rect

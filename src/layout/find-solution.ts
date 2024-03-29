@@ -39,5 +39,5 @@ export const findSolution = (
   if (!isNotEmpty(solutions)) {
     throw new Error('No solution')
   }
-  return evaluateSolutions(config, solutions)
+  return evaluateSolutions(solutions)
 }

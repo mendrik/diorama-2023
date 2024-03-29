@@ -1,14 +1,15 @@
 import type { Dimension } from '../types/types'
 
-export const sizeVariation = (rects: Dimension[], maxDim: Dimension): number => {
-  let minWidth = Number.POSITIVE_INFINITY,
-    minHeight = Number.POSITIVE_INFINITY
+export const sizeVariation = (rects: Dimension[]): number => {
+  let minArea = Number.POSITIVE_INFINITY
+  let maxArea = Number.NEGATIVE_INFINITY
 
   for (let i = 0; i < rects.length; i++) {
     const rect = rects[i]
-    if (rect.width < minWidth) minWidth = rect.width
-    if (rect.height < minHeight) minHeight = rect.height
+    const area = rect.width * rect.height
+    if (area < minArea) minArea = area
+    if (area > maxArea) maxArea = area
   }
 
-  return (minWidth / maxDim.width) * (minHeight / maxDim.height)
+  return minArea / maxArea
 }
