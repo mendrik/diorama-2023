@@ -1,14 +1,13 @@
 import { combine, createEffect, createEvent, createStore, sample } from 'effector'
-import { Picture } from '../../lib'
-import { Dimension, Solution } from '../types/types'
+import { F, length, max, min, nth, nthArg, pipe, T } from 'ramda'
 import { ImageSet, initialImageAmount } from '../constants'
-import { loadImages } from '../utils/load-images'
-import { max, min, nth, nthArg, pipe } from 'ramda'
-import { isNotEmpty } from '../utils/isNotEmpty'
 import { runWorker } from '../layout/worker'
+import { Dimension, Picture, Solution } from '../types/types'
+import { isNotEmpty } from '../utils/isNotEmpty'
+import { loadImages } from '../utils/load-images'
 
 const $imageStore = createStore<Picture[]>([])
-const $imageStoreLength = $imageStore.map(pics => pics.length)
+const $imageStoreLength = $imageStore.map(length)
 const $currentImageCount = createStore<number>(initialImageAmount)
 
 const $currentImages = createStore<Picture[]>([])
@@ -38,8 +37,8 @@ $currentImageCount.on(
 )
 $imageStore.on(loadImageSet.doneData, nthArg(1))
 $currentImageCount.on(loadImageSet.doneData, () => initialImageAmount)
-$blur.on(loadImageSet, () => true)
-$blur.on(loadImageSet.done, () => false)
+$blur.on(loadImageSet, T)
+$blur.on(loadImageSet.done, F)
 $targetDimension.on(dimensionChanged, nthArg(1))
 
 sample({
