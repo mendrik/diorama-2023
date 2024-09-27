@@ -10,3 +10,4 @@ describe('resize dimensions', () => {
     expect(dim).toEqual({ width: 50, height: 100 })
   })
 })
+

@@ -18,15 +18,15 @@ export const PictureListItem = ({
     <li
       className={'photo-frame'}
       style={{
-        rotate: `${((position.x + position.y + idx) % 3) - 1}deg`,
         left: position.x * scaleX,
         top: position.y * scaleY,
-        aspectRatio,
         width: dimension.width * scaleX,
-        height: dimension.height * scaleY
+        height: dimension.height * scaleY,
       }}
     >
-      <img className="photo" src={url} alt="" />
+      <img className="photo" src={url} alt="" style={{
+        aspectRatio
+      }}/>
     </li>
   )
 }

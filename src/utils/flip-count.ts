@@ -1,5 +1,5 @@
-import { Composition } from '../layout/composition'
 import { reduce } from 'ramda'
+import { Composition } from '../layout/composition'
 import { isPicture, Rect } from '../types/types'
 
 // eslint-disable-next-line no-restricted-syntax
