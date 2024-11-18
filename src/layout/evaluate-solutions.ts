@@ -28,7 +28,7 @@ export const defaultStrategy = ({ sizeHomogeneity, score }: Solution): Ord => {
  * this thoroughly and it looks the best.
  */
 const outOfBest = cond<[number], number>([
-	[flip(lte)(9), () => 30],
+	[flip(lte)(9), () => 35],
 	[eq(10), () => 25],
 	[eq(11), () => 20],
 	[eq(12), () => 10],

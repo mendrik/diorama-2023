@@ -4,7 +4,7 @@
 		"outDir": "lib",
 		"declaration": true,
 		"module": "ESNext",
-		"downlevelIteration": true,
+		"lib": ["DOM", "ESNext"],
 		"esModuleInterop": true,
 		"emitDeclarationOnly": true,
 		"resolveJsonModule": false,
