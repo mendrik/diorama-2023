@@ -17,7 +17,7 @@ import {
 import type { NonEmptyArray, PositionedPicture, Solution } from '../types/types'
 
 export const defaultStrategy = ({ sizeHomogeneity, score }: Solution): Ord => {
-	return score * sizeHomogeneity
+	return score * score * sizeHomogeneity
 }
 
 /**
