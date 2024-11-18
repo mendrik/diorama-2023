@@ -37,7 +37,11 @@ export const findSolution = (
 		const distance = Math.abs(root.aspectRatio - arTarget)
 		const score = 1 / (1 + distance)
 		const balance = treeBalance(root)
-		if (runForever && (balance <= 0.7 || score < discardBadRatio)) {
+
+		if (
+			runForever &&
+			((solutions.length > 0 && balance <= 0.6) || score < discardBadRatio)
+		) {
 			continue
 		}
 		const actualDimensions = resizeDimension(targetDimension, root.aspectRatio)

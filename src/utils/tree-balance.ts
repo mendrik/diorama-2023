@@ -23,5 +23,6 @@ export const treeBalance = (node: Rect): number => {
 
 	// Calculate normalized balance
 	const minLeafDepth = Math.min(...leafDepths)
-	return maxDepth / (maxDepth - minLeafDepth)
+
+	return 1 - (maxDepth - minLeafDepth) / maxDepth
 }
