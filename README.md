@@ -10,8 +10,7 @@ A decade later, I decided to put the code on a more modern foundation combined w
 Here's the gist of the algorithm: Combining two images either vertically or horizontally, we can deduce new aspect ratios without needing to calculate specific widths and heights. The strategy involves continuously merging these combinations (either horizontally or vertically) until no further combinations are possible, effectively generating a full binary tree. The root of this tree presents a final aspect ratio, which is then compared to the aspect ratio of the target canvas to determine fit. The closer the match, the better the images will align. However, this initial iteration encountered a drawback: some combinations, despite fitting well, produced significantly uneven sizes when rendered onto the canvas. To counter this, it became necessary to compute scores for each potential solution, considering both aspect ratio compatibility and size uniformity. With these metrics, we can evaluate and select the most visually appealing solutions. It's worth noting that, outcomes may occasionally appear less than ideal, especially with smaller image sets.
 
 The demonstration uses css sugar for added visual impact, the algorithm maintains its core functionality of creating gap-less rectangles.
-
-![image](https://github.com/mendrik/diorama-2023/assets/160805/de360ce6-e9b6-4260-975b-9c3cc7888a16)
+![image](https://github.com/user-attachments/assets/cbc87db6-bddd-4906-a27a-58da769f521e)
 
 The demo [can be seen here](https://mendrik.github.io/diorama-2023/). 
 
