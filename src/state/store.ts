@@ -20,6 +20,7 @@ const $currentImages = createStore<Picture[]>([])
 export const $solution = createStore<Solution | null>(null)
 export const $targetDimension = createStore<Dimension>({ width: 0, height: 0 })
 export const $blur = createStore(false)
+export const $cropState = createStore(false)
 export const $crop = createStore(false)
 
 export const loadImageSet = createEffect((set: ImageSet) =>
@@ -41,6 +42,15 @@ sample({
 	target: $currentImageCount
 })
 
+sample({
+	source: [$cropState, $currentImageCount] as [
+		typeof $cropState,
+		typeof $currentImageCount
+	],
+	fn: ([crop, images]) => crop && images > 6,
+	target: $crop
+})
+
 $currentImageCount.on(
 	removeImage,
 	pipe(n => max(1, n - 1))
@@ -49,7 +59,7 @@ $imageStore.on(loadImageSet.doneData, nthArg(1))
 $currentImageCount.on(loadImageSet.doneData, () => initialImageAmount)
 $blur.on(loadImageSet, T)
 $blur.on(loadImageSet.done, F)
-$crop.on(crop, s => !s)
+$cropState.on(crop, s => !s)
 $targetDimension.on(dimensionChanged, nthArg(1))
 
 sample({
