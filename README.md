@@ -11,7 +11,7 @@ Here's the gist of the algorithm: Combining two images either vertically or hori
 
 The demonstration uses css sugar for added visual impact, the algorithm maintains its core functionality of creating gap-less rectangles.
 
-![image](https://github.com/mendrik/diorama-2023/assets/160805/de360ce6-e9b6-4260-975b-9c3cc7888a16)
+![image](https://github.com/user-attachments/assets/63abf567-f559-4a07-98bc-41aea00473c0)
 
 The demo [can be seen here](https://mendrik.github.io/diorama-2023/). 
 
@@ -40,11 +40,13 @@ export type Config = {
 
 ## Controls
 
-<img src="https://github.com/mendrik/diorama-2023/assets/160805/919d8a2c-555e-4020-9306-30cf6cabc46a" height="60"/>
+<img src="https://github.com/user-attachments/assets/8a075a1a-f5b5-401c-9344-b2ca8d25deb2" height="60"/>
 
 (From left to right)
 
 - Image set to show
+
+- Allow slight cropping. For a more orderly appearance, allow slight cropping to fill up gaps.
 
 - Refresh: For image sets exceeding 11, the algorithm defaults to a random tree generation strategy due to the impracticality of evaluating all possible layouts. This button regenerates the layout, offering a fresh arrangement with each execution.
 
