@@ -1,149 +1,162 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 :root {
-    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+	font-family: "Roboto", Arial, Helvetica, sans-serif;
 }
 
 html {
-    box-sizing: border-box;
-    font-size: 16px;
-    overflow: hidden;
+	box-sizing: border-box;
+	font-size: 16px;
+	overflow: hidden;
 }
 
-*, *:before, *:after {
-    box-sizing: inherit;
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
 }
 
-body, h1, h2, h3, h4, h5, h6, p, ol, ul {
-    margin: 0;
-    padding: 0;
-    font-weight: normal;
-    width: 100svw;
-    background-color: #aaabae;
-    height: 100svh;
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+	width: 100svw;
+	background-color: #aaabae;
+	height: 100svh;
 }
 
 #root {
-    height: 100svh;
-    width: 100svw;
-    padding: 10px;
+	height: 100svh;
+	width: 100svw;
+	padding: 10px;
 }
 
 body.show-crop .image-gallery > li {
-    background-size: contain !important;
+	background-size: contain !important;
 }
 
-ol, ul {
-    list-style: none;
+ol,
+ul {
+	list-style: none;
 }
 
 img {
-    max-width: 100%;
-    height: auto;
+	max-width: 100%;
+	height: auto;
 }
 
-
 #diorama-list {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-    transition: filter .5s linear;
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	transition: filter .5s linear;
 
-    &.blur {
-        filter: blur(50px) contrast(0);
-    }
+	&.blur {
+		filter: blur(50px) contrast(0);
+	}
 }
 
 .photo-frame {
-    display: flex;
-    border: 1svmin solid transparent;
-    position: absolute;
-    transition-property: left, top, width, height, rotate;
-    transition-duration: 1s;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	border: 1svmin solid transparent;
+	position: absolute;
+	transition-property: left, top, width, height;
+	transition-duration: 1s;
+	justify-content: center;
+	align-items: center;
 
-    .photo {
-        border: .2svmin solid white;
-        border-radius: 3px;
-        box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.5);
-        max-width: 100%;
-        max-height: 100%;
-        zoom: 2;
-    }
+	.photo {
+		border: .2svmin solid white;
+		border-radius: 3px;
+		box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.5);
+		max-width: 100%;
+		max-height: 100%;
+		zoom: 2;
+		&.crop {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+	}
 }
-
 
 select {
-    background: transparent;
-    color: white;
-    border: none;
-    border-radius: 0;
-    outline: none;
+	background: transparent;
+	color: white;
+	border: none;
+	border-radius: 0;
+	outline: none;
 
-    option {
-        appearance: none;
-        color: initial;
-        background: initial;
-        padding: 2px 5px;
-    }
+	option {
+		appearance: none;
+		color: initial;
+		background: initial;
+		padding: 2px 5px;
+	}
 }
-
 
 .controls {
-    position: absolute;
-    display: flex;
-    gap: 10px;
-    right: 5px;
-    bottom: 5px;
-    width: fit-content;
-    height: fit-content;
-    z-index: 1;
-    background-color: rgb(108, 108, 108, 0.7);
-    border-radius: 4px;
-    list-style: none;
-    padding: 4px;
-    box-shadow:
-            inset 1px 1px 1px rgba(200, 200, 200, 0.7),
-            inset -1px -1px 1px rgba(60, 60, 60, 0.7),
-            3px 3px 7px -3px rgba(0, 0, 0, 0.7);
+	position: absolute;
+	display: flex;
+	gap: 10px;
+	right: 5px;
+	bottom: 5px;
+	width: fit-content;
+	height: fit-content;
+	z-index: 1;
+	background-color: rgb(108, 108, 108, 0.7);
+	border-radius: 4px;
+	list-style: none;
+	padding: 4px;
+	box-shadow:
+		inset 1px 1px 1px rgba(200, 200, 200, 0.7),
+		inset -1px -1px 1px rgba(60, 60, 60, 0.7),
+		3px 3px 7px -3px rgba(0, 0, 0, 0.7);
 
-    > li {
-        display: contents;
-    }
+	> li {
+		display: contents;
+	}
 
-    & button {
-        appearance: none;
-        background: none;
-        border: none;
-        cursor: pointer;
-        display: flex;
-        justify-items: center;
-        align-items: center;
-        width: 40px;
-        height: 40px;
-        border-radius: 2px;
+	& button {
+		appearance: none;
+		background: none;
+		border: none;
+		cursor: pointer;
+		display: flex;
+		justify-items: center;
+		align-items: center;
+		width: 40px;
+		height: 40px;
+		border-radius: 2px;
 
-        svg {
-            width: 30px;
-            height: 30px
-        }
+		svg {
+			width: 30px;
+			height: 30px;
+		}
 
-        &:hover,
-        &:active {
-            background-color: rgba(200, 200, 200, 0.4);
-        }
-    }
-
+		&:hover,
+		&:active {
+			background-color: rgba(200, 200, 200, 0.4);
+		}
+	}
 }
 
 select {
-    min-height: 40px;
-    min-width: fit-content;
-    padding: 2px 5px;
+	min-height: 40px;
+	min-width: fit-content;
+	padding: 2px 5px;
 
-    option {
-        padding: 2px 5px;
-    }
+	option {
+		padding: 2px 5px;
+	}
 }
