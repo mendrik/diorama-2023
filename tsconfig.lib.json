@@ -1,27 +1,23 @@
 {
-  "compilerOptions": {
-    "baseUrl": "src",
-    "outDir": "lib",
-    "declaration": true,
-    "module": "ESNext",
-    "lib": [
-      "ESNext",
-      "DOM",
-      "DOM.Iterable"
-    ],
-    "esModuleInterop": true,
-    "emitDeclarationOnly": true,
-    "resolveJsonModule": false,
-    "noEmit": false,
-    "isolatedModules": false,
-    "jsx": "preserve",
-    "jsxFactory": ""
-  },
-  "include": ["src/index.ts"],
-  "exclude": ["src/images"],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ]
+	"compilerOptions": {
+		"baseUrl": "src",
+		"outDir": "lib",
+		"declaration": true,
+		"module": "ESNext",
+		"downlevelIteration": true,
+		"esModuleInterop": true,
+		"emitDeclarationOnly": true,
+		"resolveJsonModule": false,
+		"noEmit": false,
+		"isolatedModules": false,
+		"jsx": "preserve",
+		"jsxFactory": ""
+	},
+	"include": ["src/index.ts"],
+	"exclude": ["src/images"],
+	"references": [
+		{
+			"path": "./tsconfig.node.json"
+		}
+	]
 }

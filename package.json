@@ -1,66 +1,64 @@
 {
-  "name": "diorama",
-  "version": "2.0.17",
-  "author": {
-    "name": "Andreas Herd",
-    "email": "mendrik76@gmail.com"
-  },
-  "keywords": [
-    "gallery",
-    "webworker",
-    "typescipt",
-    "image layout",
-    "gallery",
-    "picture arrangement",
-    "box layout"
-  ],
-  "type": "module",
-  "types": "./lib/index.d.ts",
-  "files": [
-    "lib"
-  ],
-  "repository": {
-    "url": "git+https://github.com/mendrik/diorama-2023.git",
-    "type": "github"
-  },
-  "main": "./lib/diorama.umd.cjs",
-  "module": "./lib/diorama.js",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build --base=/diorama-2023/",
-    "types": "tsc --project tsconfig.lib.json",
-    "library": "vite build --mode library && npm run types",
-    "preview": "vite preview",
-    "test": "vitest"
-  },
-  "dependencies": {
-    "biome": "^0.3.3",
-    "effector": "23.2.2",
-    "effector-react": "23.2.1",
-    "purify-ts": "2.1.0",
-    "ramda": "0.30.1",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "screenfull": "6.0.2",
-    "tabler-icons-react": "1.56.0"
-  },
-  "devDependencies": {
-    "@types/postcss-import": "14.0.3",
-    "@types/ramda": "0.30.2",
-    "@types/react": "18.3.9",
-    "@types/react-dom": "18.3.0",
-    "@types/styled-components": "5.1.34",
-    "@types/web": "0.0.166",
-    "@vitejs/plugin-react": "4.3.1",
-    "autoprefixer": "10.4.20",
-    "comlink": "4.4.1",
-    "happy-dom": "15.7.4",
-    "postcss": "8.4.47",
-    "postcss-import": "16.1.0",
-    "postcss-nesting": "13.0.0",
-    "typescript": "5.6.2",
-    "vite": "5.4.8",
-    "vite-plugin-comlink": "5.0.1",
-    "vitest": "2.1.1"
-  }
+	"name": "diorama",
+	"version": "2.0.17",
+	"author": {
+		"name": "Andreas Herd",
+		"email": "mendrik76@gmail.com"
+	},
+	"keywords": [
+		"gallery",
+		"webworker",
+		"typescipt",
+		"image layout",
+		"gallery",
+		"picture arrangement",
+		"box layout"
+	],
+	"type": "module",
+	"types": "./lib/index.d.ts",
+	"files": ["lib"],
+	"repository": {
+		"url": "git+https://github.com/mendrik/diorama-2023.git",
+		"type": "github"
+	},
+	"main": "./lib/diorama.umd.cjs",
+	"module": "./lib/diorama.js",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc && vite build --base=/diorama-2023/",
+		"types": "tsc --project tsconfig.lib.json",
+		"library": "vite build --mode library && npm run types",
+		"preview": "vite preview",
+		"test": "vitest"
+	},
+	"dependencies": {
+		"biome": "^0.3.3",
+		"effector": "23.2.3",
+		"effector-react": "23.2.1",
+		"purify-ts": "2.1.0",
+		"ramda": "0.30.1",
+		"react": "18.3.1",
+		"react-dom": "18.3.1",
+		"screenfull": "6.0.2",
+		"tabler-icons-react": "1.56.0"
+	},
+	"devDependencies": {
+		"@types/postcss-import": "14.0.3",
+		"@types/ramda": "0.30.2",
+		"@types/react": "18.3.12",
+		"@types/node": "22.9.0",
+		"@types/react-dom": "18.3.1",
+		"@types/styled-components": "5.1.34",
+		"@vitejs/plugin-react": "4.3.3",
+		"autoprefixer": "10.4.20",
+		"comlink": "4.4.2",
+		"happy-dom": "15.11.6",
+		"postcss": "8.4.49",
+		"postcss-import": "16.1.0",
+		"postcss-nesting": "13.0.1",
+		"typescript": "5.6.3",
+		"vite": "5.4.11",
+		"vite-plugin-comlink": "5.1.0",
+		"vitest": "2.1.5"
+	}
 }
