@@ -22,6 +22,7 @@ export type Solution = {
 	score: number
 	sizeHomogeneity: number
 	dimension: Dimension
+	balance: number
 }
 
 export type Dimension = { width: number; height: number }

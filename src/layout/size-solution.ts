@@ -5,6 +5,7 @@ import { positionPictures } from './position-pictures'
 export const sizeSolution = (
 	dimension: Dimension,
 	score: number,
+	balance: number,
 	composition: Rect
 ): Solution => {
 	const pictures = positionPictures({ x: 0, y: 0 }, dimension, composition)
@@ -13,6 +14,7 @@ export const sizeSolution = (
 	return {
 		dimension,
 		score,
+		balance,
 		sizeHomogeneity,
 		pictures
 	}

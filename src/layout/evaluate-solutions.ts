@@ -16,8 +16,17 @@ import {
 } from 'ramda'
 import type { NonEmptyArray, PositionedPicture, Solution } from '../types/types'
 
-export const defaultStrategy = ({ sizeHomogeneity, score }: Solution): Ord => {
-	return score * score * sizeHomogeneity
+export const defaultStrategy = ({
+	sizeHomogeneity: size,
+	score,
+	balance,
+	pictures
+}: Solution): Ord => {
+	return (
+		(pictures.length <= 10 ? score * score : score) *
+		(pictures.length > 12 ? size * size : size) *
+		balance
+	)
 }
 
 /**
@@ -39,7 +48,6 @@ export const evaluateSolutions = (
 	results: NonEmptyArray<Solution>
 ): Solution => {
 	const images = results[0].pictures.length
-
 	const sorted = pipe(
 		sortBy(defaultStrategy),
 		takeLast(outOfBest(images)),

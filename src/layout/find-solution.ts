@@ -40,12 +40,12 @@ export const findSolution = (
 
 		if (
 			runForever &&
-			((solutions.length > 0 && balance <= 0.6) || score < discardBadRatio)
+			((solutions.length > 0 && balance <= 0.4) || score < discardBadRatio)
 		) {
 			continue
 		}
 		const actualDimensions = resizeDimension(targetDimension, root.aspectRatio)
-		solutions.push(sizeSolution(actualDimensions, score, root))
+		solutions.push(sizeSolution(actualDimensions, score, balance, root))
 		if (runForever && Date.now() - start > config.maxComputationTime) {
 			break
 		}
