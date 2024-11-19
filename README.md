@@ -11,7 +11,7 @@ Here's the gist of the algorithm: Combining two images either vertically or hori
 
 The demonstration uses css sugar for added visual impact, the algorithm maintains its core functionality of creating gap-less rectangles.
 
-![image](https://github.com/user-attachments/assets/63abf567-f559-4a07-98bc-41aea00473c0)
+![image](https://github.com/user-attachments/assets/2aa2e0fb-cfce-4e40-ae16-ffcffe9237b9)
 
 The demo [can be seen here](https://mendrik.github.io/diorama-2023/). 
 
