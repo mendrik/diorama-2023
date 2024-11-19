@@ -20,8 +20,8 @@ const $currentImages = createStore<Picture[]>([])
 export const $solution = createStore<Solution | null>(null)
 export const $targetDimension = createStore<Dimension>({ width: 0, height: 0 })
 export const $blur = createStore(false)
-export const $cropState = createStore(false)
-export const $crop = createStore(false)
+export const $cropState = createStore(true)
+export const $crop = createStore(true)
 
 export const loadImageSet = createEffect((set: ImageSet) =>
 	Promise.all([loadImages(set), new Promise(res => setTimeout(res, 500))]).then(
