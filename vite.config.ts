@@ -10,7 +10,7 @@ import postcss_nesting from 'postcss-nesting'
 
 const libraryOptions: BuildOptions = {
 	lib: {
-		entry: resolve(__dirname, 'lib/diorama.js'),
+		entry: resolve(__dirname, 'src/index.ts'),
 		name: 'Diorama',
 		fileName: 'diorama'
 	},

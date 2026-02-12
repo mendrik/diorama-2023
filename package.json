@@ -1,6 +1,6 @@
 {
 	"name": "diorama",
-	"version": "2.0.18",
+	"version": "2.0.19",
 	"keywords": [
 		"gallery",
 		"webworker",
@@ -28,7 +28,9 @@
 		"library": "vite build --mode library && npm run types",
 		"preview": "vite preview",
 		"lint": "eslint . --ext .ts,.tsx",
-		"test": "vitest"
+		"test": "vitest",
+		"prepublishOnly": "pnpm run library && pnpm test",
+		"release": "pnpm version patch && pnpm publish"
 	},
 	"dependencies": {
 		"effector": "23.2.0",
