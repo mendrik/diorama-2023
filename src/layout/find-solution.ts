@@ -12,7 +12,7 @@ import { evaluateSolutions } from './evaluate-solutions'
 import { sizeSolution } from './size-solution'
 import {
 	generateTreeCompositions,
-	toRandomTreeGenerator
+	toOrderedTreeGenerator
 } from './tree-generator'
 
 const defaultConfig: Config = {
@@ -31,7 +31,7 @@ export const findSolution = (
 	const solutions: Solution[] = []
 	const runForever = pictures.length >= config.randomizeThreshold
 	const trees = runForever
-		? toRandomTreeGenerator(pictures)
+		? toOrderedTreeGenerator(pictures)
 		: generateTreeCompositions(pictures)
 	for (const root of trees) {
 		const distance = Math.abs(root.aspectRatio - arTarget)

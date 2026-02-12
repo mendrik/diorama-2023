@@ -1,3 +1,4 @@
+
 import '../types/ramda'
 
 import {
@@ -5,7 +6,6 @@ import {
 	T as _,
 	cond,
 	equals as eq,
-	evolve,
 	flip,
 	last,
 	lte,
@@ -14,7 +14,7 @@ import {
 	sortBy,
 	takeLast
 } from 'ramda'
-import type { NonEmptyArray, PositionedPicture, Solution } from '../types/types'
+import type { NonEmptyArray, Solution } from '../types/types'
 
 export const defaultStrategy = ({
 	sizeHomogeneity: size,
@@ -22,6 +22,7 @@ export const defaultStrategy = ({
 	balance,
 	pictures
 }: Solution): Ord => {
+	// Original formula: square score for <= 10, square size for > 12
 	return (
 		(pictures.length <= 10 ? score * score : score) *
 		(pictures.length > 12 ? size * size : size) *
@@ -37,10 +38,10 @@ export const defaultStrategy = ({
  * this thoroughly and it looks the best.
  */
 const outOfBest = cond<[number], number>([
-	[flip(lte)(9), () => 30],
-	[eq(10), () => 25],
-	[eq(11), () => 20],
-	[eq(12), () => 10],
+	[flip(lte)(9), () => 15],
+	[eq(10), () => 15],
+	[eq(11), () => 10],
+	[eq(12), () => 5],
 	[_, () => 5]
 ])
 
@@ -52,10 +53,10 @@ export const evaluateSolutions = (
 		sortBy(defaultStrategy),
 		takeLast(outOfBest(images)),
 		sortBy(prop('score'))
+		// Logic: Sort by balanced strategy, take top N, then pick best MATCH (score) from those.
+		// This sacrifices some uniformity/balance for better aspect ratio fit, preventing gaps.
+		// Crucially: NO sortBy('url') at the end, so order is preserved.
 	)(results)
 
-	return evolve(
-		{ pictures: sortBy<PositionedPicture>(prop('url')) },
-		last(sorted) as Solution
-	)
+	return last(sorted) as Solution
 }

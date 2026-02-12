@@ -51,11 +51,37 @@ const treeGenerator = (compositions: Rect[]): Composition => {
 	return treeGenerator(compositions.with(index1, merged).toSpliced(index2, 1))
 }
 
+
+const randomSplit = (length: number): number => {
+	// A simple bell-curve-like distribution around length / 2
+	// We want to favor balanced splits for uniformity
+	if (length === 2) return 1
+	const center = Math.floor(length / 2)
+	// Randomly shift only slightly from the center to add variety but keep uniformity high
+	const variance = Math.max(1, Math.floor(length / 4))
+	const shift = randomInt(-variance, variance)
+	const split = center + shift
+	return Math.max(1, Math.min(length - 1, split))
+}
+
+const orderedTreeGenerator = (pictures: Picture[]): Rect => {
+	const len = pictures.length
+	if (len === 1) {
+		return pictures[0]
+	}
+
+	const split = randomSplit(len)
+	const left = orderedTreeGenerator(pictures.slice(0, split))
+	const right = orderedTreeGenerator(pictures.slice(split))
+
+	return new Composition(randomInt(0, 1) === 0, left, right)
+}
+
 // eslint-disable-next-line no-restricted-syntax
-export function* toRandomTreeGenerator(
-	compositions: Picture[]
+export function* toOrderedTreeGenerator(
+	pictures: Picture[]
 ): Generator<Rect> {
 	while (true) {
-		yield treeGenerator(compositions)
+		yield orderedTreeGenerator(pictures)
 	}
 }
