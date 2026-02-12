@@ -1,13 +1,12 @@
 import { useUnit } from 'effector-react'
-import { invoker, pick, pipe, prop } from 'ramda'
 import { useLayoutEffect } from 'react'
 import { ImageSet } from '../constants'
 import {
-	$blur,
-	$solution,
-	$targetDimension,
-	dimensionChanged,
-	loadImageSet
+    $blur,
+    $solution,
+    $targetDimension,
+    dimensionChanged,
+    loadImageSet
 } from '../state/store'
 import type { Dimension, Solution } from '../types/types'
 import { debounce } from '../utils/debounce'
@@ -17,15 +16,14 @@ const scale = (
 	value: Solution,
 	dimension: Dimension,
 	p: 'width' | 'height'
-): number => prop(p, dimension) / prop(p, value.dimension)
+): number => dimension[p] / value.dimension[p]
 
 const updateDimensionsOf = debounce(
 	400,
-	pipe(
-		invoker(0, 'getBoundingClientRect'),
-		pick(['width', 'height']) as any,
-		dimensionChanged
-	)
+	(el: HTMLElement) => {
+		const { width, height } = el.getBoundingClientRect()
+		dimensionChanged({ width, height })
+	}
 )
 
 export const Diorama = () => {

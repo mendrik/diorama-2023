@@ -5,7 +5,6 @@ import {
 	createStore,
 	sample
 } from 'effector'
-import { F, T, length, max, min, nth, nthArg, pipe } from 'ramda'
 import { type ImageSet, initialImageAmount } from '../constants'
 import { runWorker } from '../layout/worker'
 import type { Dimension, Picture, Solution } from '../types/types'
@@ -13,7 +12,7 @@ import { isNotEmpty } from '../utils/isNotEmpty'
 import { loadImages } from '../utils/load-images'
 
 const $imageStore = createStore<Picture[]>([])
-const $imageStoreLength = $imageStore.map(length)
+const $imageStoreLength = $imageStore.map(s => s.length)
 const $currentImageCount = createStore<number>(initialImageAmount)
 
 const $currentImages = createStore<Picture[]>([])
@@ -25,20 +24,20 @@ export const $crop = createStore(true)
 
 export const loadImageSet = createEffect((set: ImageSet) =>
 	Promise.all([loadImages(set), new Promise(res => setTimeout(res, 500))]).then(
-		nth(0)
+		res => res[0]
 	)
 )
 export const addImage = createEvent()
 export const removeImage = createEvent()
 export const refresh = createEvent()
 export const crop = createEvent()
-export const dimensionChanged = createEvent()
+export const dimensionChanged = createEvent<Dimension>()
 
 const addImageSource = combine($currentImageCount, $imageStoreLength)
 sample({
 	source: addImageSource,
 	clock: addImage,
-	fn: ([count, maxImages]) => min(maxImages, count + 1),
+	fn: ([count, maxImages]) => Math.min(maxImages, count + 1),
 	target: $currentImageCount
 })
 
@@ -53,14 +52,14 @@ sample({
 
 $currentImageCount.on(
 	removeImage,
-	pipe(n => max(1, n - 1))
+	n => Math.max(1, n - 1)
 )
-$imageStore.on(loadImageSet.doneData, nthArg(1))
+$imageStore.on(loadImageSet.doneData, (_, pics) => pics)
 $currentImageCount.on(loadImageSet.doneData, () => initialImageAmount)
-$blur.on(loadImageSet, T)
-$blur.on(loadImageSet.done, F)
+$blur.on(loadImageSet, () => true)
+$blur.on(loadImageSet.done, () => false)
 $cropState.on(crop, s => !s)
-$targetDimension.on(dimensionChanged, nthArg(1))
+$targetDimension.on(dimensionChanged, (_, dim) => dim)
 
 sample({
 	source: [$imageStore, $currentImageCount] as [
@@ -79,7 +78,7 @@ const canFindSolution = ([pics, dim]: [Picture[], Dimension]) =>
 const calculateSolution = createEffect(([pic, dim]: [Picture[], Dimension]) =>
 	runWorker(pic, dim)
 )
-$solution.on(calculateSolution.doneData, nthArg(1))
+$solution.on(calculateSolution.doneData, (_, sol) => sol)
 
 sample({
 	source: solutionSource,

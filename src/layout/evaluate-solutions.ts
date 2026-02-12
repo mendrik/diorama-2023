@@ -1,19 +1,4 @@
-
-import '../types/ramda'
-
-import {
-	type Ord,
-	T as _,
-	cond,
-	equals as eq,
-	flip,
-	last,
-	lte,
-	pipe,
-	prop,
-	sortBy,
-	takeLast
-} from 'ramda'
+import { pipe, sortBy } from 'remeda'
 import type { NonEmptyArray, Solution } from '../types/types'
 
 export const defaultStrategy = ({
@@ -21,7 +6,7 @@ export const defaultStrategy = ({
 	score,
 	balance,
 	pictures
-}: Solution): Ord => {
+}: Solution): number => {
 	// Original formula: square score for <= 10, square size for > 12
 	return (
 		(pictures.length <= 10 ? score * score : score) *
@@ -37,26 +22,26 @@ export const defaultStrategy = ({
  * So we ignore uniformity to some extent. I know this is a strange, but I tested
  * this thoroughly and it looks the best.
  */
-const outOfBest = cond<[number], number>([
-	[flip(lte)(9), () => 15],
-	[eq(10), () => 15],
-	[eq(11), () => 10],
-	[eq(12), () => 5],
-	[_, () => 5]
-])
+const outOfBest = (n: number) => {
+	if (n <= 9) return 15
+	if (n === 10) return 15
+	if (n === 11) return 10
+	if (n === 12) return 5
+	return 5
+}
 
 export const evaluateSolutions = (
 	results: NonEmptyArray<Solution>
 ): Solution => {
 	const images = results[0].pictures.length
 	const sorted = pipe(
+		results,
 		sortBy(defaultStrategy),
-		takeLast(outOfBest(images)),
-		sortBy(prop('score'))
+		x => x.slice(-outOfBest(images)),
+		sortBy(x => x.score)
 		// Logic: Sort by balanced strategy, take top N, then pick best MATCH (score) from those.
 		// This sacrifices some uniformity/balance for better aspect ratio fit, preventing gaps.
-		// Crucially: NO sortBy('url') at the end, so order is preserved.
-	)(results)
+	)
 
-	return last(sorted) as Solution
+	return sorted[sorted.length - 1] as Solution
 }

@@ -1,7 +1,5 @@
-import { path } from 'ramda'
-import { SyntheticEvent } from 'react'
+import type { SyntheticEvent } from 'react'
 
-export const eventValue: <T extends Element>(ev: SyntheticEvent<T>) => any = path([
-  'target',
-  'value'
-])
+export const eventValue = <T extends Element>(ev: SyntheticEvent<T>): string =>
+  (ev.target as HTMLInputElement).value
+

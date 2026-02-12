@@ -1,4 +1,3 @@
-import { mergeLeft } from 'ramda'
 import {
 	discardBadRatio,
 	maxComputationTime,
@@ -25,7 +24,7 @@ export const findSolution = (
 	targetDimension: Dimension,
 	partialConfig?: Partial<Config>
 ): Solution => {
-	const config = mergeLeft(partialConfig ?? {}, defaultConfig)
+	const config = { ...defaultConfig, ...partialConfig }
 	const start = Date.now()
 	const arTarget = targetDimension.width / targetDimension.height
 	const solutions: Solution[] = []

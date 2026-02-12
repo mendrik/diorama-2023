@@ -1,6 +1,6 @@
-import type { Picture, RelativeUrl } from '../types/types'
+import { range } from 'remeda'
 import { ImageSet, maxImages } from '../constants'
-import { range } from 'ramda'
+import type { Picture, RelativeUrl } from '../types/types'
 
 const imagePromise = (url: RelativeUrl): Promise<Picture> =>
   new Promise<Picture>((res, rej) => {
@@ -19,7 +19,7 @@ const imagePromise = (url: RelativeUrl): Promise<Picture> =>
   })
 
 export const loadImages = (imageset: ImageSet): Promise<Picture[]> => {
-  const imageUrls = range(1, maxImages[imageset]).map(
+  const imageUrls = range(1, maxImages[imageset] + 1).map(
     i => `./images/${ImageSet[imageset]}/${i}.jpg`
   )
   return Promise.all(imageUrls.map(imagePromise))

@@ -12,7 +12,9 @@
 	],
 	"type": "module",
 	"types": "./lib/index.d.ts",
-	"files": ["lib"],
+	"files": [
+		"lib"
+	],
 	"repository": {
 		"url": "git+https://github.com/mendrik/diorama-2023.git",
 		"type": "github"
@@ -32,15 +34,14 @@
 		"effector": "23.2.0",
 		"effector-react": "23.2.0",
 		"purify-ts": "2.0.3",
-		"ramda": "0.29.1",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
+		"remeda": "^2.33.6",
 		"screenfull": "6.0.2",
 		"tabler-icons-react": "1.56.0"
 	},
 	"devDependencies": {
 		"@types/postcss-import": "14.0.3",
-		"@types/ramda": "0.29.9",
 		"@types/react": "18.2.70",
 		"@types/react-dom": "18.2.22",
 		"@types/styled-components": "5.1.34",
