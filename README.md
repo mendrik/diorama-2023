@@ -24,10 +24,10 @@ export const findSolution = (
   pictures: Picture[],
   targetDimension: Dimension,
   config?: Config
-): Promise<Solution>
+): Solution
 ```
 
-Here, `targetDimension` refers to the rectangle where the pictures will be positioned. The Config parameter allows for customization of the algorithm's behavior. It's important to note that this function operates within a WebWorker. The returned Solution provides comprehensive details for implementation, including a dimension property that may slightly vary from the targetDimension. Adjusting the solution to fit within these dimensions is left to the user, ensuring the solution never surpasses the specified targetDimension.
+Here, `targetDimension` refers to the rectangle where the pictures will be positioned. The Config parameter allows for customization of the algorithm's behavior. The library exports the synchronous function, but for optimal UI performance, it is recommended to run this within a WebWorker (as done in the demo). The returned Solution provides comprehensive details for implementation, including a dimension property that may slightly vary from the targetDimension. Adjusting the solution to fit within these dimensions is left to the user, ensuring the solution never surpasses the specified targetDimension.
 
 ## Configuration
 
