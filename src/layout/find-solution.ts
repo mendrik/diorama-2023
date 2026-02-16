@@ -1,3 +1,4 @@
+import { expose } from 'comlink'
 import {
 	discardBadRatio,
 	maxComputationTime,
@@ -55,3 +56,5 @@ export const findSolution = (
 	}
 	return evaluateSolutions(solutions)
 }
+
+expose({ findSolution })
